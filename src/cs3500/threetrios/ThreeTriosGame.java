@@ -44,6 +44,5 @@ public class ThreeTriosGame {
     model.playToGrid(0, 2, 0);
     model.battle(0, 2);
     view.refresh();
-    System.out.println(model.getGrid()[0][2]);
   }
 }
