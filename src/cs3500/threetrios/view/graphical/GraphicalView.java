@@ -115,6 +115,11 @@ public class GraphicalView extends JFrame implements View, MouseListener {
         currentClickedGridCell.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
       }
 
+      int[] rowAndColumn = convertGridIdxToRowAndColumn(clickedGridCell);
+
+      System.out.println("Grid cell clicked -- Row: " +
+              rowAndColumn[0] + ", Column: " + rowAndColumn[1]);
+
       clickedGridCell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
       currentClickedGridCell = clickedGridCell;
       return;
@@ -134,6 +139,11 @@ public class GraphicalView extends JFrame implements View, MouseListener {
       currentlyClickedCardPanel.setBorder(
               BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
     }
+
+    System.out.println("Card Clicked! -- " +
+            "Player: " + model.getCurrentTurnPlayer().getPlayersColor().toString()
+            + " -- Index: " + model.getCurrentTurnPlayer().getHand().indexOf(
+            clickedCardPanel.getCardPanelCard()));
 
     clickedCardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
     currentlyClickedCardPanel = clickedCardPanel;
@@ -161,5 +171,19 @@ public class GraphicalView extends JFrame implements View, MouseListener {
 
   private void updateFrame() {
     this.setTitle("Current Player: " + model.getCurrentTurnPlayer().getPlayersColor().toString());
+  }
+
+  private int[] convertGridIdxToRowAndColumn(GridPanel clickedGridPanel) {
+    int totalNumOfCells = model.getGrid().length * model.getGrid()[0].length;
+    int[] rowAndColumn = new int[2];
+
+    for (int i = 0; i < totalNumOfCells; i++) {
+      if (gridPanel.getComponents()[i] == clickedGridPanel) {
+        rowAndColumn[0] = i / model.getGrid()[0].length;
+        rowAndColumn[1] = i % model.getGrid()[0].length;
+        break;
+      }
+    }
+    return rowAndColumn;
   }
 }
