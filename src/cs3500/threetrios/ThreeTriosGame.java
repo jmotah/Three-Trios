@@ -37,7 +37,7 @@ public class ThreeTriosGame {
 
     model.playToGrid(0, 1, 0);
     model.battle(0, 1);
-  //test comment
+
     view = new GraphicalView(model);
     view.makeVisible();
 
