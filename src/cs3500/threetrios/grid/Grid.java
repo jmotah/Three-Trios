@@ -1,0 +1,22 @@
+package cs3500.threetrios.grid;
+
+import cs3500.threetrios.cards.CardCompass;
+import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.CellType;
+import cs3500.threetrios.player.Player;
+
+/**
+ * Represents a grid for the ThreeTrios game. A valid grid has the option of possessing a hole
+ * and/or card cells on initialization. Playing cards can be played to the grid tile type of
+ * card cells, but cannot be played to any holes. In addition, a valid grid possesses a strictly
+ * odd number of card cells upon initialization which uses an invariance to ensure this.
+ */
+public interface Grid {
+  CellType getCellType();
+
+  PlayingCard getPlayingCard();
+
+  Player getWhichPlayersTile();
+
+  GridTile compareTo(GridTile other, CardCompass compareDirection);
+}

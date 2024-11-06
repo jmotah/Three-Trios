@@ -1,0 +1,13 @@
+OnesCard 1 1 1 1
+TwosCard 2 2 2 2
+ThreesCard 3 3 3 3
+FoursCard 4 4 4 4
+FivesCard 5 5 5 5
+SixesCard 6 6 6 6
+SevensCard 7 7 7 7
+EightsCard 8 8 8 8
+NinesCard 9 9 9 9
+AsCard 10 10 10 10
+11thCard 2 1 1 1
+12thCard 2 2 1 1
+13thCard 2 2 2 1
