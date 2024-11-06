@@ -1,0 +1,3 @@
+OnesCard 1 1 1 1
+TwosCard 2 2 2 2
+ThreesCard 3 3 3 3
