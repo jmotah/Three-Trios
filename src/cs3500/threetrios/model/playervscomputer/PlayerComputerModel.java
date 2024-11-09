@@ -3,16 +3,13 @@ package cs3500.threetrios.model.playervscomputer;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.swing.text.Position;
 
 import cs3500.threetrios.cards.CardCompass;
 import cs3500.threetrios.cards.PlayingCard;
 import cs3500.threetrios.grid.GridTile;
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.model.GamePhase;
-import cs3500.threetrios.model.GameState;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
 import cs3500.threetrios.player.Player;
@@ -94,21 +91,44 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
   }
 
   private int analyzeAllPossibleMovesAndGetBestScore() {
-    return this.emulateBattleToFindScore(0, 0, 0); //change
+    //return this.emulateBattleToFindScore(0, 0, 0); //change
+    return 0;
   }
 
-  public void systemOut() {
-    System.out.println(this.getGrid().toString());
+  public List<HashMap<Point, Integer>> emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
+    List<PlayingCard> hand = playerModel.getCurrentTurnPlayer().getHand();
+    List<HashMap<Point, Integer>> allPossibleMovesWithScores = new ArrayList<>();
+
+    for (int card = 0; card < hand.size(); card++) {
+      allPossibleMovesWithScores.add(
+              emulateBattleToFindScoreForOneCardInAllPossibleSpaces(card));
+    }
+    return allPossibleMovesWithScores;
   }
 
-  public int emulateBattleToFindScore(int row, int column, int cardIdxInHand) {
+  private HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(int cardIdxInHand) {
+    final GridTile[][] gridStartCopy = this.getGrid();
+    GridTile[][] grid = getGridCopy(gridStartCopy);
+    HashMap<Point, Integer> pointsAndScoresOfCard = new HashMap<>();
+
+    for (int row = 0; row < grid.length; row++) {
+      for (int column = 0; column < grid[0].length; column++) {
+        if (grid[row][column].getCellType() == CellType.CARD_CELL) {
+          int score = emulateBattleToFindScore(row, column, cardIdxInHand, grid);
+          pointsAndScoresOfCard.put(new Point(row, column), score);
+          grid = getGridCopy(gridStartCopy);
+        }
+      }
+    }
+    return pointsAndScoresOfCard;
+  }
+
+  private int emulateBattleToFindScore(int row, int column, int cardIdxInHand, GridTile[][] grid) {
     int score = 0;
-
-    GridTile[][] grid = this.getGrid();
 
     //places the card on the copy of the grid
     grid[row][column] = new GridTile(CellType.PLAYER_CELL,
-            this.getCurrentTurnPlayer().getHand().get(0),
+            this.getCurrentTurnPlayer().getHand().get(cardIdxInHand),
             this.getCurrentTurnPlayer());
 
     return score += battleAllDirections(row, column, grid, cardIdxInHand);
@@ -152,5 +172,15 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
       }
     }
     return score;
+  }
+
+  private GridTile[][] getGridCopy(GridTile[][] grid) {
+    GridTile[][] copy = new GridTile[grid.length][grid[0].length];
+    for (int row = 0; row < grid.length; row++) {
+      for (int column = 0; column < grid[0].length; column++) {
+        copy[row][column] = grid[row][column];
+      }
+    }
+    return copy;
   }
 }
