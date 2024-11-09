@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import cs3500.threetrios.cards.CardCompass;
 import cs3500.threetrios.cards.PlayingCard;
@@ -13,6 +12,7 @@ import cs3500.threetrios.grid.GridTile;
 import cs3500.threetrios.model.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
+import cs3500.threetrios.player.AIPlayer;
 import cs3500.threetrios.player.Player;
 import cs3500.threetrios.player.PlayerColor;
 
@@ -69,30 +69,16 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
     return playerModel.getPlayerOfColor(color);
   }
 
-  private List<Point> getAllPossibleMoves() {
-    List<Point> allPossibleGridMoves = new ArrayList<>();
-    for (int row = 0; row < this.getGrid().length; row++) {
-      for (int column = 0; column < this.getGrid()[0].length; column++) {
-        if (this.getGrid()[row][column].getCellType() == CellType.CARD_CELL) {
-          allPossibleGridMoves.add(new Point(row, column));
-        }
-      }
-    }
-    return allPossibleGridMoves;
-  }
+  public void playToGridAI() {
+    HashMap<Point, Integer> bestPositionAndCardIdx =
+            getBestScorePositionForAllCardsInHand(
+                    this.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces());
 
-  private List<Integer> analyzeAllPossibleMovesForEveryCardInHand() {
-    List<Point> allPossibleGridMoves = this.getAllPossibleMoves();
-    List<Integer> bestScoresOfAllMoves = new ArrayList<>();
+    Point position = bestPositionAndCardIdx.keySet().iterator().next();
+    int cardIdx = bestPositionAndCardIdx.get(position);
 
-    for (int numOfMoves = 0; numOfMoves < allPossibleGridMoves.size(); numOfMoves++) {
-//      allPossibleGridMoves.add(analyzeAllPossibleMovesAndGetBestScore());
-    }
-    return List.of();
-  }
-
-  private int analyzeAllPossibleMovesAndGetBestScore() {
-    return 0;
+    this.playToGrid((int) position.getX(), (int) position.getY(), cardIdx);
+    this.battle((int) position.getX(), (int) position.getY());
   }
 
   public int getBestScoreForAllCardsInHand(List<HashMap<Point, Integer>> allPossibilities) {
@@ -274,4 +260,17 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
     }
     return copy;
   }
+
+  private List<Point> getAllPossibleMoves() {
+    List<Point> allPossibleGridMoves = new ArrayList<>();
+    for (int row = 0; row < this.getGrid().length; row++) {
+      for (int column = 0; column < this.getGrid()[0].length; column++) {
+        if (this.getGrid()[row][column].getCellType() == CellType.CARD_CELL) {
+          allPossibleGridMoves.add(new Point(row, column));
+        }
+      }
+    }
+    return allPossibleGridMoves;
+  }
+
 }
