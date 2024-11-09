@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import cs3500.threetrios.cards.CardCompass;
 import cs3500.threetrios.cards.PlayingCard;
@@ -91,8 +92,97 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
   }
 
   private int analyzeAllPossibleMovesAndGetBestScore() {
-    //return this.emulateBattleToFindScore(0, 0, 0); //change
     return 0;
+  }
+
+  public int getBestScoreForAllCardsInHand(List<HashMap<Point, Integer>> allPossibilities) {
+    HashMap<Point, Integer> positionAndCardIdx = getBestScorePositionForAllCardsInHand(allPossibilities);
+
+    Point position = positionAndCardIdx.entrySet().iterator().next().getKey();
+    int cardIdx = positionAndCardIdx.get(position);
+
+    return getBestScore(allPossibilities.get(cardIdx));
+  }
+
+  public HashMap<Point, Integer> getBestScorePositionForAllCardsInHand(List<HashMap<Point, Integer>> allPossibilities) {
+    int highestScore = 0;
+    Point highestScorePosition = null;
+    int bestScoreCardIdxInHand = 0;
+    HashMap<Point, Integer> bestPositionAndCardIdx = new HashMap<>();
+
+    bestPositionAndCardIdx.put(null, null);
+
+    for (int i = 0; i < allPossibilities.size(); i++) {
+      int compareScore = getBestScore(allPossibilities.get(i));
+      Point comparePosition = getBestScorePosition(allPossibilities.get(i));
+
+      if (highestScore == compareScore) {
+        Point comparisonDonePosition = comparePositions(highestScorePosition, comparePosition);
+
+        if (comparePosition == comparisonDonePosition) {
+          bestPositionAndCardIdx.remove(highestScorePosition);
+          bestScoreCardIdxInHand = i;
+          bestPositionAndCardIdx.put(comparisonDonePosition, bestScoreCardIdxInHand);
+        }
+      } else if (highestScore < compareScore) {
+        bestPositionAndCardIdx.remove(highestScorePosition);
+        highestScore = compareScore;
+        highestScorePosition = comparePosition;
+        bestScoreCardIdxInHand = i;
+        bestPositionAndCardIdx.put(highestScorePosition, bestScoreCardIdxInHand);
+      }
+    }
+    return bestPositionAndCardIdx;
+  }
+
+  public Point getBestScorePosition(HashMap<Point, Integer> possibilities) {
+    int highestScore = 0;
+    Point highestScorePosition = null;
+    List<Point> keys = getAllPossibleMoves();
+
+    for (int i = 0; i < possibilities.size(); i++) {
+      int compareValue = possibilities.get(keys.get(i));
+      Point comparePosition = keys.get(i);
+
+      if (highestScore == compareValue) {
+        highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+      } else if (highestScore < compareValue) {
+        highestScorePosition = comparePosition;
+      }
+
+      highestScore = Math.max(compareValue, highestScore);
+    }
+    return highestScorePosition;
+  }
+
+  public int getBestScore(HashMap<Point, Integer> possibilities) {
+    return possibilities.get(getBestScorePosition(possibilities));
+  }
+
+  private Point comparePositions(Point highestScorePoint, Point comparePosition) {
+    if (highestScorePoint == null) {
+      return comparePosition;
+    }
+
+    if (highestScorePoint.getX() == comparePosition.getX()) { //compare columns
+      return comparePositionsHelper(highestScorePoint, comparePosition);
+    } else if (highestScorePoint.getX() < comparePosition.getX()) {
+      return highestScorePoint;
+    } else if (highestScorePoint.getX() > comparePosition.getX()) {
+      return comparePosition;
+    }
+    return highestScorePoint;
+  }
+
+  private Point comparePositionsHelper(Point highestScorePoint, Point comparePosition) {
+    if (highestScorePoint.getY() == comparePosition.getY()) {
+      return highestScorePoint; //this will be the lesser index, so return it
+    } else if (highestScorePoint.getY() < comparePosition.getY()) {
+      return highestScorePoint;
+    } else if (highestScorePoint.getY() > comparePosition.getY()) {
+      return comparePosition;
+    }
+    return highestScorePoint;
   }
 
   public List<HashMap<Point, Integer>> emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
@@ -106,7 +196,8 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
     return allPossibleMovesWithScores;
   }
 
-  private HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(int cardIdxInHand) {
+  public HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
+          int cardIdxInHand) {
     final GridTile[][] gridStartCopy = this.getGrid();
     GridTile[][] grid = getGridCopy(gridStartCopy);
     HashMap<Point, Integer> pointsAndScoresOfCard = new HashMap<>();
