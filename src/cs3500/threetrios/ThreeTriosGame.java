@@ -3,9 +3,12 @@ package cs3500.threetrios;
 import java.io.File;
 
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.playervscomputer.PlayerComputerModel;
 import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
+import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.View;
 import cs3500.threetrios.view.graphical.GraphicalView;
+import cs3500.threetrios.view.textual.TextualView;
 
 /**
  * The primary class to start the ThreeTrios game.
@@ -18,7 +21,8 @@ public class ThreeTriosGame {
    * @param args command-line arguments
    */
   public static void main(String[] args) {
-    ThreeTriosModel model = new PlayerPlayerModel();
+    PlayerPlayerModel playerModel = new PlayerPlayerModel();
+    PlayerComputerModel model = new PlayerComputerModel(playerModel);
 
     File cardConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
@@ -28,21 +32,51 @@ public class ThreeTriosGame {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/gridconfigs/grid_configuration.txt");
 
-    model.startGame(cardConfig, gridConfig);
+//    model.startGame(cardConfig, gridConfig);
+//
+//    View view;
+//
+//    model.playToGrid(0, 0, 0);
+//    model.battle(0, 0);
+//
+//    model.playToGrid(0, 1, 0);
+//    model.battle(0, 1);
+//
+//    view = new GraphicalView(model);
+//    view.makeVisible();
+//
+//    model.playToGrid(0, 2, 0);
+//    model.battle(0, 2);
+//    view.refresh();
 
-    View view;
+    model.startGame(cardConfig, gridConfig);
+    ThreeTriosView view = new TextualView(model);
+    view.render();
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
+    view.render();
 
-    model.playToGrid(0, 1, 0);
-    model.battle(0, 1);
+    model.playToGrid(1, 0, 0);
+    model.battle(1, 0);
+    view.render();
 
-    view = new GraphicalView(model);
-    view.makeVisible();
+    model.playToGrid(2, 0, 0);
+    model.battle(2, 0);
+    view.render();
+
+    model.playToGrid(3, 0, 0);
+    model.battle(3, 0);
+    view.render();
+
+    model.playToGrid(3, 2, 0);
+    model.battle(3, 2);
+    view.render();
 
     model.playToGrid(0, 2, 0);
     model.battle(0, 2);
-    view.refresh();
+    view.render();
+
+    System.out.println(model.emulateBattleToFindScore(0, 1, 0));
   }
 }
