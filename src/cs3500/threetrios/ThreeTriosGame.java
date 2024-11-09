@@ -50,33 +50,32 @@ public class ThreeTriosGame {
 //    view.refresh();
 
     model.startGame(cardConfig, gridConfig);
-    ThreeTriosView view = new TextualView(model);
-    view.render();
+    View view = new GraphicalView(model);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
-    view.render();
 
     model.playToGrid(1, 0, 0);
     model.battle(1, 0);
-    view.render();
 
     model.playToGrid(2, 0, 0);
     model.battle(2, 0);
-    view.render();
 
     model.playToGrid(3, 0, 0);
     model.battle(3, 0);
-    view.render();
 
     model.playToGrid(3, 2, 0);
     model.battle(3, 2);
-    view.render();
 
     model.playToGrid(0, 2, 0);
     model.battle(0, 2);
-    view.render();
+    view.makeVisible();
+    view.refresh();
 
-    System.out.println(model.emulateBattleToFindScore(0, 1, 0));
+//    model.playToGrid(1, 2, 0);
+//    model.battle(1, 2);
+//    view.refresh();
+
+    System.out.println(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces());
   }
 }
