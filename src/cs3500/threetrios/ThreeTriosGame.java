@@ -35,31 +35,34 @@ public class ThreeTriosGame {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/gridconfigs/grid_configuration.txt");
 
-//    model.startGame(cardConfig, gridConfig);
-//
-//    View view;
-//
-//    model.playToGrid(0, 0, 0);
-//    model.battle(0, 0);
-//
-//    model.playToGrid(0, 1, 0);
-//    model.battle(0, 1);
-//
-//    view = new GraphicalView(model);
-//    view.makeVisible();
-//
-//    model.playToGrid(0, 2, 0);
-//    model.battle(0, 2);
-//    view.refresh();
-
     model.startGame(cardConfig, gridConfig);
+
     View view = new GraphicalView(model);
+
+    model.playToGrid(0, 0, 0);
+    model.battle(0, 0);
+
+    model.playToGrid(1, 0, 0);
+    model.battle(1, 0);
+
+    model.playToGrid(2, 0, 0);
+    model.battle(2, 0);
+
+    model.playToGrid(3, 0, 0);
+    model.battle(3, 0);
+
+    model.playToGrid(3, 1, 0);
+    model.battle(3, 1);
+
+    model.playToGrid(1, 3, 0);
+    model.battle(1, 3);
+
+    model.playToGrid(2, 3, 0);
+    model.battle(2, 3);
     view.makeVisible();
+    view.refresh();
 
-    List<HashMap<Point, Integer>> findScoreForAllCardsInAllPossibleSpaces = model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces();
-    System.out.println(model.getBestScoreForAllCardsInHand(findScoreForAllCardsInAllPossibleSpaces));
-    System.out.println(model.getBestScorePositionForAllCardsInHand(findScoreForAllCardsInAllPossibleSpaces));
-    System.out.println(findScoreForAllCardsInAllPossibleSpaces);
-
+    System.out.println(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces());
+    System.out.println(model.getBestScorePositionForAllCardsInHand());
   }
 }

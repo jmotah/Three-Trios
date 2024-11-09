@@ -71,8 +71,7 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
 
   public void playToGridAI() {
     HashMap<Point, Integer> bestPositionAndCardIdx =
-            getBestScorePositionForAllCardsInHand(
-                    this.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces());
+            getBestScorePositionForAllCardsInHand();
 
     Point position = bestPositionAndCardIdx.keySet().iterator().next();
     int cardIdx = bestPositionAndCardIdx.get(position);
@@ -81,20 +80,25 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
     this.battle((int) position.getX(), (int) position.getY());
   }
 
-  public int getBestScoreForAllCardsInHand(List<HashMap<Point, Integer>> allPossibilities) {
-    HashMap<Point, Integer> positionAndCardIdx = getBestScorePositionForAllCardsInHand(allPossibilities);
+  public int getBestScoreForAllCardsInHand() {
+    HashMap<Point, Integer> positionAndCardIdx = getBestScorePositionForAllCardsInHand();
+    List<HashMap<Point, Integer>> allPossibilities =
+            this.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces();
 
     Point position = positionAndCardIdx.entrySet().iterator().next().getKey();
     int cardIdx = positionAndCardIdx.get(position);
-
-    return getBestScore(allPossibilities.get(cardIdx));
+//    estScore(allPossibilities.get(cardIdx)); //fuck this method
+//    return getB
+    return 0;
   }
 
-  public HashMap<Point, Integer> getBestScorePositionForAllCardsInHand(List<HashMap<Point, Integer>> allPossibilities) {
+  public HashMap<Point, Integer> getBestScorePositionForAllCardsInHand() {
     int highestScore = 0;
     Point highestScorePosition = null;
     int bestScoreCardIdxInHand = 0;
     HashMap<Point, Integer> bestPositionAndCardIdx = new HashMap<>();
+    List<HashMap<Point, Integer>> allPossibilities =
+            emulateBattleToFindScoreForAllCardsInAllPossibleSpaces();
 
     bestPositionAndCardIdx.put(null, null);
 
