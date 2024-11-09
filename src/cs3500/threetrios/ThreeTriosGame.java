@@ -76,6 +76,12 @@ public class ThreeTriosGame {
 //    model.battle(1, 2);
 //    view.refresh();
 
+    System.out.println(model.getBestScoreForAllCardsInHand(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces()));
+    System.out.println(model.getBestScorePositionForAllCardsInHand(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces()));
     System.out.println(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces());
+
+//    System.out.println(model.getBestScore(model.emulateBattleToFindScoreForOneCardInAllPossibleSpaces(0)));
+//    System.out.println(model.getBestScorePosition(model.emulateBattleToFindScoreForOneCardInAllPossibleSpaces(0)));
+//    System.out.println(model.emulateBattleToFindScoreForOneCardInAllPossibleSpaces(0));
   }
 }
