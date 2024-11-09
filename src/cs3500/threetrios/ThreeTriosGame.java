@@ -1,6 +1,9 @@
 package cs3500.threetrios;
 
+import java.awt.*;
+import java.util.List;
 import java.io.File;
+import java.util.HashMap;
 
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.playervscomputer.PlayerComputerModel;
@@ -51,37 +54,12 @@ public class ThreeTriosGame {
 
     model.startGame(cardConfig, gridConfig);
     View view = new GraphicalView(model);
-
-    model.playToGrid(0, 0, 0);
-    model.battle(0, 0);
-
-    model.playToGrid(1, 0, 0);
-    model.battle(1, 0);
-
-    model.playToGrid(2, 0, 0);
-    model.battle(2, 0);
-
-    model.playToGrid(3, 0, 0);
-    model.battle(3, 0);
-
-    model.playToGrid(3, 2, 0);
-    model.battle(3, 2);
-
-    model.playToGrid(0, 2, 0);
-    model.battle(0, 2);
     view.makeVisible();
-    view.refresh();
 
-//    model.playToGrid(1, 2, 0);
-//    model.battle(1, 2);
-//    view.refresh();
+    List<HashMap<Point, Integer>> findScoreForAllCardsInAllPossibleSpaces = model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces();
+    System.out.println(model.getBestScoreForAllCardsInHand(findScoreForAllCardsInAllPossibleSpaces));
+    System.out.println(model.getBestScorePositionForAllCardsInHand(findScoreForAllCardsInAllPossibleSpaces));
+    System.out.println(findScoreForAllCardsInAllPossibleSpaces);
 
-    System.out.println(model.getBestScoreForAllCardsInHand(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces()));
-    System.out.println(model.getBestScorePositionForAllCardsInHand(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces()));
-    System.out.println(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces());
-
-//    System.out.println(model.getBestScore(model.emulateBattleToFindScoreForOneCardInAllPossibleSpaces(0)));
-//    System.out.println(model.getBestScorePosition(model.emulateBattleToFindScoreForOneCardInAllPossibleSpaces(0)));
-//    System.out.println(model.emulateBattleToFindScoreForOneCardInAllPossibleSpaces(0));
   }
 }
