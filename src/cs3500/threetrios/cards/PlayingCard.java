@@ -77,6 +77,29 @@ public class PlayingCard implements Cards {
     return west.getValue();
   }
 
+  public String getValueAsString(CardCompass direction) {
+    if (direction == null) {
+      throw new IllegalArgumentException("Cannot grab from a null direction!");
+    }
+
+    if (direction == CardCompass.NORTH_VALUE) {
+      return checkForACase(north);
+    } else if (direction == CardCompass.SOUTH_VALUE) {
+      return checkForACase(south);
+    } else if (direction == CardCompass.EAST_VALUE) {
+      return checkForACase(east);
+    }
+    return checkForACase(west);
+  }
+
+  public String checkForACase(CardNumbers number) {
+    if (number == CardNumbers.A) {
+      return "A";
+    } else {
+      return "" + number.getValue();
+    }
+  }
+
   /**
    * Checks if this PlayingCard object is equal to the given Object object.
    *
