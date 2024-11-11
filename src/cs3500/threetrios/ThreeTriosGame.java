@@ -24,8 +24,7 @@ public class ThreeTriosGame {
    * @param args command-line arguments
    */
   public static void main(String[] args) {
-    PlayerPlayerModel playerModel = new PlayerPlayerModel();
-    PlayerComputerModel model = new PlayerComputerModel(playerModel);
+    PlayerComputerModel model = new PlayerComputerModel();
 
     File cardConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
@@ -38,28 +37,51 @@ public class ThreeTriosGame {
     model.startGame(cardConfig, gridConfig);
 
     View view = new GraphicalView(model);
-
-    model.playToGrid(0, 0, 0);
-    model.battle(0, 0);
-
-    model.playToGrid(1, 0, 0);
-    model.battle(1, 0);
-
-    model.playToGrid(2, 0, 0);
-    model.battle(2, 0);
-
-    model.playToGrid(3, 0, 0);
-    model.battle(3, 0);
-
-    model.playToGrid(3, 1, 0);
-    model.battle(3, 1);
-
-    model.playToGrid(1, 3, 0);
-    model.battle(1, 3);
-
-    model.playToGrid(2, 3, 0);
-    model.battle(2, 3);
     view.makeVisible();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
+    view.refresh();
+
+    model.playToGridAI();
     view.refresh();
 
     System.out.println(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces());
