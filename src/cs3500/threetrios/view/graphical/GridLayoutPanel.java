@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 
 import cs3500.threetrios.cards.CardCompass;
+import cs3500.threetrios.cards.PlayingCard;
 import cs3500.threetrios.grid.GridTile;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
@@ -50,14 +51,16 @@ public class GridLayoutPanel extends JPanel {
             panelTile.setBackground(tile.getWhichPlayersTile().getPlayersColor().getColor());
             panelTile.setLayout(new BorderLayout());
 
+            PlayingCard card = tile.getPlayingCard();
+
             JLabel north =
-                    new JLabel("" + tile.getPlayingCard().getValue(CardCompass.NORTH_VALUE));
+                    new JLabel(card.getValueAsString(CardCompass.NORTH_VALUE));
             JLabel south =
-                    new JLabel("" + tile.getPlayingCard().getValue(CardCompass.SOUTH_VALUE));
+                    new JLabel(card.getValueAsString(CardCompass.SOUTH_VALUE));
             JLabel east =
-                    new JLabel("" + tile.getPlayingCard().getValue(CardCompass.EAST_VALUE));
+                    new JLabel(card.getValueAsString(CardCompass.EAST_VALUE));
             JLabel west =
-                    new JLabel("" + tile.getPlayingCard().getValue(CardCompass.WEST_VALUE));
+                    new JLabel(card.getValueAsString(CardCompass.WEST_VALUE));
 
             north.setHorizontalAlignment(SwingConstants.CENTER);
             north.setForeground(Color.BLACK);
@@ -116,14 +119,16 @@ public class GridLayoutPanel extends JPanel {
             panelTile.setBackground(tile.getWhichPlayersTile().getPlayersColor().getColor());
             panelTile.setLayout(new BorderLayout());
 
+            PlayingCard card = tile.getPlayingCard();
+
             JLabel north =
-                    new JLabel("" + tile.getPlayingCard().getValue(CardCompass.NORTH_VALUE));
+                    new JLabel(card.getValueAsString(CardCompass.NORTH_VALUE));
             JLabel south =
-                    new JLabel("" + tile.getPlayingCard().getValue(CardCompass.SOUTH_VALUE));
+                    new JLabel(card.getValueAsString(CardCompass.SOUTH_VALUE));
             JLabel east =
-                    new JLabel("" + tile.getPlayingCard().getValue(CardCompass.EAST_VALUE));
+                    new JLabel(card.getValueAsString(CardCompass.EAST_VALUE));
             JLabel west =
-                    new JLabel("" + tile.getPlayingCard().getValue(CardCompass.WEST_VALUE));
+                    new JLabel(card.getValueAsString(CardCompass.WEST_VALUE));
 
             north.setHorizontalAlignment(SwingConstants.CENTER);
             north.setForeground(Color.BLACK);

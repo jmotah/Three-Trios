@@ -15,10 +15,10 @@ public class CardPanel extends JPanel {
     this.card = card;
     this.setLayout(new BorderLayout());
     setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-    JLabel north = new JLabel("" + card.getValue(CardCompass.NORTH_VALUE));
-    JLabel south = new JLabel("" + card.getValue(CardCompass.SOUTH_VALUE));
-    JLabel east = new JLabel("" + card.getValue(CardCompass.EAST_VALUE));
-    JLabel west = new JLabel("" + card.getValue(CardCompass.WEST_VALUE));
+    JLabel north = new JLabel(card.getValueAsString(CardCompass.NORTH_VALUE));
+    JLabel south = new JLabel(card.getValueAsString(CardCompass.SOUTH_VALUE));
+    JLabel east = new JLabel(card.getValueAsString(CardCompass.EAST_VALUE));
+    JLabel west = new JLabel(card.getValueAsString(CardCompass.WEST_VALUE));
 
     north.setHorizontalAlignment(SwingConstants.CENTER);
     north.setForeground(Color.BLACK);
