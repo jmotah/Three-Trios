@@ -19,7 +19,8 @@ import cs3500.threetrios.model.ThreeTriosModel;
 
 /**
  * Represents the model for the ThreeTrios card game. Manages starting the game,
- * as well as initializing the hands and the grid.
+ * as well as initializing the hands and the grid. This model is specifically for a Player vs.
+ * Player experience.
  */
 public class PlayerPlayerModel implements ThreeTriosModel {
   HumanPlayer playerRed;
