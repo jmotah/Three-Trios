@@ -175,13 +175,24 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
       Point comparePosition = getBestScorePosition(allPossibilities.get(i));
 
       if (highestScore == compareScore) {
-        Point comparisonDonePosition = comparePositions(highestScorePosition, comparePosition);
+        if (isACornerPosition(highestScorePosition) && isACornerPosition(comparePosition)) {
 
-        if (comparePosition == comparisonDonePosition) {
+        } else if (isACornerPosition(highestScorePosition)) {
+          //State should stay the same; the same card is the current best score and position
+        } else if (isACornerPosition(comparePosition)) {
           bestPositionAndCardIdx.remove(highestScorePosition);
-          highestScorePosition = comparisonDonePosition;
+          highestScorePosition = comparePosition;
           bestScoreCardIdxInHand = i;
           bestPositionAndCardIdx.put(highestScorePosition, bestScoreCardIdxInHand);
+        } else {
+          Point comparisonDonePosition = comparePositions(highestScorePosition, comparePosition);
+
+          if (comparePosition == comparisonDonePosition) {
+            bestPositionAndCardIdx.remove(highestScorePosition);
+            highestScorePosition = comparisonDonePosition;
+            bestScoreCardIdxInHand = i;
+            bestPositionAndCardIdx.put(highestScorePosition, bestScoreCardIdxInHand);
+          }
         }
       } else if (highestScore < compareScore) {
         bestPositionAndCardIdx.remove(highestScorePosition);
@@ -192,6 +203,26 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
       }
     }
     return bestPositionAndCardIdx;
+  }
+
+  private boolean isACornerPosition(Point position) {
+    GridTile[][] grid = this.getGrid();
+
+    if (position == null) {
+      return false;
+    }
+
+    return (position.getX() == 0 &&
+            position.getY() == 0) ||
+
+            (position.getX() == 0 &&
+                    position.getY() == grid[0].length - 1) ||
+
+            (position.getX() == grid.length - 1 &&
+                    position.getY() == 0) ||
+
+            (position.getX() == grid.length - 1 &&
+                    position.getY() == grid[0].length - 1);
   }
 
   /**
@@ -214,11 +245,18 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
       Point comparePosition = keys.get(i);
 
       if (highestScore == compareValue) {
-        highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+        if (isACornerPosition(highestScorePosition) && isACornerPosition(comparePosition)) {
+          highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+        } else if (isACornerPosition(highestScorePosition)) {
+          //State should stay the same; the same card is the current best score and position
+        } else if (isACornerPosition(comparePosition)) {
+          highestScorePosition = comparePosition;
+        } else {
+          highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+        }
       } else if (highestScore < compareValue) {
         highestScorePosition = comparePosition;
       }
-
       highestScore = Math.max(compareValue, highestScore);
     }
     return highestScorePosition;
