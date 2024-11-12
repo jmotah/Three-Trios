@@ -10,9 +10,9 @@ import cs3500.threetrios.cards.PlayingCard;
  */
 public class HumanPlayer implements Player {
 
-  PlayerColor playerType;
+  private final PlayerColor playerType;
 
-  List<PlayingCard> hand;
+  private final List<PlayingCard> hand;
 
   /**
    * A HumanPlayer class constructor.
