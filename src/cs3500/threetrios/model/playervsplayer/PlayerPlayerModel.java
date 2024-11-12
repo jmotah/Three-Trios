@@ -11,8 +11,8 @@ import cs3500.threetrios.model.GamePhase;
 import cs3500.threetrios.model.GameState;
 import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.grid.GridTile;
-import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.Player;
+import cs3500.threetrios.player.Players;
 import cs3500.threetrios.player.PlayerColor;
 import cs3500.threetrios.cards.PlayingCard;
 import cs3500.threetrios.model.ThreeTriosModel;
@@ -23,10 +23,10 @@ import cs3500.threetrios.model.ThreeTriosModel;
  * Player experience.
  */
 public class PlayerPlayerModel implements ThreeTriosModel {
-  private HumanPlayer playerRed;
-  private HumanPlayer playerBlue;
+  private Player playerRed;
+  private Player playerBlue;
 
-  private HumanPlayer currentPlayersTurn;
+  private Player currentPlayersTurn;
   private GameState currentGameState = GameState.NOT_STARTED;
   private GamePhase currentGamePhase;
 
@@ -270,7 +270,7 @@ public class PlayerPlayerModel implements ThreeTriosModel {
    * @return the winning player as a Players object
    */
   @Override
-  public Player findWinningPlayer() {
+  public Players findWinningPlayer() {
     if (currentGameState == GameState.NOT_STARTED) {
       throw new IllegalStateException("The game is not yet started!");
     }
@@ -319,7 +319,7 @@ public class PlayerPlayerModel implements ThreeTriosModel {
    * @return the current player's turn
    */
   @Override
-  public Player getCurrentTurnPlayer() {
+  public Players getCurrentTurnPlayer() {
     throwErrorIfGameNotStartedOrGameOver("Cannot get the current player's turn. The game is not" +
             "yet started or the game is over!");
 
@@ -333,7 +333,7 @@ public class PlayerPlayerModel implements ThreeTriosModel {
    * @return the found Player object
    */
   @Override
-  public Player getPlayerOfColor(PlayerColor color) {
+  public Players getPlayerOfColor(PlayerColor color) {
     if (color == null) {
       throw new IllegalArgumentException("The provided PlayerColor object cannot be null!");
     }
@@ -499,8 +499,8 @@ public class PlayerPlayerModel implements ThreeTriosModel {
 
     List<PlayingCard>[] hands = this.initializePlayerHands();
 
-    playerRed = new HumanPlayer(PlayerColor.RED, hands[0]);
-    playerBlue = new HumanPlayer(PlayerColor.BLUE, hands[1]);
+    playerRed = new Player(PlayerColor.RED, hands[0]);
+    playerBlue = new Player(PlayerColor.BLUE, hands[1]);
 
     currentPlayersTurn = playerRed;
     currentGamePhase = GamePhase.PLACING;

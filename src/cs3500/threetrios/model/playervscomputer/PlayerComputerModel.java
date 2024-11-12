@@ -12,7 +12,7 @@ import cs3500.threetrios.grid.GridTile;
 import cs3500.threetrios.model.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
-import cs3500.threetrios.player.Player;
+import cs3500.threetrios.player.Players;
 import cs3500.threetrios.player.PlayerColor;
 
 /**
@@ -95,7 +95,7 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * @return the winning player as a Players object
    */
   @Override
-  public Player findWinningPlayer() {
+  public Players findWinningPlayer() {
     return playerModel.findWinningPlayer();
   }
 
@@ -115,7 +115,7 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * @return the current player's turn
    */
   @Override
-  public Player getCurrentTurnPlayer() {
+  public Players getCurrentTurnPlayer() {
     return playerModel.getCurrentTurnPlayer();
   }
 
@@ -126,7 +126,7 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * @return the found Player object
    */
   @Override
-  public Player getPlayerOfColor(PlayerColor color) {
+  public Players getPlayerOfColor(PlayerColor color) {
     return playerModel.getPlayerOfColor(color);
   }
 

@@ -15,11 +15,11 @@ import cs3500.threetrios.cards.PlayingCard;
  */
 public class HumanPlayerTests {
 
-  Player human;
+  Players human;
 
   @Before
   public void setup() {
-    human = new HumanPlayer(PlayerColor.RED, List.of(
+    human = new Player(PlayerColor.RED, List.of(
             new PlayingCard("Card1", CardNumbers.ONE, CardNumbers.ONE,
                     CardNumbers.ONE, CardNumbers.ONE),
             new PlayingCard("Card1", CardNumbers.TWO, CardNumbers.TWO,
@@ -28,12 +28,12 @@ public class HumanPlayerTests {
 
   @Test(expected = IllegalArgumentException.class)
   public void testHumanPlayerConstructorNullColor() {
-    human = new HumanPlayer(null, List.of());
+    human = new Player(null, List.of());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testHumanPlayerConstructorNullHand() {
-    human = new HumanPlayer(PlayerColor.RED, null);
+    human = new Player(PlayerColor.RED, null);
   }
 
   @Test

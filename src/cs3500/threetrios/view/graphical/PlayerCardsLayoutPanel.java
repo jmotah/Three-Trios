@@ -1,12 +1,10 @@
 package cs3500.threetrios.view.graphical;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-import cs3500.threetrios.player.Player;
+import cs3500.threetrios.player.Players;
 
 /**
  * Represents the grid layout for the display of the player hands for a graphical view. Manages the
@@ -14,7 +12,7 @@ import cs3500.threetrios.player.Player;
  */
 public class PlayerCardsLayoutPanel extends JPanel {
 
-  private final Player player;
+  private final Players player;
   private final GraphicalView graphicalView;
 
   CardPanel currentlyClickedCardPanel;
@@ -25,7 +23,7 @@ public class PlayerCardsLayoutPanel extends JPanel {
    * @param player        the Player object to get information from
    * @param graphicalView the GraphicalView class object that oversees the grid layout
    */
-  PlayerCardsLayoutPanel(Player player, GraphicalView graphicalView) {
+  PlayerCardsLayoutPanel(Players player, GraphicalView graphicalView) {
     if (player == null) {
       throw new IllegalArgumentException("Player cannot be null!");
     }

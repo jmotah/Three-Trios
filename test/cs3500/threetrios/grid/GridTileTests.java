@@ -10,8 +10,8 @@ import cs3500.threetrios.cards.CardCompass;
 import cs3500.threetrios.cards.CardNumbers;
 import cs3500.threetrios.cards.PlayingCard;
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.Player;
+import cs3500.threetrios.player.Players;
 import cs3500.threetrios.player.PlayerColor;
 
 /**
@@ -20,15 +20,15 @@ import cs3500.threetrios.player.PlayerColor;
  */
 public class GridTileTests {
 
-  Player human;
-  Player human2;
+  Players human;
+  Players human2;
 
   @Before
   public void setup() {
-    human = new HumanPlayer(PlayerColor.RED, List.of(new PlayingCard("Card",
+    human = new Player(PlayerColor.RED, List.of(new PlayingCard("Card",
             CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE)));
 
-    human2 = new HumanPlayer(PlayerColor.RED, List.of(new PlayingCard("Card",
+    human2 = new Player(PlayerColor.RED, List.of(new PlayingCard("Card",
             CardNumbers.TWO, CardNumbers.TWO, CardNumbers.TWO, CardNumbers.TWO)));
   }
 
@@ -76,7 +76,7 @@ public class GridTileTests {
             CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE), human);
 
     PlayingCard expectedCard = null;
-    Player expectedPlayer = null;
+    Players expectedPlayer = null;
 
     Assert.assertEquals(expectedCard, tile.getPlayingCard());
     Assert.assertEquals(expectedPlayer, tile.getWhichPlayersTile());
@@ -88,7 +88,7 @@ public class GridTileTests {
             CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE), human);
 
     PlayingCard expectedCard = null;
-    Player expectedPlayer = null;
+    Players expectedPlayer = null;
 
     Assert.assertEquals(expectedCard, tile.getPlayingCard());
     Assert.assertEquals(expectedPlayer, tile.getWhichPlayersTile());
@@ -101,7 +101,7 @@ public class GridTileTests {
 
     PlayingCard expectedCard = new PlayingCard("Card", CardNumbers.ONE, CardNumbers.ONE,
             CardNumbers.ONE, CardNumbers.ONE);
-    Player expectedPlayer = human;
+    Players expectedPlayer = human;
 
     Assert.assertEquals(expectedCard, tile.getPlayingCard());
     Assert.assertEquals(expectedPlayer, tile.getWhichPlayersTile());
