@@ -77,6 +77,14 @@ public class PlayingCard implements Cards {
     return west.getValue();
   }
 
+  /**
+   * Gets the value as a string of the PlayingCard object at a specific direction. This method is
+   * primarily used to consider the "A" case.
+   *
+   * @param direction the specific direction to grab the value from
+   * @return the String value of the PlayingCard object at the specific direction, accounting for
+   * "A"
+   */
   public String getValueAsString(CardCompass direction) {
     if (direction == null) {
       throw new IllegalArgumentException("Cannot grab from a null direction!");
@@ -92,6 +100,13 @@ public class PlayingCard implements Cards {
     return checkForACase(west);
   }
 
+  /**
+   * Checks to see if the number value given is 10. If it is, returns "A", if not, returns the
+   * normal integer value as a String.
+   *
+   * @param number the CardNumbers object value of the number to check
+   * @return the String value of the card number
+   */
   public String checkForACase(CardNumbers number) {
     if (number == CardNumbers.A) {
       return "A";

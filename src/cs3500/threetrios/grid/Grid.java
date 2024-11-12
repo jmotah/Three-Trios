@@ -3,7 +3,7 @@ package cs3500.threetrios.grid;
 import cs3500.threetrios.cards.CardCompass;
 import cs3500.threetrios.cards.PlayingCard;
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.player.Player;
+import cs3500.threetrios.player.Players;
 
 /**
  * Represents a grid for the ThreeTrios game. A valid grid has the option of possessing a hole
@@ -16,7 +16,7 @@ public interface Grid {
 
   PlayingCard getPlayingCard();
 
-  Player getWhichPlayersTile();
+  Players getWhichPlayersTile();
 
   GridTile compareTo(GridTile other, CardCompass compareDirection);
 }

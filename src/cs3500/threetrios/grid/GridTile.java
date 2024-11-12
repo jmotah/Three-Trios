@@ -3,7 +3,7 @@ package cs3500.threetrios.grid;
 import cs3500.threetrios.cards.CardCompass;
 import cs3500.threetrios.cards.PlayingCard;
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.player.Player;
+import cs3500.threetrios.player.Players;
 
 /**
  * A class to represent an individual grid tile on the game's grid.
@@ -11,7 +11,7 @@ import cs3500.threetrios.player.Player;
 public class GridTile implements Grid {
   private final CellType cellType;
   private final PlayingCard cellCard;
-  private final Player cellPlayer;
+  private final Players cellPlayer;
 
   /**
    * The GridTile class constructor.
@@ -42,7 +42,7 @@ public class GridTile implements Grid {
    * @param cellCard   the PlayingCard object associated with the grid tile
    * @param cellPlayer the Players object associated with the grid tile
    */
-  public GridTile(CellType cellType, PlayingCard cellCard, Player cellPlayer) {
+  public GridTile(CellType cellType, PlayingCard cellCard, Players cellPlayer) {
     if (cellType == null) {
       throw new IllegalArgumentException("Your cell type cannot be null!");
     } else if (cellType == CellType.PLAYER_CELL &&
@@ -89,7 +89,7 @@ public class GridTile implements Grid {
    * @return the tile's associated player
    */
   @Override
-  public Player getWhichPlayersTile() {
+  public Players getWhichPlayersTile() {
     return cellPlayer;
   }
 
