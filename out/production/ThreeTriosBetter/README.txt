@@ -219,4 +219,7 @@ Grid Testing Config Related Files/Info:
 CHANGES FROM PREVIOUS WORK:
 - Moved the TextualView class into a sub package called text
 - Added view interface
-- Added a get color method within the Playercolor enum
+- Added a get color method within the PlayerColor enum and a color associated to each PlayerColor
+    within the enum
+- Made fields private
+- Refactored Source Organization to match MVC more
