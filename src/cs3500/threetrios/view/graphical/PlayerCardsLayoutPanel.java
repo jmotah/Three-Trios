@@ -4,7 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import cs3500.threetrios.player.Players;
+import cs3500.threetrios.model.player.Players;
 
 /**
  * Represents the grid layout for the display of the player hands for a graphical view. Manages the

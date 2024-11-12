@@ -6,10 +6,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-import cs3500.threetrios.grid.GridTile;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
-import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.player.PlayerColor;
+import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.view.View;
 
 /**

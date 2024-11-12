@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.grid.GridTile;
+import cs3500.threetrios.model.grid.GridTile;
 
 /**
  * Reads a grid configuration file to initialize the number of rows and columns as well as the grid

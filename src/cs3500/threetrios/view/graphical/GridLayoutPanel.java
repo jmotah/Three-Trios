@@ -1,14 +1,12 @@
 package cs3500.threetrios.view.graphical;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-import cs3500.threetrios.cards.CardCompass;
-import cs3500.threetrios.cards.PlayingCard;
-import cs3500.threetrios.grid.GridTile;
+import cs3500.threetrios.model.cards.CardCompass;
+import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
 /**

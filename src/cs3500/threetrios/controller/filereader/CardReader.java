@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.threetrios.cards.CardNumbers;
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.cards.CardNumbers;
+import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
  * Responsible for reading and translating a card configuration file into a list of PlayingCard

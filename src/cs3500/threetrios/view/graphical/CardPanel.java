@@ -4,8 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import cs3500.threetrios.cards.CardCompass;
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.cards.CardCompass;
+import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
  * Represents an individual card panel on top of the cards grid layout.
