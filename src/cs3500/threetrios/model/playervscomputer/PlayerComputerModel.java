@@ -22,7 +22,7 @@ import cs3500.threetrios.player.PlayerColor;
  */
 public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTriosModel {
 
-  PlayerPlayerModel playerModel;
+  private final PlayerPlayerModel playerModel;
 
   /**
    * Constructor for the PlayerComputerModel class.
