@@ -13,7 +13,7 @@ public class PlayerPlayerModelTests extends AbstractVariantModelTests {
   private ThreeTriosModel model;
 
   @Override
-  protected PlayerPlayerModel createModel() {
+  protected ThreeTriosModel createModel() {
     return new PlayerPlayerModel();
   }
 }
