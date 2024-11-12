@@ -3,8 +3,8 @@ package cs3500.threetrios.view.textual;
 import java.util.List;
 
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.grid.GridTile;
-import cs3500.threetrios.player.PlayerColor;
+import cs3500.threetrios.model.grid.GridTile;
+import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.ThreeTriosView;
 
