@@ -23,23 +23,23 @@ import cs3500.threetrios.model.ThreeTriosModel;
  * Player experience.
  */
 public class PlayerPlayerModel implements ThreeTriosModel {
-  HumanPlayer playerRed;
-  HumanPlayer playerBlue;
+  private HumanPlayer playerRed;
+  private HumanPlayer playerBlue;
 
-  HumanPlayer currentPlayersTurn;
-  GameState currentGameState = GameState.NOT_STARTED;
-  GamePhase currentGamePhase;
+  private HumanPlayer currentPlayersTurn;
+  private GameState currentGameState = GameState.NOT_STARTED;
+  private GamePhase currentGamePhase;
 
   /**
    * The grid is 0-index based. As a result, the first row and first column of the grid is at index
    * or row 0 and column 0 in the grid.
    * INVARIANCE: The grid must contain an odd number of grid tiles with the cell type of CELL_CARD
    */
-  GridTile[][] grid;
+  private GridTile[][] grid;
 
-  int rows;
-  int columns;
-  int handSize;
+  private int rows;
+  private int columns;
+  private int handSize;
 
   /**
    * A deck is a list of cards received from the card configuration class used to distribute cards
