@@ -1,9 +1,9 @@
-package cs3500.threetrios.grid;
+package cs3500.threetrios.model.grid;
 
-import cs3500.threetrios.cards.CardCompass;
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.cards.CardCompass;
+import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.player.Players;
+import cs3500.threetrios.model.player.Players;
 
 /**
  * Represents a grid for the ThreeTrios game. A valid grid has the option of possessing a hole

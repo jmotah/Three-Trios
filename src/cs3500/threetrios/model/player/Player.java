@@ -1,8 +1,8 @@
-package cs3500.threetrios.player;
+package cs3500.threetrios.model.player;
 
 import java.util.List;
 
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
  * Represents a non-computer controlled player. Possessing a color representing their player

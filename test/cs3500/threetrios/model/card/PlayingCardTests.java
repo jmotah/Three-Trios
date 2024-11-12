@@ -1,12 +1,12 @@
-package cs3500.threetrios.card;
+package cs3500.threetrios.model.card;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import cs3500.threetrios.cards.CardCompass;
-import cs3500.threetrios.cards.CardNumbers;
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.cards.CardCompass;
+import cs3500.threetrios.model.cards.CardNumbers;
+import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
  * Represents tests for the PlayingCard class. Verifies the PlayingCard class works properly,

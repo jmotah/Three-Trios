@@ -1,13 +1,12 @@
-package cs3500.threetrios.filereader;
+package cs3500.threetrios.controller.filereader;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
 
-import cs3500.threetrios.controller.filereader.GridReader;
-import cs3500.threetrios.grid.Grid;
-import cs3500.threetrios.grid.GridTile;
+import cs3500.threetrios.model.grid.Grid;
+import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.CellType;
 
 /**

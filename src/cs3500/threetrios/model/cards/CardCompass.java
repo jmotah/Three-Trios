@@ -1,4 +1,4 @@
-package cs3500.threetrios.cards;
+package cs3500.threetrios.model.cards;
 
 /**
  * An enumeration class to represent the valid number positions on each PlayingCard. These

@@ -1,4 +1,4 @@
-package cs3500.threetrios.cards;
+package cs3500.threetrios.model.cards;
 
 /**
  * An enumeration class to represent the valid numbers a card can have. The "A" key represents the

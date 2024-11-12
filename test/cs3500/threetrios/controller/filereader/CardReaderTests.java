@@ -1,4 +1,4 @@
-package cs3500.threetrios.filereader;
+package cs3500.threetrios.controller.filereader;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -6,9 +6,8 @@ import org.junit.Test;
 import java.io.File;
 import java.util.List;
 
-import cs3500.threetrios.cards.CardNumbers;
-import cs3500.threetrios.cards.PlayingCard;
-import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.model.cards.CardNumbers;
+import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
  * A test class for the CardReader class. Verifies reading card configuration files.

@@ -1,4 +1,4 @@
-package cs3500.threetrios.player;
+package cs3500.threetrios.model.player;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -6,14 +6,14 @@ import org.junit.Test;
 
 import java.util.List;
 
-import cs3500.threetrios.cards.CardNumbers;
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.cards.CardNumbers;
+import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
  * Represents tests for the HumanPlayer class. Verifies the constructor works properly as well as
  * any of its implemented methods.
  */
-public class HumanPlayerTests {
+public class PlayerTests {
 
   Players human;
 

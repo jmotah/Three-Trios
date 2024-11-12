@@ -1,9 +1,9 @@
-package cs3500.threetrios.grid;
+package cs3500.threetrios.model.grid;
 
-import cs3500.threetrios.cards.CardCompass;
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.cards.CardCompass;
+import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.player.Players;
+import cs3500.threetrios.model.player.Players;
 
 /**
  * A class to represent an individual grid tile on the game's grid.

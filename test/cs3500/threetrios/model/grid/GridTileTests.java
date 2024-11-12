@@ -1,4 +1,4 @@
-package cs3500.threetrios.grid;
+package cs3500.threetrios.model.grid;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -6,13 +6,14 @@ import org.junit.Test;
 
 import java.util.List;
 
-import cs3500.threetrios.cards.CardCompass;
-import cs3500.threetrios.cards.CardNumbers;
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.cards.CardCompass;
+import cs3500.threetrios.model.cards.CardNumbers;
+import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.player.Player;
-import cs3500.threetrios.player.Players;
-import cs3500.threetrios.player.PlayerColor;
+import cs3500.threetrios.model.grid.GridTile;
+import cs3500.threetrios.model.player.Player;
+import cs3500.threetrios.model.player.Players;
+import cs3500.threetrios.model.player.PlayerColor;
 
 /**
  * Represents tests for the GridTile class. Verifies GridTile objects are instantiated properly
