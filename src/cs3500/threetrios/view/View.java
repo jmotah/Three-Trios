@@ -29,5 +29,4 @@ public interface View {
    * Signal the view to draw itself
    */
   void refresh();
-
 }
