@@ -177,7 +177,6 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
 
       if (highestScore == compareScore) {
         if (isACornerPosition(highestScorePosition) && isACornerPosition(comparePosition)) {
-
         } else if (isACornerPosition(highestScorePosition)) {
           //State should stay the same; the same card is the current best score and position
         } else if (isACornerPosition(comparePosition)) {
