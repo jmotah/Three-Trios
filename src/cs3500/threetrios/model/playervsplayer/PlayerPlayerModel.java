@@ -4,17 +4,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.threetrios.cards.CardCompass;
+import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.controller.filereader.CardReader;
 import cs3500.threetrios.model.CellType;
 import cs3500.threetrios.model.GamePhase;
 import cs3500.threetrios.model.GameState;
 import cs3500.threetrios.controller.filereader.GridReader;
-import cs3500.threetrios.grid.GridTile;
-import cs3500.threetrios.player.Player;
-import cs3500.threetrios.player.Players;
-import cs3500.threetrios.player.PlayerColor;
-import cs3500.threetrios.cards.PlayingCard;
+import cs3500.threetrios.model.grid.GridTile;
+import cs3500.threetrios.model.player.Player;
+import cs3500.threetrios.model.player.Players;
+import cs3500.threetrios.model.player.PlayerColor;
+import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.ThreeTriosModel;
 
 /**
@@ -311,6 +311,11 @@ public class PlayerPlayerModel implements ThreeTriosModel {
     } else if (getCurrentTurnPlayer() == playerBlue) {
       currentPlayersTurn = playerRed;
     }
+  }
+
+  @Override
+  public void playToGridAI() {
+    //nothing should happen when called due to the AI not being usable in this game mode
   }
 
   /**
