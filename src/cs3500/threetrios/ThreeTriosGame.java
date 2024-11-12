@@ -39,52 +39,23 @@ public class ThreeTriosGame {
     View view = new GraphicalView(model);
     view.makeVisible();
 
-    model.playToGridAI();
+    model.playToGrid(1, 0, 0);
+    model.battle(1, 0);
+    view.refresh();
+
+    model.playToGrid(0, 1, 0);
+    model.battle(0, 1);
+    view.refresh();
+
+    model.playToGrid(2, 2, 0);
+    model.battle(2, 2);
+    view.refresh();
+
+    model.playToGrid(3, 1, 0);
+    model.battle(3, 1);
     view.refresh();
 
     model.playToGridAI();
     view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    model.playToGridAI();
-    view.refresh();
-
-    System.out.println(model.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces());
-    System.out.println(model.getBestScorePositionForAllCardsInHand());
   }
 }
