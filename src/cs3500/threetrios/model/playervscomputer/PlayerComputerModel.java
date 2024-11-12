@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.threetrios.cards.CardCompass;
-import cs3500.threetrios.cards.PlayingCard;
-import cs3500.threetrios.grid.GridTile;
+import cs3500.threetrios.model.cards.CardCompass;
+import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
-import cs3500.threetrios.player.Players;
-import cs3500.threetrios.player.PlayerColor;
+import cs3500.threetrios.model.player.Players;
+import cs3500.threetrios.model.player.PlayerColor;
 
 /**
  * Represents the model for the ThreeTrios card game. Manages starting the game as well as
@@ -133,8 +133,9 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
   /**
    * Calculates the most optimal move to play to the grid to result in the most number of cards
    * flipped after battling. Plays the most optimal card to the most optimal grid position while
-   * also performing battling.
+   * also performing battling. The AI plays for whichever player's current turn it is.
    */
+  @Override
   public void playToGridAI() {
     HashMap<Point, Integer> bestPositionAndCardIdx =
             getBestScorePositionForAllCardsInHand();
@@ -157,7 +158,7 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * object only contains one item within it which contains the best position to play at with the
    * best card to play at that position
    */
-  public HashMap<Point, Integer> getBestScorePositionForAllCardsInHand() {
+  private HashMap<Point, Integer> getBestScorePositionForAllCardsInHand() {
     int highestScore = 0;
     Point highestScorePosition = null;
     int bestScoreCardIdxInHand = 0;
@@ -205,11 +206,23 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
     return bestPositionAndCardIdx;
   }
 
+  /**
+   * Checks to see if the position is the corner position on the game grid.
+   *
+   * @param position the position on the grid; a Point object represents the position on the game
+   *                 grid
+   * @return true if the Point object is a corner position, false otherwise
+   */
   private boolean isACornerPosition(Point position) {
     GridTile[][] grid = this.getGrid();
 
     if (position == null) {
       return false;
+    } else if (position.getX() < 0 ||
+            position.getX() >= grid.length ||
+            position.getY() < 0 ||
+            position.getY() >= grid[0].length) {
+      throw new IllegalArgumentException("Given position is out of bounds for the grid!");
     }
 
     return (position.getX() == 0 &&
@@ -235,7 +248,12 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * @return the best position to play to get the highest score from a given HashMap of objects of
    * Points and Integers
    */
-  public Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
+  private Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
+    if (possibleMovesForACard == null) {
+      throw new IllegalArgumentException("Given hash map object for all possible moves for a card" +
+              "is null!");
+    }
+
     int highestScore = 0;
     Point highestScorePosition = null;
     List<Point> keys = getAllPossibleMoves();
@@ -270,7 +288,12 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    *                              are flipped if you place a card there
    * @return the best score from a given HashMap object of Points and Integers
    */
-  public int getBestScore(HashMap<Point, Integer> possibleMovesForACard) {
+  private int getBestScore(HashMap<Point, Integer> possibleMovesForACard) {
+    if (possibleMovesForACard == null) {
+      throw new IllegalArgumentException("Given hash map object for all possible moves for a card" +
+              "is null!");
+    }
+
     return possibleMovesForACard.get(getBestScorePosition(possibleMovesForACard));
   }
 
@@ -288,6 +311,8 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
   private Point comparePositions(Point highestScorePoint, Point comparePosition) {
     if (highestScorePoint == null) {
       return comparePosition;
+    } else if (comparePosition == null) {
+      return highestScorePoint;
     }
 
     if (highestScorePoint.getX() == comparePosition.getX()) { //compare columns
@@ -311,6 +336,12 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * same Y value, then it returns the highestScorePoint Point object
    */
   private Point comparePositionsHelper(Point highestScorePoint, Point comparePosition) {
+    if (highestScorePoint == null) {
+      return comparePosition;
+    } else if (comparePosition == null) {
+      return highestScorePoint;
+    }
+
     if (highestScorePoint.getY() == comparePosition.getY()) {
       return highestScorePoint; //this will be the lesser index, so return it
     } else if (highestScorePoint.getY() < comparePosition.getY()) {
@@ -333,7 +364,7 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * with the 0th card index in the player's hand; the 1st index HashMap object is for the 1st card
    * index in the player's hand and so on
    */
-  public List<HashMap<Point, Integer>> emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
+  private List<HashMap<Point, Integer>> emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
     List<PlayingCard> hand = playerModel.getCurrentTurnPlayer().getHand();
     List<HashMap<Point, Integer>> allPossibleMovesWithScores = new ArrayList<>();
 
@@ -353,8 +384,12 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * object represents the position of a tile on a grid and each Integer object represents the
    * number of cards that would be flipped if the specified card was played to that position.
    */
-  public HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
+  private HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
           int cardIdxInHand) {
+    if (cardIdxInHand < 0 || cardIdxInHand >= playerModel.getCurrentTurnPlayer().getHand().size()) {
+      throw new IllegalArgumentException("Given card index out of bounds!");
+    }
+
     final GridTile[][] gridStartCopy = this.getGrid();
     GridTile[][] grid = getGridCopy(gridStartCopy);
     HashMap<Point, Integer> pointsAndScoresOfCard = new HashMap<>();
@@ -386,6 +421,15 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    */
   private int emulateBattleToFindScore(int row, int column, int cardIdxInHand,
                                        GridTile[][] grid) {
+    if (grid == null) {
+      throw new IllegalArgumentException("Given grid is null!");
+    } else if (row < 0 || row >= grid.length ||
+            column < 0 || column >= grid[0].length) {
+      throw new IllegalArgumentException("Row and/or column index out of bounds!");
+    } else if (cardIdxInHand < 0 || cardIdxInHand >= playerModel.getCurrentTurnPlayer().getHand().size()) {
+      throw new IllegalArgumentException("Given card index out of bounds!");
+    }
+
     int score = 0;
 
     //places the card on the copy of the grid (playToGrid)
@@ -407,6 +451,12 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * @return an integer representing the number of cards flipped due to battling
    */
   private int battleAllDirections(int row, int column, GridTile[][] grid) {
+    if (grid == null) {
+      throw new IllegalArgumentException("Given grid is null!");
+    } else if (row < 0 || row >= grid.length ||
+            column < 0 || column >= grid[0].length) {
+      throw new IllegalArgumentException("Row and/or column index out of bounds!");
+    }
 
     int score = 0;
 
@@ -439,6 +489,8 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
       throw new IllegalArgumentException("The provided GridTile object is null!");
     } else if (compareDirection == null) {
       throw new IllegalArgumentException("The provided CardCompass object is null!");
+    } else if (grid == null) {
+      throw new IllegalArgumentException("Given grid is null!");
     }
 
     int score = 0;
@@ -466,6 +518,10 @@ public class PlayerComputerModel extends PlayerPlayerModel implements ThreeTrios
    * @return a copy of the GridTile 2D array object
    */
   private GridTile[][] getGridCopy(GridTile[][] grid) {
+    if (grid == null) {
+      throw new IllegalArgumentException("Given grid is null!");
+    }
+
     GridTile[][] copy = new GridTile[grid.length][grid[0].length];
     for (int row = 0; row < grid.length; row++) {
       System.arraycopy(grid[row], 0, copy[row], 0, grid[0].length);
