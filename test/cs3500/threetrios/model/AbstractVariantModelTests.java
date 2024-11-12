@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.io.File;
 
 import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
-import cs3500.threetrios.player.PlayerColor;
+import cs3500.threetrios.model.player.PlayerColor;
 
 /**
  * Abstract test class for the models of different variants of a ThreeTrios game. Requires a
@@ -29,13 +29,14 @@ public abstract class AbstractVariantModelTests {
 
   @Before
   public void setup() {
-    this.model = new PlayerPlayerModel();
+    this.model = createModel();
+
     this.cardConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
-                    "cs3500/threetrios/cardconfigs/card_configuration.txt");
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
+                    "src/cs3500/threetrios/cardconfigs/card_configuration.txt");
     this.gridConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
-                    "cs3500/threetrios/gridconfigs/grid_configuration.txt");
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
+                    "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
   }
 
   private ThreeTriosModel playGameTilGameOver() {
@@ -50,11 +51,41 @@ public abstract class AbstractVariantModelTests {
     model.playToGrid(0, 2, 0);
     model.battle(0, 2);
 
+    model.playToGrid(0, 3, 0);
+    model.battle(0, 3);
+
     model.playToGrid(1, 0, 0);
     model.battle(1, 0);
 
     model.playToGrid(1, 1, 0);
     model.battle(1, 1);
+
+    model.playToGrid(1, 2, 0);
+    model.battle(1, 2);
+
+    model.playToGrid(1, 3, 0);
+    model.battle(1, 3);
+
+    model.playToGrid(2, 0, 0);
+    model.battle(2, 0);
+
+    model.playToGrid(2, 1, 0);
+    model.battle(2, 1);
+
+    model.playToGrid(2, 2, 0);
+    model.battle(2, 2);
+
+    model.playToGrid(2, 3, 0);
+    model.battle(2, 3);
+
+    model.playToGrid(3, 0, 0);
+    model.battle(3, 0);
+
+    model.playToGrid(3, 1, 0);
+    model.battle(3, 1);
+
+    model.playToGrid(3, 2, 0);
+    model.battle(3, 2);
 
     return model;
   }
@@ -76,7 +107,7 @@ public abstract class AbstractVariantModelTests {
   public void testModelStartGameHandSizeEqualsThreeWhenLessThanThree() {
     model.startGame(cardConfig, gridConfig);
 
-    int expected = 3;
+    int expected = 8;
 
     Assert.assertEquals(expected, model.getPlayerOfColor(PlayerColor.RED).getHand().size());
   }
@@ -141,7 +172,7 @@ public abstract class AbstractVariantModelTests {
     model = playGameTilGameOver();
 
     boolean expectedIsGameOver = true;
-    PlayerColor expectedFindWinningPlayer = PlayerColor.RED;
+    PlayerColor expectedFindWinningPlayer = PlayerColor.BLUE;
 
     Assert.assertEquals(expectedIsGameOver, model.isGameOver());
     Assert.assertEquals(expectedFindWinningPlayer, model.findWinningPlayer().getPlayersColor());
@@ -310,7 +341,7 @@ public abstract class AbstractVariantModelTests {
   public void testModelBattleValidForFullGame() {
     model = playGameTilGameOver();
 
-    PlayerColor expected = PlayerColor.RED;
+    PlayerColor expected = PlayerColor.BLUE;
 
     Assert.assertEquals(expected, model.getGrid()[0][0].getWhichPlayersTile().getPlayersColor());
     Assert.assertEquals(expected, model.getGrid()[0][1].getWhichPlayersTile().getPlayersColor());
@@ -429,7 +460,7 @@ public abstract class AbstractVariantModelTests {
   @Test
   public void testModelFullGameValid() {
     File betterCardConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/cardconfigs/randomized_card_configuration.txt");
 
     model.startGame(betterCardConfig, gridConfig);
@@ -451,7 +482,7 @@ public abstract class AbstractVariantModelTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameDeckSizeNotEnoughToStartTheGame() {
     File cardConfigThreeCards = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/cardconfigs/card_config_three_cards.txt");
 
     model.startGame(cardConfigThreeCards, gridConfig);
@@ -460,7 +491,7 @@ public abstract class AbstractVariantModelTests {
   @Test
   public void testModelStartGameHandSizeWhenGreaterThanThree() {
     File gridConfigSizeOfTwenty = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/grid_config_size_of_twenty.txt");
 
     model.startGame(cardConfig, gridConfigSizeOfTwenty);
@@ -473,7 +504,7 @@ public abstract class AbstractVariantModelTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridInvarianceIsEnsured() {
     File gridConfigEvenCardCellCount = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/incorrect_grid_config_card_cells_even.txt");
 
     model.startGame(cardConfig, gridConfigEvenCardCellCount);
