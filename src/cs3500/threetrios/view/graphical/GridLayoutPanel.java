@@ -21,8 +21,6 @@ public class GridLayoutPanel extends JPanel {
   private final ReadonlyThreeTriosModel model;
   private GridTile[][] grid;
 
-  private GridPanel currentClickedGridCell;
-
   /**
    * Represents a constructor for the GridLayoutPanel class.
    *
@@ -32,8 +30,6 @@ public class GridLayoutPanel extends JPanel {
    * @param graphicalView the GraphicalView class object that oversees the grid layout
    */
   GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model, GraphicalView graphicalView) {
-    currentClickedGridCell = null;
-
     this.rows = rows;
     this.columns = columns;
     this.model = model;
