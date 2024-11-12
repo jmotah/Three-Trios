@@ -12,6 +12,11 @@ import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.player.PlayerColor;
 import cs3500.threetrios.view.View;
 
+/**
+ * Represents the main container class for everything related to the graphical view. This includes
+ * the grid panel, the individual grid panel tiles, each hand panel, and each individual card
+ * on each hand panel.
+ */
 public class GraphicalView extends JFrame implements View, MouseListener {
 
   private final ReadonlyThreeTriosModel model;
@@ -23,6 +28,11 @@ public class GraphicalView extends JFrame implements View, MouseListener {
   private CardPanel currentlyClickedCardPanel;
   private GridPanel currentClickedGridCell;
 
+  /**
+   * Represents a constructor for the GraphicalView class.
+   *
+   * @param model the read only model to gain access to immutable data from
+   */
   public GraphicalView(ReadonlyThreeTriosModel model) {
     super();
 
@@ -61,17 +71,28 @@ public class GraphicalView extends JFrame implements View, MouseListener {
     this.add(gridPanel, BorderLayout.CENTER);
   }
 
+  /**
+   * Displays the graphical view.
+   */
   @Override
   public void makeVisible() {
     this.setVisible(true);
   }
 
+  /**
+   * Shows an error message.
+   *
+   * @param error the error message
+   */
   @Override
   public void showErrorMessage(String error) {
     JOptionPane.showMessageDialog(
             this, error, "Error", JOptionPane.ERROR_MESSAGE);
   }
 
+  /**
+   * Refreshes the graphical view component, updating all the components.
+   */
   @Override
   public void refresh() {
     this.redCardPanel.updateComponents();
@@ -82,6 +103,14 @@ public class GraphicalView extends JFrame implements View, MouseListener {
     this.revalidate();
   }
 
+  /**
+   * Checks to see if the mouse was clicked. Performs various actions depending on what was clicked.
+   * If a playing card was clicked, and it is the respective player's turn, highlight the card
+   * and waits for further directions. If a grid tile was clicked, highlights the grid tile and
+   * waits for further directions.
+   *
+   * @param e the event to be processed
+   */
   @Override
   public void mouseClicked(MouseEvent e) {
     GridPanel clickedGridCell = null;
@@ -149,30 +178,60 @@ public class GraphicalView extends JFrame implements View, MouseListener {
     currentlyClickedCardPanel = clickedCardPanel;
   }
 
+  /**
+   * Checks to see if the mouse was pressed down.
+   *
+   * @param e the event to be processed
+   */
   @Override
   public void mousePressed(MouseEvent e) {
-
+    //Do not need to check if the mouse was pressed down, so method is left empty.
   }
 
+  /**
+   * Checks to see if the mouse was released.
+   *
+   * @param e the event to be processed
+   */
   @Override
   public void mouseReleased(MouseEvent e) {
-
+    //Do not need to check if the mouse was released, so method is left empty.
   }
 
+  /**
+   * Checks to see if the mouse entered a certain space.
+   *
+   * @param e the event to be processed
+   */
   @Override
   public void mouseEntered(MouseEvent e) {
-
+    //Do not need to check if the mouse entered, so method is left empty.
   }
 
+  /**
+   * Checks to see if the mouse exited a certain space.
+   *
+   * @param e the event to be processed
+   */
   @Override
   public void mouseExited(MouseEvent e) {
-
+    //Do not need to check if the mouse exited, so method is left empty.
   }
 
+  /**
+   * Updates the graphical frame by updating the title to the next player's turn.
+   */
   private void updateFrame() {
     this.setTitle("Current Player: " + model.getCurrentTurnPlayer().getPlayersColor().toString());
   }
 
+  /**
+   * Converts a grid index to the respective row and column.
+   *
+   * @param clickedGridPanel the currently clicked GridPanel object
+   * @return an array of integers where the 0th index is the row the clicked GridPanel object is
+   * stored in while the 1st index is the column the clicked GridPanel object is stored in
+   */
   private int[] convertGridIdxToRowAndColumn(GridPanel clickedGridPanel) {
     int totalNumOfCells = model.getGrid().length * model.getGrid()[0].length;
     int[] rowAndColumn = new int[2];

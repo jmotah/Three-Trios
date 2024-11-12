@@ -8,13 +8,23 @@ import javax.swing.*;
 
 import cs3500.threetrios.player.Player;
 
-public class PlayerCardsLayoutPanel extends JPanel implements MouseListener {
+/**
+ * Represents the grid layout for the display of the player hands for a graphical view. Manages the
+ * creation and updating of all the individual card tiles.
+ */
+public class PlayerCardsLayoutPanel extends JPanel {
 
   private final Player player;
   private final GraphicalView graphicalView;
 
   CardPanel currentlyClickedCardPanel;
 
+  /**
+   * Represents the PlayerCardsLayoutPanel constructor.
+   *
+   * @param player        the Player object to get information from
+   * @param graphicalView the GraphicalView class object that oversees the grid layout
+   */
   PlayerCardsLayoutPanel(Player player, GraphicalView graphicalView) {
     if (player == null) {
       throw new IllegalArgumentException("Player cannot be null!");
@@ -39,50 +49,10 @@ public class PlayerCardsLayoutPanel extends JPanel implements MouseListener {
     }
   }
 
-  @Override
-  public void mouseClicked(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-    CardPanel clickedCard = (CardPanel) e.getSource();
-
-    if (clickedCard == null) {
-      return;
-    }
-
-    if (currentlyClickedCardPanel == clickedCard) {
-      clickedCard.setBorder(
-              BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-      currentlyClickedCardPanel = null;
-      return;
-    }
-
-    if (currentlyClickedCardPanel != null) {
-      currentlyClickedCardPanel.setBorder(
-              BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-    }
-
-    clickedCard.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
-    currentlyClickedCardPanel = clickedCard;
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-
-  }
-
+  /**
+   * Updates all the card components within the grid layout of the player's hand. Manages this by
+   * removing the current card components and re-adding the updated versions of the components.
+   */
   public void updateComponents() {
     this.removeAll();
     this.revalidate();

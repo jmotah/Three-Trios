@@ -7,10 +7,18 @@ import javax.swing.*;
 import cs3500.threetrios.cards.CardCompass;
 import cs3500.threetrios.cards.PlayingCard;
 
+/**
+ * Represents an individual card panel on top of the cards grid layout.
+ */
 public class CardPanel extends JPanel {
 
-  private PlayingCard card;
+  private final PlayingCard card;
 
+  /**
+   * Represents the CardPanel class constructor.
+   *
+   * @param card the card information
+   */
   CardPanel(PlayingCard card) {
     this.card = card;
     this.setLayout(new BorderLayout());
@@ -48,6 +56,11 @@ public class CardPanel extends JPanel {
     this.add(west, BorderLayout.WEST);
   }
 
+  /**
+   * Gets the PlayingCard object associated with this card panel.
+   *
+   * @return the PlayingCard object associated with this card panel
+   */
   public PlayingCard getCardPanelCard() {
     return card;
   }

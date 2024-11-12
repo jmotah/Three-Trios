@@ -11,6 +11,10 @@ import cs3500.threetrios.cards.PlayingCard;
 import cs3500.threetrios.grid.GridTile;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
+/**
+ * Represents the grid layout for the display of the grid for a graphical view. Manages the creation
+ * and updating of all the individual grid tiles.
+ */
 public class GridLayoutPanel extends JPanel {
 
   private final int rows;
@@ -21,6 +25,14 @@ public class GridLayoutPanel extends JPanel {
 
   private GridPanel currentClickedGridCell;
 
+  /**
+   * Represents a constructor for the GridLayoutPanel class.
+   *
+   * @param rows          the number of rows for the grid layout
+   * @param columns       the number of columns for the grid layout
+   * @param model         a read only version of the model to gain immutable data from
+   * @param graphicalView the GraphicalView class object that oversees the grid layout
+   */
   GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model, GraphicalView graphicalView) {
     currentClickedGridCell = null;
 
@@ -94,6 +106,10 @@ public class GridLayoutPanel extends JPanel {
     }
   }
 
+  /**
+   * Updates all the components within the grid layout. Manages this by removing the current
+   * components and re-adding the updated versions of the components.
+   */
   public void updateComponents() {
     this.removeAll();
     this.revalidate();
