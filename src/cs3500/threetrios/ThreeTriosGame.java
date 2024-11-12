@@ -1,17 +1,10 @@
 package cs3500.threetrios;
 
-import java.awt.*;
-import java.util.List;
 import java.io.File;
-import java.util.HashMap;
 
-import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.playervscomputer.PlayerComputerModel;
-import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
-import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.View;
 import cs3500.threetrios.view.graphical.GraphicalView;
-import cs3500.threetrios.view.textual.TextualView;
 
 /**
  * The primary class to start the ThreeTrios game.
@@ -36,26 +29,52 @@ public class ThreeTriosGame {
 
     model.startGame(cardConfig, gridConfig);
 
-    View view = new GraphicalView(model);
-    view.makeVisible();
-
-    model.playToGrid(1, 0, 0);
-    model.battle(1, 0);
-    view.refresh();
+    model.playToGrid(0, 0, 0);
+    model.battle(0, 0);
 
     model.playToGrid(0, 1, 0);
     model.battle(0, 1);
-    view.refresh();
+
+    model.playToGrid(0, 2, 0);
+    model.battle(0, 2);
+
+    model.playToGrid(0, 3, 0);
+    model.battle(0, 3);
+
+    model.playToGrid(1, 0, 0);
+    model.battle(1, 0);
+
+    model.playToGrid(1, 1, 0);
+    model.battle(1, 1);
+
+    model.playToGrid(1, 2, 0);
+    model.battle(1, 2);
+
+    model.playToGrid(1, 3, 0);
+    model.battle(1, 3);
+
+    model.playToGrid(2, 0, 0);
+    model.battle(2, 0);
+
+    model.playToGrid(2, 1, 0);
+    model.battle(2, 1);
 
     model.playToGrid(2, 2, 0);
     model.battle(2, 2);
-    view.refresh();
+
+    model.playToGrid(2, 3, 0);
+    model.battle(2, 3);
+
+    model.playToGrid(3, 0, 0);
+    model.battle(3, 0);
 
     model.playToGrid(3, 1, 0);
     model.battle(3, 1);
-    view.refresh();
 
-    model.playToGridAI();
-    view.refresh();
+    View view = new GraphicalView(model);
+    view.makeVisible();
+
+    model.playToGrid(3, 2, 0);
+    model.battle(3, 2);
   }
 }
