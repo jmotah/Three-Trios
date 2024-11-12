@@ -26,7 +26,7 @@ public interface View {
   void showErrorMessage(String error);
 
   /**
-   * Signal the view to draw itself
+   * Signals the view to re-draw itself.
    */
   void refresh();
 }
