@@ -4,8 +4,9 @@ import org.junit.Test;
 
 import java.io.File;
 
+import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
+import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.view.textual.TextualView;
 import cs3500.threetrios.view.ThreeTriosView;
 
