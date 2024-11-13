@@ -24,11 +24,11 @@ public class Examples {
     view = new TextualView(model);
 
     File cardConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/cardconfigs/card_configuration.txt");
     File gridConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
-                    "cs3500/threetrios/gridconfigs/grid_configuration.txt");
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
+                    "cs3500/threetrios/gridconfigs/board_2x3.txt");
 
     model.startGame(cardConfig, gridConfig);
   }
@@ -38,7 +38,7 @@ public class Examples {
    */
   @Test
   public void startGameWithView() {
-    view.render();
+    view.refresh();
 
     /* AssertEquals is needed for the handins grader */
     Assert.assertFalse(model.isGameOver());
@@ -52,7 +52,7 @@ public class Examples {
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
 
-    view.render();
+    view.refresh();
 
     /* AssertEquals is needed for the handins grader */
     Assert.assertFalse(model.isGameOver());
@@ -78,7 +78,7 @@ public class Examples {
     model.playToGrid(1, 1, 0);
     model.battle(1, 1);
 
-    view.render();
+    view.refresh();
 
     /* AssertEquals is needed for the handins grader */
     Assert.assertTrue(model.isGameOver());

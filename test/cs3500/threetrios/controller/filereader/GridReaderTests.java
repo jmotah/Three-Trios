@@ -21,8 +21,8 @@ public class GridReaderTests {
 
   @Test
   public void testGridReaderValid() {
-    File gridConfig = new File("/Users/julienmotaharian/Desktop/OOD Projects/" +
-            "ThreeTrios/src/cs3500/threetrios/gridconfigs/board_with_holes_two_groups.txt");
+    File gridConfig = new File("/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/" +
+            "ThreeTriosBetter/src/cs3500/threetrios/gridconfigs/board_with_holes_two_groups.txt");
     GridReader gridReader = createGridReader(gridConfig);
 
     GridTile[][] grid = gridReader.readConfiguration();
@@ -156,7 +156,7 @@ public class GridReaderTests {
   @Test
   public void testModelStartGameGridConfigLowerCaseLettersForGrid() {
     File gridConfigLowercaseLetters = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/grid_config_lowercase_letters.txt");
     GridReader gridReaderLowercaseLetters = createGridReader(gridConfigLowercaseLetters);
 

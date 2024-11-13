@@ -29,11 +29,11 @@ public class TextualViewTests {
   public void setup() {
     this.model = new PlayerPlayerModel();
     this.cardConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/cardconfigs/card_configuration.txt");
     this.gridConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
-                    "cs3500/threetrios/gridconfigs/grid_configuration.txt");
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
+                    "cs3500/threetrios/gridconfigs/board_2x3.txt");
 
     //This is used to test the void render() method. Captures the output sent through
     //System.out
@@ -114,7 +114,7 @@ public class TextualViewTests {
     ThreeTriosView view = new TextualView(model);
     model.startGame(cardConfig, gridConfig);
 
-    view.render();
+    view.refresh();
 
     String expected = "Player: RED\n" +
             "___\n" +
@@ -148,7 +148,7 @@ public class TextualViewTests {
     model.playToGrid(1, 1, 0);
     model.battle(1, 1);
 
-    view.render();
+    view.refresh();
 
     String expected = "Winning Player: RED\n" +
             "RRR\n" +

@@ -20,8 +20,8 @@ public class CardReaderTests {
 
   @Test
   public void testCardReaderValid() {
-    File cardConfig = new File("/Users/julienmotaharian/Desktop/OOD Projects/" +
-            "ThreeTrios/src/cs3500/threetrios/cardconfigs/card_configuration.txt");
+    File cardConfig = new File("/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/" +
+            "ThreeTriosBetter/src/cs3500/threetrios/cardconfigs/card_configuration.txt");
     CardReader cardReader = createCardReader(cardConfig);
 
     int expected = 41;
@@ -95,7 +95,7 @@ public class CardReaderTests {
   @Test
   public void testModelStartGameCardConfigLowerCaseUpperCaseIntegerAWithThree() {
     File cardConfigLowercaseUppercaseIntegerA = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/cardconfigs/card_config_lowercase_uppercase_integer_a.txt");
     CardReader cardReaderLowercaseUppercaseIntegerA =
             createCardReader(cardConfigLowercaseUppercaseIntegerA);
@@ -111,7 +111,7 @@ public class CardReaderTests {
   @Test
   public void testCardReaderDuplicateCardsDifNames() {
     File cardConfigDupDifName = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/cardconfigs/card_config_duplicates_dif_name.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
@@ -129,7 +129,7 @@ public class CardReaderTests {
   @Test (expected = IllegalStateException.class)
   public void testCardReaderDuplicateCardsSameNamesSameValues() {
     File cardConfigDupDifName = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/cardconfigs/incorrect_card_config_duplicates_same_name.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
@@ -139,7 +139,7 @@ public class CardReaderTests {
   @Test (expected = IllegalStateException.class)
   public void testCardReaderDuplicateCardsSameNamesDifValues() {
     File cardConfigDupDifName = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/cardconfigs/incorrect_card_config_same_name_dif_value.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
