@@ -8,7 +8,5 @@ public interface ThreeTriosView {
 
   void makeVisible();
 
-  void showErrorMessage(String error);
-
   void refresh();
 }

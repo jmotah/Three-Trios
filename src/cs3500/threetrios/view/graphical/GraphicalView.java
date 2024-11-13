@@ -78,17 +78,6 @@ public class GraphicalView extends JFrame implements ThreeTriosView, MouseListen
   }
 
   /**
-   * Shows an error message.
-   *
-   * @param error the error message
-   */
-  @Override
-  public void showErrorMessage(String error) {
-    JOptionPane.showMessageDialog(
-            this, error, "Error", JOptionPane.ERROR_MESSAGE);
-  }
-
-  /**
    * Refreshes the graphical view component, updating all the components.
    */
   @Override
@@ -121,25 +110,6 @@ public class GraphicalView extends JFrame implements ThreeTriosView, MouseListen
     } else {
       return;
     }
-
-//    //Defines Clicked Grid Cel;
-//    try {
-//      clickedGridCell = (GridPanel) e.getSource();
-//    } catch (ClassCastException ex) {
-//      //Should be empty, next try will catch this
-//    }
-//
-//    //Defines Clicked Card Panel
-//    try {
-//      clickedCardPanel = (CardPanel) e.getSource();
-//    } catch (ClassCastException ex) {
-//      //Should be empty
-//    }
-//
-//    //Returns if they are both null
-//    if (clickedGridCell == null && clickedCardPanel == null) {
-//      return;
-//    }
 
     if (clickedGridCell != null) {
       if (currentClickedGridCell == clickedGridCell) {
