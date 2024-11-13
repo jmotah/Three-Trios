@@ -5,7 +5,6 @@ package cs3500.threetrios.view;
  * hand(s), and current player's turn.
  **/
 public interface ThreeTriosView {
-
   void makeVisible();
 
   void refresh();
