@@ -9,6 +9,7 @@ import cs3500.threetrios.model.playervscomputer.PlayerComputerModel;
 import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
 import cs3500.threetrios.model.strategies.Strategies;
 import cs3500.threetrios.model.strategies.Strategy1;
+import cs3500.threetrios.model.strategies.Strategy1And2;
 import cs3500.threetrios.model.strategies.Strategy2;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GraphicalView;
@@ -36,7 +37,7 @@ public class ThreeTriosGame {
 
     model.startGame(cardConfig, gridConfig);
 
-    Strategy2 strategy = new Strategy2(model);
+    Strategies strategy = new Strategy1And2(model);
 
     ThreeTriosView view = new GraphicalView(model);
     view.makeVisible();
