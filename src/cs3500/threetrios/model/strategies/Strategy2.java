@@ -10,7 +10,14 @@ import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.GridTile;
 
-//Go for corners
+/**
+ * Implementation of strategy 2. Strategy 2 is the idea of playing the highest valued card possible
+ * to the corners to eliminate the possibility of 2 of the corner sides to be battled against.
+ * Priority is placed on placing the highest card possible for the two "battle-able" directions in
+ * the found corner position. If multiple corner positions are found, the uppermost leftmost
+ * position is selected and the card is placed there. If all the corner positions are taken,
+ * then the 0th index card is placed in the uppermost leftmost grid tile.
+ */
 public class Strategy2 extends AbstractStrategies implements Strategies {
   ReadonlyThreeTriosModel model;
 
@@ -35,6 +42,14 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
     return optimalMove;
   }
 
+  /**
+   * Finds the best card index to play. If the corner tie-break method returns a Point in a corner,
+   * the method will return the card of highest value for the "battle-able" directions. If the Point
+   * object returned is not a corner position, then it returns the best card index to play as the
+   * 0th index card in the player's hand.
+   *
+   * @return the index of the card to play
+   */
   public int findBestCardIdxToPlay() {
     List<PlayingCard> hand = model.getCurrentTurnPlayer().getHand();
     Point bestCorner = tieBreakCorner();
@@ -42,63 +57,91 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
     int highestDirectionalScore = 0;
     //INVARIANCE: only one item in hash map
 
-    if (bestCorner.getX() == 0 && bestCorner.getY() == 0) {
-      //East, South
-      for (int i = 0; i < hand.size(); i++) {
-        PlayingCard card = hand.get(i);
-        int cardDirectionalScore = card.getValue(CardCompass.EAST_VALUE) +
-                card.getValue(CardCompass.SOUTH_VALUE);
-
-        if (cardDirectionalScore > highestDirectionalScore) { //accounts for lower card index too
-          highestDirectionalScore = cardDirectionalScore;
-          bestCardIdx = i;
-        }
-      }
-
-    } else if (bestCorner.getX() == 0 && bestCorner.getY() == model.getGrid()[0].length - 1) {
-      //West, South case
-
-      for (int i = 0; i < hand.size(); i++) {
-        PlayingCard card = hand.get(i);
-        int cardDirectionalScore = card.getValue(CardCompass.WEST_VALUE) +
-                card.getValue(CardCompass.SOUTH_VALUE);
-
-        if (cardDirectionalScore > highestDirectionalScore) { //accounts for lower card index too
-          highestDirectionalScore = cardDirectionalScore;
-          bestCardIdx = i;
-        }
-      }
-    } else if (bestCorner.getX() == model.getGrid().length - 1 && bestCorner.getY() == 0) {
-      //North, east case
-
-      for (int i = 0; i < hand.size(); i++) {
-        PlayingCard card = hand.get(i);
-        int cardDirectionalScore = card.getValue(CardCompass.NORTH_VALUE) +
-                card.getValue(CardCompass.EAST_VALUE);
-
-        if (cardDirectionalScore > highestDirectionalScore) { //accounts for lower card index too
-          highestDirectionalScore = cardDirectionalScore;
-          bestCardIdx = i;
-        }
-      }
-    } else if (bestCorner.getX() == model.getGrid().length - 1 && bestCorner.getY() == model.getGrid()[0].length - 1) {
-      //North, west case
-
-      for (int i = 0; i < hand.size(); i++) {
-        PlayingCard card = hand.get(i);
-        int cardDirectionalScore = card.getValue(CardCompass.NORTH_VALUE) +
-                card.getValue(CardCompass.WEST_VALUE);
-
-        if (cardDirectionalScore > highestDirectionalScore) { //accounts for lower card index too
-          highestDirectionalScore = cardDirectionalScore;
-          bestCardIdx = i;
-        }
-      }
-    }
+    bestCardIdx = checkIfPositionIsACorner(bestCorner, hand, highestDirectionalScore, bestCardIdx);
     //base case is index = 0
     return bestCardIdx;
   }
 
+  /**
+   * Checks if the found tie-break Point object is in the corner or not. If it is, calculates the
+   * greatest card to play to the corner. If not, 0.
+   *
+   * @param bestCorner              the position to check if it is a corner or not
+   * @param hand                    the player's hand
+   * @param highestDirectionalScore the highest directional score found from comparing cards
+   * @param bestCardIdx             the best found card index
+   * @return the card index that is greatest in value if played to the given position if it is a
+   * corner; if it is not a corner, returns 0
+   */
+  private int checkIfPositionIsACorner(Point bestCorner, List<PlayingCard> hand,
+                                       int highestDirectionalScore, int bestCardIdx) {
+    if (bestCorner.getX() == 0 && bestCorner.getY() == 0) {
+      //East, South
+      bestCardIdx = cornerOperations(hand,
+              CardCompass.EAST_VALUE, CardCompass.SOUTH_VALUE,
+              highestDirectionalScore, bestCardIdx);
+
+    } else if (bestCorner.getX() == 0 && bestCorner.getY() == model.getGrid()[0].length - 1) {
+      //West, South case
+
+      bestCardIdx = cornerOperations(hand,
+              CardCompass.WEST_VALUE, CardCompass.SOUTH_VALUE,
+              highestDirectionalScore, bestCardIdx);
+    } else if (bestCorner.getX() == model.getGrid().length - 1 && bestCorner.getY() == 0) {
+      //North, east case
+
+      bestCardIdx = cornerOperations(hand,
+              CardCompass.NORTH_VALUE, CardCompass.EAST_VALUE,
+              highestDirectionalScore, bestCardIdx);
+    } else if (bestCorner.getX() == model.getGrid().length - 1 && bestCorner.getY() == model.getGrid()[0].length - 1) {
+      //North, west case
+
+      bestCardIdx = cornerOperations(hand,
+              CardCompass.NORTH_VALUE, CardCompass.WEST_VALUE,
+              highestDirectionalScore, bestCardIdx);
+    }
+    return bestCardIdx;
+  }
+
+  /**
+   * Calculates the greatest card to play to the corner.
+   * * Checks if the found tie-break Point object is in the corner or not. If it is, calculates the
+   * * greatest card to play to the corner. If not, 0.
+   *
+   * @param hand                    the current player's hand
+   * @param direction1              one of the "battle-able" sides facing another grid tile
+   * @param direction2              one of the "battle-able" sides facing another grid tile
+   * @param highestDirectionalScore the highest score calculated from adding each directional card
+   *                                value from the "battle-able" sides
+   * @param bestCardIdx             the best found card's index
+   * @return the card index with the greatest score calculated from adding each directional card
+   * value from the "battle-able" sides
+   */
+  private static int cornerOperations(List<PlayingCard> hand, CardCompass direction1,
+                                      CardCompass direction2, int highestDirectionalScore,
+                                      int bestCardIdx) {
+    for (int i = 0; i < hand.size(); i++) {
+      PlayingCard card = hand.get(i);
+      int cardDirectionalScore = card.getValue(direction1) +
+              card.getValue(direction2);
+
+      if (cardDirectionalScore > highestDirectionalScore) { //accounts for lower card index too
+        highestDirectionalScore = cardDirectionalScore;
+        bestCardIdx = i;
+      }
+    }
+    return bestCardIdx;
+  }
+
+  /**
+   * Performs a tie-break on the corners. If corners positions to play to are found, returns the
+   * corner in the uppermost leftmost position on the grid. If no corner positions are found,
+   * returns the uppermost leftmost position out of all possible playable spots on the grid.
+   *
+   * @return the uppermost leftmost position to play to out of the found corners; if no corners
+   * are found, it returns the uppermost leftmost position to play to out of every possible move on
+   * the grid
+   */
   public Point tieBreakCorner() {
     List<Point> allCorners = findAllCorners();
     Point upperMostLeftMostOpenCorner = null;
@@ -126,6 +169,11 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
     return upperMostLeftMostOpenCorner;
   }
 
+  /**
+   * Finds every possible corner position to play to on the grid.
+   *
+   * @return a list of Point objects with every possible corner position to play to on the grid
+   */
   public List<Point> findAllCorners() {
     List<Point> allCorners = new ArrayList<>();
 
@@ -170,5 +218,4 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
             (position.getX() == grid.length - 1 &&
                     position.getY() == grid[0].length - 1);
   }
-
 }
