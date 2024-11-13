@@ -114,24 +114,32 @@ public class GraphicalView extends JFrame implements ThreeTriosView, MouseListen
     GridPanel clickedGridCell = null;
     CardPanel clickedCardPanel = null;
 
-    //Defines Clicked Grid Cel;
-    try {
+    if (e.getSource() instanceof GridPanel) {
       clickedGridCell = (GridPanel) e.getSource();
-    } catch (ClassCastException ex) {
-      //Should be empty, next try will catch this
-    }
-
-    //Defines Clicked Card Panel
-    try {
+    } else if (e.getSource() instanceof CardPanel) {
       clickedCardPanel = (CardPanel) e.getSource();
-    } catch (ClassCastException ex) {
-      //Should be empty
-    }
-
-    //Returns if they are both null
-    if (clickedGridCell == null && clickedCardPanel == null) {
+    } else {
       return;
     }
+
+//    //Defines Clicked Grid Cel;
+//    try {
+//      clickedGridCell = (GridPanel) e.getSource();
+//    } catch (ClassCastException ex) {
+//      //Should be empty, next try will catch this
+//    }
+//
+//    //Defines Clicked Card Panel
+//    try {
+//      clickedCardPanel = (CardPanel) e.getSource();
+//    } catch (ClassCastException ex) {
+//      //Should be empty
+//    }
+//
+//    //Returns if they are both null
+//    if (clickedGridCell == null && clickedCardPanel == null) {
+//      return;
+//    }
 
     if (clickedGridCell != null) {
       if (currentClickedGridCell == clickedGridCell) {
