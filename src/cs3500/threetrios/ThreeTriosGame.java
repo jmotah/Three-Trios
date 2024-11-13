@@ -39,15 +39,5 @@ public class ThreeTriosGame {
     view.refresh();
     model.playToGridAI();
     view.refresh();
-    model.playToGridAI();
-    view.refresh();
-    model.playToGridAI();
-    view.refresh();
-    model.playToGridAI();
-    view.refresh();
-    model.playToGridAI();
-    view.refresh();
-    model.playToGridAI();
-    view.refresh();
   }
 }
