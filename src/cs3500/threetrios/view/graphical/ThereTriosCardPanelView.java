@@ -7,5 +7,5 @@ import cs3500.threetrios.model.cards.PlayingCard;
  * methods to retrieve the PlayingCard object displayed in the panel.
  */
 public interface ThereTriosCardPanelView {
-  public PlayingCard getCardPanelCard();
+  PlayingCard getCardPanelCard();
 }
