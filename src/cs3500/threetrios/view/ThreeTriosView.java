@@ -5,8 +5,10 @@ package cs3500.threetrios.view;
  * hand(s), and current player's turn.
  **/
 public interface ThreeTriosView {
-  /**
-   * Renders a model in some manner (e.g. as text, or as graphics, etc.)
-   */
-  void render();
+
+  void makeVisible();
+
+  void showErrorMessage(String error);
+
+  void refresh();
 }

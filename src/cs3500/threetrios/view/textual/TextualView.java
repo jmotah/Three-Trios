@@ -30,11 +30,30 @@ public class TextualView implements ThreeTriosView {
   }
 
   /**
-   * Renders a model in a textual manner.
+   * Calls the refresh method to display the game state. The purpose of this method is primarily
+   * for the graphical view.
    */
   @Override
-  public void render() {
+  public void makeVisible() {
+    this.refresh();
+  }
 
+  /**
+   * Transmit an error message to the view, in case
+   * the command could not be processed correctly
+   *
+   * @param error the error message
+   */
+  @Override
+  public void showErrorMessage(String error) {
+    throw new IllegalArgumentException(error);
+  }
+
+  /**
+   * Displays the refreshed game state in a textual manner.
+   */
+  @Override
+  public void refresh() {
     if (!model.isGameOver()) {
       System.out.print(this);
     } else {

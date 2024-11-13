@@ -8,14 +8,14 @@ import javax.swing.*;
 
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.player.PlayerColor;
-import cs3500.threetrios.view.View;
+import cs3500.threetrios.view.ThreeTriosView;
 
 /**
  * Represents the main container class for everything related to the graphical view. This includes
  * the grid panel, the individual grid panel tiles, each hand panel, and each individual card
  * on each hand panel.
  */
-public class GraphicalView extends JFrame implements View, MouseListener {
+public class GraphicalView extends JFrame implements ThreeTriosView, MouseListener {
 
   private final ReadonlyThreeTriosModel model;
 
