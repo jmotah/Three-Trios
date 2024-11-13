@@ -1,6 +1,7 @@
 package cs3500.threetrios.model.strategies;
 
 import java.awt.*;
+import java.util.List;
 import java.util.HashMap;
 
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
@@ -64,15 +65,16 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
     HashMap<Point, Integer> bestPositionAndCardIdx = new HashMap<>();
     //INVARIANCE: Only one item can be placed within the bestPositionAndCardIdx HashMap object
 
-    java.util.List<HashMap<Point, Integer>> allPossibilities =
+    List<HashMap<Point, Integer>> allPossibilities =
             strategy1.emulateBattleToFindScoreForAllCardsInAllPossibleSpaces();
+    System.out.println(allPossibilities);
     //every index within a list corresponds to a card idx (ex. list index of 0 is card idx of 0)
 
     bestPositionAndCardIdx.put(null, null);
 
     for (int i = 0; i < allPossibilities.size(); i++) {
       int compareScore = strategy1.getBestScore(allPossibilities.get(i));
-      Point comparePosition = strategy1.getBestScorePosition(allPossibilities.get(i));
+      Point comparePosition = getBestScorePosition(allPossibilities.get(i));
 
       if (highestScore == compareScore) {
         if (strategy2.isACornerPosition(highestScorePosition) && strategy2.isACornerPosition(comparePosition)) {
@@ -102,5 +104,47 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
       }
     }
     return bestPositionAndCardIdx;
+  }
+
+  /**
+   * Gets the Point object at which would yield the most number of cards flipped after battling
+   * from a given HashMap of objects of positions and scores.
+   *
+   * @param possibleMovesForACard a HashMap object of Points and Integers where Point objects are
+   *                              the positions on a grid and Integers are the number of cards that
+   *                              are flipped if you place a card there
+   * @return the best position to play to get the highest score from a given HashMap of objects of
+   * Points and Integers
+   */
+  private Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
+    if (possibleMovesForACard == null) {
+      throw new IllegalArgumentException("Given hash map object for all possible moves for a card" +
+              "is null!");
+    }
+
+    int highestScore = 0;
+    Point highestScorePosition = null;
+    List<Point> keys = strategy1.getAllPossibleMoves(model);
+
+    for (int i = 0; i < possibleMovesForACard.size(); i++) {
+      int compareValue = possibleMovesForACard.get(keys.get(i));
+      Point comparePosition = keys.get(i);
+
+      if (highestScore == compareValue) {
+        if (strategy2.isACornerPosition(highestScorePosition) && strategy2.isACornerPosition(comparePosition)) {
+          highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+        } else if (strategy2.isACornerPosition(highestScorePosition)) {
+          //State should stay the same; the same card is the current best score and position
+        } else if (strategy2.isACornerPosition(comparePosition)) {
+          highestScorePosition = comparePosition;
+        } else {
+          highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+        }
+      } else if (highestScore < compareValue) {
+        highestScorePosition = comparePosition;
+      }
+      highestScore = Math.max(compareValue, highestScore);
+    }
+    return highestScorePosition;
   }
 }
