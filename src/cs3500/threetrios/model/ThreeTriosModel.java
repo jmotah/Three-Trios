@@ -16,6 +16,4 @@ public interface ThreeTriosModel extends ReadonlyThreeTriosModel {
   void battle(int row, int column);
 
   void updatePlayerTurn();
-
-  void playToGridAI();
 }
