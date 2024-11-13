@@ -5,9 +5,10 @@ import java.io.File;
 import java.util.HashMap;
 
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
+import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.strategies.Strategies;
 import cs3500.threetrios.model.strategies.Strategy1And2;
+import cs3500.threetrios.model.strategies.Strategy2;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GraphicalView;
 
@@ -34,29 +35,26 @@ public class ThreeTriosGame {
 
     model.startGame(cardConfig, gridConfig);
 
-    Strategies strategy = new Strategy1And2(model);
+    Strategies strategy = new Strategy2(model);
 
-    //Assuming player 2(blue) is AI
-
-    //red
-    model.playToGrid(0, 0, 0);
-    model.battle(0, 0);
-
-    //blue (play to grid and battling)
     playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
-
-    //red
-    model.playToGrid(2, 3, 4);
-    model.battle(2, 3);
-
-    //blue
+    playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
+    playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
     playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
 
     ThreeTriosView view = new GraphicalView(model);
     view.makeVisible();
   }
 
-  //performs playing to grid and battling
+  /**
+   * Converts the HashMap of a Point object and Integer object to readable play to grid and
+   * battle commands by the model. The Point object represents a grid cell position while the
+   * Integer object represents a card index in the player's hand.
+   *
+   * @param optimalMove the HashMap object to get the grid position to play to and the card index to
+   *                    play from
+   * @param model       the model object to call the optimal move onto
+   */
   public static void playToGridAndBattleWithOptimalMove(HashMap<Point, Integer> optimalMove,
                                                         ThreeTriosModel model) {
     Point position = optimalMove.keySet().iterator().next();
