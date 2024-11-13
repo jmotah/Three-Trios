@@ -10,7 +10,7 @@ import cs3500.threetrios.model.cards.PlayingCard;
 /**
  * Represents an individual card panel on top of the cards grid layout.
  */
-public class CardPanel extends JPanel {
+public class CardPanel extends JPanel implements ThereTriosCardPanelView {
 
   private final PlayingCard card;
 
@@ -61,6 +61,7 @@ public class CardPanel extends JPanel {
    *
    * @return the PlayingCard object associated with this card panel
    */
+  @Override
   public PlayingCard getCardPanelCard() {
     return card;
   }
