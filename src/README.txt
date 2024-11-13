@@ -128,87 +128,94 @@ SRC FOLDER:
 Main Method Class:
     [src folder -> cs3500.threetrios package]
 
-Card Related Class/Info:
-    Includes CardCompass enum, CardNumbers enum, Cards interface, and PlayingCard class
-    [src folder -> cs3500.threetrios.cards package]
 
 Controller Related Class/Info:
-    Currently empty; prepared for future use
+    Includes filereader package
     [src folder -> cs3500.threetrios.controller package]
 
-File Reader Related Class/Info:
+    filereader package:
     Includes ConfigurationReader interface, CardReader class, and GridReader class
-    [src folder -> cs3500.threetrios.filereader package]
+    [src folder -> cs3500.threetrios.controller.filereader]
 
-Grid Related Class/Info:
-    Includes Grid interface, GridTile class
-    [src folder -> cs3500.threetrios.grid package]
 
 Model Related Class/Info:
     Includes CellType enum, GamePhase enum, GameState enum, ThreeTriosModel interface,
-    playervsplayer package, and playervscomputer package
+    ReadonlyThreeTriosModel interface, cards package, grid package, player package, playervsplayer
+    package, and playervscomputer package
     [src folder -> cs3500.threetrios.model package]
+
+    cards package:
+    Includes CardCompass enum, CardNumbers enum, Cards interface, and PlayingCard class
+    [src folder -> cs3500.threetrios.model.cards package]
+
+    grid package:
+    Includes Grid interface, GridTile class
+    [src folder -> cs3500.threetrios.model.grid package]
+
+    player package:
+    Includes Player interface, PlayerColor enum, and Player class
+    [src folder -> cs3500.threetrios.model.player package]
 
     playervsplayer package:
     Includes PlayerPlayerModel class
     [cs3500.threetrios.model.playervsplayer package]
 
     playervscomputer package:
-    Currently empty; prepared for future use
+    Includes PlayerComputerModel class
     [cs3500.threetrios.model.playervscomputer package]
 
-Player Related Class/Info:
-    Includes Player interface, PlayerColor enum, and HumanPlayer class
-    [src folder ->  cs3500.threetrios.player package]
 
 View Related Class/info
-    Includes ThreeTriosView interface, TextualView Class
+    Includes ThreeTriosView interface, graphical package, and textual package
     [src folder -> cs3500.threetrios.view package]
+
+    graphical package:
+    Includes CardPanel class, GraphicalView class, GridLayoutPanel class, GridPanel class,
+    PlayerCardsLayoutPanel class
+    [src folder -> cs3500.threetrios.view.graphical package]
+
+    textual package:
+    Includes TextualView class
+    [src folder -> cs3500.threetrios.view.textual package]
+
 
 Card Config Related Files/Info:
     Includes various card configuration files to be used within the game. More may be created, you
     are not limited to what is inside the package.
     [src folder -> cs3500.threetrios.cardconfigs package]
 
+
 Grid Config Related Files/Info:
     Includes various grid configuration files to be used within the game. More may be created, you
     are not limited to what is inside the package.
     [src folder -> cs3500.threetrios.gridconfigs package]
 
+
 Card Testing Related Class/Info:
     Includes the PlayingCardTests class
     [test folder -> cs3500.threetrios.card package]
 
+
 TEST FOLDER:
 
-Controller Testing Related Class/Info:
-    Currently empty; prepared for future use
-    [test folder -> cs3500.threetrios.controller package]
+Examples Class:
+    [test folder]
 
-File Reader Testing Related Class/Info:
-    Includes CardReaderTests class and GridReaderTests class
-    [test folder -> cs3500.threetrios.filereader package]
-
-Grid Testing Related Class/Info:
-    Includes GridTileTests class
-    [test folder -> cs3500.threetrios.grid package]
-
-Model Testing Related Class/Info:
-    Includes AbstractVariantModelTests class and PlayerPlayerModelTests class
-    [test folder -> cs3500.threetrios.model package]
-
-Player Testing Related Class/Info:
-    Includes HumanPlayerTests class
-    [test folder ->  cs3500.threetrios.player package]
-
-View Testing Related Class/info
-    Includes TextualViewTests class
-    [test folder -> cs3500.threetrios.view package]
 
 Card Testing Config Related Files/Info:
     Includes various card configuration files to be used for testing. More may be created, you
     are not limited to what is inside the package.
     [test folder -> cs3500.threetrios.cardconfigs package]
+
+
+Controller Testing Related Class/Info:
+    Includes filereader package
+    [test folder -> cs3500.threetrios.controller package]
+
+    filereader package:
+    Includes CardReaderTests and GridReaderTests
+    [test folder -> cs3500.threetrios.controller.filereader package]
+
 
 Grid Testing Config Related Files/Info:
     Includes various grid configuration files to be used for testing. More may be created, you
@@ -216,7 +223,32 @@ Grid Testing Config Related Files/Info:
     [test folder -> cs3500.threetrios.gridconfigs package]
 
 
+Model Testing Related Class/Info:
+    Includes AbstractVariantModelTests class, PlayerPlayerModelTests class, PlayerComputerModelTests
+    class, card package, grid package, and player package
+    [test folder -> cs3500.threetrios.model package]
+
+    card package:
+    Includes PlayingCardTests class
+    [test folder -> cs3500.threetrios.model.card package]
+
+    grid package:
+    Includes GridTileTests class
+    [test folder -> cs3500.threetrios.model.grid package]
+
+    player package:
+    Includes PlayerTests class
+    [test folder -> cs3500.threetrios.model.player package]
+
+
+View Testing Related Class/info
+    Includes TextualViewTests class
+    [test folder -> cs3500.threetrios.view package]
+
+
+
 CHANGES FROM PREVIOUS WORK:
+
 - Moved the TextualView class into a sub package called text
 - Added view interface
 - Added a get color method within the PlayerColor enum and a color associated to each PlayerColor
