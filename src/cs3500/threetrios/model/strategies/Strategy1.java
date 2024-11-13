@@ -73,7 +73,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @return the best position to play to get the highest score from a given HashMap of objects of
    * Points and Integers
    */
-  private Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
+  protected Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
     if (possibleMovesForACard == null) {
       throw new IllegalArgumentException("Given hash map object for all possible moves for a card" +
               "is null!");
@@ -106,7 +106,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    *                              are flipped if you place a card there
    * @return the best score from a given HashMap object of Points and Integers
    */
-  private int getBestScore(HashMap<Point, Integer> possibleMovesForACard) {
+  protected int getBestScore(HashMap<Point, Integer> possibleMovesForACard) {
     if (possibleMovesForACard == null) {
       throw new IllegalArgumentException("Given hash map object for all possible moves for a card" +
               "is null!");
@@ -127,7 +127,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * with the 0th card index in the player's hand; the 1st index HashMap object is for the 1st card
    * index in the player's hand and so on
    */
-  private java.util.List<HashMap<Point, Integer>> emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
+  protected java.util.List<HashMap<Point, Integer>> emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
     java.util.List<PlayingCard> hand = model.getCurrentTurnPlayer().getHand();
     java.util.List<HashMap<Point, Integer>> allPossibleMovesWithScores = new ArrayList<>();
 
@@ -147,7 +147,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * object represents the position of a tile on a grid and each Integer object represents the
    * number of cards that would be flipped if the specified card was played to that position.
    */
-  private HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
+  protected HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
           int cardIdxInHand) {
     if (cardIdxInHand < 0 || cardIdxInHand >= model.getCurrentTurnPlayer().getHand().size()) {
       throw new IllegalArgumentException("Given card index out of bounds!");
@@ -182,7 +182,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid          the grid to perform the battling on
    * @return an integer representing the number of cards flipped due to battling
    */
-  private int emulateBattleToFindScore(int row, int column, int cardIdxInHand,
+  protected int emulateBattleToFindScore(int row, int column, int cardIdxInHand,
                                        GridTile[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
@@ -213,7 +213,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid   the grid to perform the battling on
    * @return an integer representing the number of cards flipped due to battling
    */
-  private int battleAllDirections(int row, int column, GridTile[][] grid) {
+  protected int battleAllDirections(int row, int column, GridTile[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     } else if (row < 0 || row >= grid.length ||
@@ -246,7 +246,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid             the grid to perform the battling on
    * @return an integer representing the number of cards flipped due to battling
    */
-  private int battleSpecificDirection(GridTile current, int row, int column,
+  protected int battleSpecificDirection(GridTile current, int row, int column,
                                       CardCompass compareDirection, GridTile[][] grid) {
     if (current == null) {
       throw new IllegalArgumentException("The provided GridTile object is null!");
@@ -280,7 +280,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid the GridTile 2D array object to get a copy of
    * @return a copy of the GridTile 2D array object
    */
-  private GridTile[][] getGridCopy(GridTile[][] grid) {
+  protected GridTile[][] getGridCopy(GridTile[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     }
