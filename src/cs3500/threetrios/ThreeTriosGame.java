@@ -27,20 +27,42 @@ public class ThreeTriosGame {
 
     File cardConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
-                    "cs3500/threetrios/cardconfigs/card_configuration.txt");
+                    "cs3500/threetrios/cardconfigs/randomized_card_configuration.txt");
 
     File gridConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/gridconfigs/grid_configuration.txt");
 
+    gridConfig = new File(
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
+                    "cs3500/threetrios/gridconfigs/grid_config_large.txt");
+
     model.startGame(cardConfig, gridConfig);
 
-    Strategies strategy = new Strategy2(model);
+    model.playToGrid(2, 0, 5);
+    model.battle(2, 0);
 
-    playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
-    playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
-    playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
-    playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
+    model.playToGrid(5, 0, 0);
+    model.battle(5, 0);
+
+    model.playToGrid(1, 0, 2);
+    model.battle(1, 0);
+
+    model.playToGrid(5, 1, 0);
+    model.battle(5, 1);
+
+    model.playToGrid(2, 5, 4);
+    model.battle(2, 5);
+
+    model.playToGrid(5, 2, 0);
+    model.battle(5, 2);
+
+    model.playToGrid(1, 5, 0);
+    model.battle(1, 5);
+
+    Strategies strategy = new Strategy1And2(model);
+
+    //playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
 
     ThreeTriosView view = new GraphicalView(model);
     view.makeVisible();
