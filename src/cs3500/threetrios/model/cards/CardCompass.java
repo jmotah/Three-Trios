@@ -12,7 +12,9 @@ public enum CardCompass {
 
   /**
    * Returns what the opposite compass direction of whatever this object's current card compass
-   * direction.
+   * direction. This method must be public to be accessed within the
+   * model to find the opposite direction of the given CardCompass enum value. (Ex: NORTH_VALUE
+   * yields SOUTH_VALUE, EAST_VALUE yields WEST_VALUE, etc.)
    *
    * @return an CardCompass object which is the opposite of this CardCompass object
    */
