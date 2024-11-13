@@ -8,8 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
+import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
 import cs3500.threetrios.view.textual.TextualView;
 
 /**
