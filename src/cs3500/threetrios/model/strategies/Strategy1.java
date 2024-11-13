@@ -7,25 +7,55 @@ import java.util.List;
 
 import cs3500.threetrios.model.CellType;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
-import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.GridTile;
 
-//Go for flipping highest score
+/**
+ * Implementation of the strategy 1. Strategy 1 is the idea of flipping as many cards as possible
+ * for the player's turn, meaning finding the most optimal position to play a card at and then
+ * finding the most optimal card to play for that position, if any.
+ */
 public class Strategy1 extends AbstractStrategies implements Strategies {
 
   ReadonlyThreeTriosModel model;
 
+  /**
+   * Constructor for Strategy1 class.
+   *
+   * @param model a read-only version of the model to gain immutable data from
+   */
   public Strategy1(ReadonlyThreeTriosModel model) {
     this.model = model;
   }
 
+  /**
+   * Runs strategy 1 and looks for the best position as well as card to play at that position. The
+   * Point object in the HashMap represents the position on the grid that could result in the
+   * greatest number of cards flipped while the Integer object in the hashmap represents the card
+   * index from the current player's hand that would flip the most number of cards on the best grid
+   * position.
+   *
+   * @return a HashMap object of a Point object and an Integer object where the Point object
+   * represents a tile on the grid to play the card at and the Integer object represents the card
+   * index to play from the current player's hand on that grid tile
+   */
   @Override
-  public HashMap<Point, Integer> runStrategies() {
+  public HashMap<Point, Integer> runStrategy() {
     return getBestScorePositionForAllCardsInHand();
   }
 
+  /**
+   * Gets a HashMap objects of a Point object and an Integer object representing a grid cell
+   * position and card index in the players hand, respectively. This position and card index is
+   * what card to place at which grid tile position to yield the most number of cards flipped after
+   * battling.
+   *
+   * @return a HashMap objects of a Point object and an Integer object representing a grid cell
+   * position and card index in the players hand, respectively. INVARIANCE: The returned HashMap
+   * object only contains one item within it which contains the best position to play at with the
+   * best card to play at that position
+   */
   private HashMap<Point, Integer> getBestScorePositionForAllCardsInHand() {
     int highestScore = 0;
     Point highestScorePosition = null;
@@ -183,7 +213,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @return an integer representing the number of cards flipped due to battling
    */
   protected int emulateBattleToFindScore(int row, int column, int cardIdxInHand,
-                                       GridTile[][] grid) {
+                                         GridTile[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     } else if (row < 0 || row >= grid.length ||
@@ -247,7 +277,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @return an integer representing the number of cards flipped due to battling
    */
   protected int battleSpecificDirection(GridTile current, int row, int column,
-                                      CardCompass compareDirection, GridTile[][] grid) {
+                                        CardCompass compareDirection, GridTile[][] grid) {
     if (current == null) {
       throw new IllegalArgumentException("The provided GridTile object is null!");
     } else if (compareDirection == null) {

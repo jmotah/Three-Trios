@@ -5,19 +5,44 @@ import java.util.HashMap;
 
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
+/**
+ * A combination of strategies 1 and 2. Priority is placed on finding the position on the grid that
+ * will result in the most number of cards flipped. Then, it analyzes if one of those spots is a
+ * corner or not. If it is places it in the corner, if it is not places it in the uppermost
+ * leftmost cell. If there are two corners, places the card in the uppermost leftmost corner. If
+ * there are no corners, places the card in the uppermost leftmost grid cell. The card closest to
+ * index 0 that satisfies the greatest number of card flips will be played in the found position.
+ * THIS IS EXTRA CREDIT.
+ */
 public class Strategy1And2 extends AbstractStrategies implements Strategies {
   ReadonlyThreeTriosModel model;
   Strategy1 strategy1;
   Strategy2 strategy2;
 
+  /**
+   * Constructor for Strategy1And2 class.
+   *
+   * @param model a read-only version of the model to gain access to immutable data
+   */
   public Strategy1And2(ReadonlyThreeTriosModel model) {
     this.model = model;
     this.strategy1 = new Strategy1(model);
     this.strategy2 = new Strategy2(model);
   }
 
+  /**
+   * Runs the implementation for strategy 1 and 2 and looks for the best position as well as card to
+   * play at that position. The Point object in the HashMap represents the position on the grid that
+   * could result in the greatest number of cards flipped while the Integer object in the hashmap
+   * represents the card index from the current player's hand that would flip the most number of
+   * cards on the best grid position.
+   *
+   * @return a HashMap object of a Point object and an Integer object where the Point object
+   * represents a tile on the grid to play the card at and the Integer object represents the card
+   * index to play from the current player's hand on that grid tile
+   */
   @Override
-  public HashMap<Point, Integer> runStrategies() {
+  public HashMap<Point, Integer> runStrategy() {
     return getBestScorePositionForAllCardsInHandWithCornerConsideration();
   }
 

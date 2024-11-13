@@ -18,8 +18,18 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
     this.model = model;
   }
 
+  /**
+   * Runs strategy 2 and looks for the best position as well as card to play at that position in
+   * respect to the strategy. The Point object in the HashMap represents the position on the grid
+   * while the Integer object in the Hashmap represents the card index to play from the current
+   * player's hand.
+   *
+   * @return a HashMap object of a Point object and an Integer object where the Point object
+   * represents a tile on the grid to play the card at and the Integer object represents the card
+   * index to play from the current player's hand on that grid tile
+   */
   @Override
-  public HashMap<Point, Integer> runStrategies() {
+  public HashMap<Point, Integer> runStrategy() {
     HashMap<Point, Integer> optimalMove = new HashMap<>();
     optimalMove.put(tieBreakCorner(), findBestCardIdxToPlay());
     return optimalMove;
