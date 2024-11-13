@@ -36,12 +36,12 @@ public class PlayerCardsLayoutPanel extends JPanel {
     int numOfCards = player.getHand().size();
 
     this.setLayout(new GridLayout(numOfCards, 1));
-    setPreferredSize(new Dimension(110, 125 * numOfCards));
+    setPreferredSize(new Dimension(110, numOfCards * 125));
 
     for (int cardIdx = 0; cardIdx < numOfCards; cardIdx++) {
       CardPanel card = new CardPanel(player.getHand().get(cardIdx));
       card.setBackground(player.getPlayersColor().getColor());
-      card.setPreferredSize(new Dimension(150, 125 * numOfCards));
+      card.setPreferredSize(new Dimension(110, 125));
       card.addMouseListener(graphicalView);
       this.add(card);
     }
@@ -61,7 +61,7 @@ public class PlayerCardsLayoutPanel extends JPanel {
     for (int cardIdx = 0; cardIdx < numOfCards; cardIdx++) {
       CardPanel card = new CardPanel(player.getHand().get(cardIdx));
       card.setBackground(player.getPlayersColor().getColor());
-      card.setPreferredSize(new Dimension(150, 125 * numOfCards));
+      card.setPreferredSize(new Dimension(110, 125 * numOfCards));
       card.addMouseListener(graphicalView);
       card.repaint();
       card.revalidate();
