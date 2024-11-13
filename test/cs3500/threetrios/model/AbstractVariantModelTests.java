@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.io.File;
 
-import cs3500.threetrios.model.playervsplayer.PlayerPlayerModel;
 import cs3500.threetrios.model.player.PlayerColor;
 
 /**
