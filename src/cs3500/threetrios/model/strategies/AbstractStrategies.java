@@ -7,6 +7,9 @@ import java.util.List;
 import cs3500.threetrios.model.CellType;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
+/**
+ * An abstract class with common methods for classes implementing strategies.
+ */
 public abstract class AbstractStrategies {
 
   /**
