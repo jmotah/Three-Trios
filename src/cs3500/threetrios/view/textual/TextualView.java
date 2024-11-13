@@ -3,9 +3,9 @@ package cs3500.threetrios.view.textual;
 import java.util.List;
 
 import cs3500.threetrios.model.CellType;
+import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.PlayerColor;
-import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.ThreeTriosView;
 
 /**
@@ -38,16 +38,6 @@ public class TextualView implements ThreeTriosView {
     this.refresh();
   }
 
-  /**
-   * Transmit an error message to the view, in case
-   * the command could not be processed correctly
-   *
-   * @param error the error message
-   */
-  @Override
-  public void showErrorMessage(String error) {
-    throw new IllegalArgumentException(error);
-  }
 
   /**
    * Displays the refreshed game state in a textual manner.
