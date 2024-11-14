@@ -140,8 +140,8 @@ Controller Related Class/Info:
 
 Model Related Class/Info:
     Includes CellType enum, GamePhase enum, GameState enum, ThreeTriosModel interface,
-    ReadonlyThreeTriosModel interface, cards package, grid package, player package, playervsplayer
-    package, and playervscomputer package
+    ReadonlyThreeTriosModel interface, cards package, grid package, player package,
+    PlayerPlayerModel class, strategies package
     [src folder -> cs3500.threetrios.model package]
 
     cards package:
@@ -156,14 +156,10 @@ Model Related Class/Info:
     Includes Player interface, PlayerColor enum, and Player class
     [src folder -> cs3500.threetrios.model.player package]
 
-    playervsplayer package:
-    Includes PlayerPlayerModel class
-    [cs3500.threetrios.model.playervsplayer package]
-
-    playervscomputer package:
-    Includes PlayerComputerModel class
-    [cs3500.threetrios.model.playervscomputer package]
-
+    strategies package:
+    Includes AbstractStrategies class, Strategies interface, Strategy1 class, Strategy1And2 class,
+    and Strategy2 class
+    [src folder -> cs3500.threetrios.model.strategies package]
 
 View Related Class/info
     Includes ThreeTriosView interface, graphical package, and textual package
@@ -239,6 +235,11 @@ Model Testing Related Class/Info:
     player package:
     Includes PlayerTests class
     [test folder -> cs3500.threetrios.model.player package]
+
+    strategies package:
+        Includes MockModelEmpty class, MockModelStrategy1 class, MockStrategy1 class,
+        MockStrategy2 class, Strategy1And2Tests class
+        [test folder -> cs3500.threetrios.model.strategies package]
 
 
 View Testing Related Class/info
