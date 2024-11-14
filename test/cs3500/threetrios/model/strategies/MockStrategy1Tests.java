@@ -9,6 +9,9 @@ import java.util.HashMap;
 
 import cs3500.threetrios.model.ThreeTriosModel;
 
+/**
+ * Represents tests with the MockModelStrategy1 class as the mock model.
+ */
 public class MockStrategy1Tests {
   ThreeTriosModel model;
 

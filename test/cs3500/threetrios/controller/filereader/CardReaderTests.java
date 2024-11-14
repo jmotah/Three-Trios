@@ -20,8 +20,7 @@ public class CardReaderTests {
 
   @Test
   public void testCardReaderValid() {
-    File cardConfig = new File("/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/" +
-            "ThreeTriosBetter/src/cs3500/threetrios/cardconfigs/card_configuration.txt");
+    File cardConfig = new File("cardconfigs/card_configuration.txt");
     CardReader cardReader = createCardReader(cardConfig);
 
     int expected = 41;
@@ -45,8 +44,7 @@ public class CardReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameCardConfigErrorNoCardName() {
     File cardConfigNoCardName = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/cardconfigs/incorrect_card_config_no_name.txt");
+            "cardconfigs/incorrect_card_config_no_name.txt");
     CardReader cardReaderNoCardName = createCardReader(cardConfigNoCardName);
 
     cardReaderNoCardName.readConfiguration();
@@ -55,8 +53,7 @@ public class CardReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameCardConfigErrorMissingCompassNumbers() {
     File cardConfigMissingNumbers = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/cardconfigs/incorrect_card_config_missing_numbers.txt");
+            "cardconfigs/incorrect_card_config_missing_numbers.txt");
     CardReader cardReaderMissingNumbers = createCardReader(cardConfigMissingNumbers);
 
     cardReaderMissingNumbers.readConfiguration();
@@ -65,8 +62,7 @@ public class CardReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameCardConfigNumbersGreaterThanTen() {
     File cardConfigNumGreaterThanTen = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/cardconfigs/incorrect_card_config_num_above_ten.txt");
+            "cardconfigs/incorrect_card_config_num_above_ten.txt");
     CardReader cardReaderNumGreaterThanTen = createCardReader(cardConfigNumGreaterThanTen);
 
     cardReaderNumGreaterThanTen.readConfiguration();
@@ -75,8 +71,7 @@ public class CardReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameCardConfigNumbersLessThanOne() {
     File cardConfigNumGreaterThanTen = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/cardconfigs/incorrect_card_config_num_less_one.txt");
+            "cardconfigs/incorrect_card_config_num_less_one.txt");
     CardReader cardReaderNumGreaterThanTen = createCardReader(cardConfigNumGreaterThanTen);
 
     cardReaderNumGreaterThanTen.readConfiguration();
@@ -85,8 +80,7 @@ public class CardReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameCardConfigEmpty() {
     File cardConfigEmpty = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/cardconfigs/incorrect_card_config_empty.txt");
+            "cardconfigs/incorrect_card_config_empty.txt");
     CardReader cardReaderEmpty = createCardReader(cardConfigEmpty);
 
     cardReaderEmpty.readConfiguration();
@@ -95,8 +89,7 @@ public class CardReaderTests {
   @Test
   public void testModelStartGameCardConfigLowerCaseUpperCaseIntegerAWithThree() {
     File cardConfigLowercaseUppercaseIntegerA = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
-                    "cs3500/threetrios/cardconfigs/card_config_lowercase_uppercase_integer_a.txt");
+            "card_config_lowercase_uppercase_integer_a.txt");
     CardReader cardReaderLowercaseUppercaseIntegerA =
             createCardReader(cardConfigLowercaseUppercaseIntegerA);
 
@@ -111,8 +104,7 @@ public class CardReaderTests {
   @Test
   public void testCardReaderDuplicateCardsDifNames() {
     File cardConfigDupDifName = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
-                    "cs3500/threetrios/cardconfigs/card_config_duplicates_dif_name.txt");
+            "cardconfigs/card_config_duplicates_dif_name.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
     List<PlayingCard> deck = cardReaderDupDifName.readConfiguration();
@@ -129,8 +121,7 @@ public class CardReaderTests {
   @Test (expected = IllegalStateException.class)
   public void testCardReaderDuplicateCardsSameNamesSameValues() {
     File cardConfigDupDifName = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
-                    "cs3500/threetrios/cardconfigs/incorrect_card_config_duplicates_same_name.txt");
+            "cardconfigs/incorrect_card_config_duplicates_same_name.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
     List<PlayingCard> deck = cardReaderDupDifName.readConfiguration();
@@ -139,8 +130,7 @@ public class CardReaderTests {
   @Test (expected = IllegalStateException.class)
   public void testCardReaderDuplicateCardsSameNamesDifValues() {
     File cardConfigDupDifName = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
-                    "cs3500/threetrios/cardconfigs/incorrect_card_config_same_name_dif_value.txt");
+            "cardconfigs/incorrect_card_config_same_name_dif_value.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
     List<PlayingCard> deck = cardReaderDupDifName.readConfiguration();

@@ -9,8 +9,9 @@ import java.util.HashMap;
 
 import cs3500.threetrios.model.ThreeTriosModel;
 
-import static cs3500.threetrios.ThreeTriosGame.playToGridAndBattleWithOptimalMove;
-
+/**
+ * Tests the expected corner is played to when given the mock model MockModelEmpty class.
+ */
 public class MockStrategy2Tests {
 
   ThreeTriosModel model;
@@ -19,7 +20,7 @@ public class MockStrategy2Tests {
 
   @Before
   public void setup() {
-    model = new MockModelEmpty();
+    model = new MockModelEmptyCorners();
 
     strategy = new Strategy2(model);
   }

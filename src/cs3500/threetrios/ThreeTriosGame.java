@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.PlayerPlayerModel;
+import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.strategies.Strategies;
 import cs3500.threetrios.model.strategies.Strategy1And2;
 import cs3500.threetrios.model.strategies.Strategy2;
@@ -33,39 +34,33 @@ public class ThreeTriosGame {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/gridconfigs/grid_configuration.txt");
 
-    gridConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
-                    "cs3500/threetrios/gridconfigs/grid_config_large.txt");
-
     model.startGame(cardConfig, gridConfig);
-
-    model.playToGrid(2, 0, 5);
-    model.battle(2, 0);
-
-    model.playToGrid(5, 0, 0);
-    model.battle(5, 0);
-
-    model.playToGrid(1, 0, 2);
-    model.battle(1, 0);
-
-    model.playToGrid(5, 1, 0);
-    model.battle(5, 1);
-
-    model.playToGrid(2, 5, 4);
-    model.battle(2, 5);
-
-    model.playToGrid(5, 2, 0);
-    model.battle(5, 2);
-
-    model.playToGrid(1, 5, 0);
-    model.battle(1, 5);
-
-    Strategies strategy = new Strategy1And2(model);
-
-    //playToGridAndBattleWithOptimalMove(strategy.runStrategy(), model);
-
     ThreeTriosView view = new GraphicalView(model);
     view.makeVisible();
+
+    model.playToGrid(0, 0, 0);
+    model.battle(0, 0);
+    view.refresh();
+
+    model.playToGrid(2, 2, 0);
+    model.battle(2, 2);
+    view.refresh();
+
+    model.playToGrid(1, 3, 0);
+    model.battle(1, 3);
+    view.refresh();
+
+    model.playToGrid(2, 3, 0);
+    model.battle(2, 3);
+    view.refresh();
+
+    model.playToGrid(1, 2, 1);
+    model.battle(1, 2);
+    view.refresh();
+
+    model.playToGrid(1, 1, 4);
+    model.battle(1, 1);
+    view.refresh();
   }
 
   /**

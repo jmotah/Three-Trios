@@ -21,8 +21,7 @@ public class GridReaderTests {
 
   @Test
   public void testGridReaderValid() {
-    File gridConfig = new File("/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/" +
-            "ThreeTriosBetter/src/cs3500/threetrios/gridconfigs/board_with_holes_two_groups.txt");
+    File gridConfig = new File("gridconfigs/board_with_holes_two_groups.txt");
     GridReader gridReader = createGridReader(gridConfig);
 
     GridTile[][] grid = gridReader.readConfiguration();
@@ -45,8 +44,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameUnreadableRowAndColumnConfiguration() {
     File unreadableRowColumnConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/grid_config_unreadable_row_col.txt");
+            "gridconfigs/grid_config_unreadable_row_col.txt");
     GridReader gridReaderUnreadableRowColumnConfig = createGridReader(unreadableRowColumnConfig);
 
     gridReaderUnreadableRowColumnConfig.readConfiguration();
@@ -55,8 +53,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameUnreadableGridConfiguration() {
     File unreadableGridConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/grid_config_unreadable_grid.txt");
+            "gridconfigs/grid_config_unreadable_grid.txt");
     GridReader gridReaderUnreadableGridConfig = createGridReader(unreadableGridConfig);
 
     gridReaderUnreadableGridConfig.readConfiguration();
@@ -65,8 +62,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameDoesGridContainNullField() {
     File nullFieldGrid = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/grid_config_null_grid_field.txt");
+            "gridconfigs/grid_config_null_grid_field.txt");
     GridReader gridReaderNullField = createGridReader(nullFieldGrid);
 
     gridReaderNullField.readConfiguration();
@@ -75,8 +71,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridConfigErrorTooManyRows() {
     File gridConfigTooManyRows = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/incorrect_grid_config_rows_too_many.txt");
+            "gridconfigs/incorrect_grid_config_rows_too_many.txt");
     GridReader gridReaderTooManyRows = createGridReader(gridConfigTooManyRows);
 
     gridReaderTooManyRows.readConfiguration();
@@ -85,8 +80,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridConfigErrorTooManyColumns() {
     File gridConfigTooManyColumns = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/incorrect_grid_config_columns_too_many.txt");
+            "gridconfigs/incorrect_grid_config_columns_too_many.txt");
     GridReader gridReaderTooManyColumns = createGridReader(gridConfigTooManyColumns);
 
     gridReaderTooManyColumns.readConfiguration();
@@ -95,8 +89,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridConfigErrorNotEnoughRows() {
     File gridConfigTooManyRows = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/incorrect_grid_config_rows_too_little.txt");
+            "gridconfigs/incorrect_grid_config_rows_too_little.txt");
     GridReader gridReaderTooManyRows = createGridReader(gridConfigTooManyRows);
 
     gridReaderTooManyRows.readConfiguration();
@@ -105,8 +98,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridConfigErrorNotEnoughColumns() {
     File gridConfigTooManyColumns = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/incorrect_grid_config_columns_too_little.txt");
+            "gridconfigs/incorrect_grid_config_columns_too_little.txt");
     GridReader gridReaderTooManyColumns = createGridReader(gridConfigTooManyColumns);
 
     gridReaderTooManyColumns.readConfiguration();
@@ -116,8 +108,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridConfigEmpty() {
     File gridConfigEmpty = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/incorrect_grid_config_empty.txt");
+            "gridconfigs/incorrect_grid_config_empty.txt");
     GridReader gridReaderEmpty = createGridReader(gridConfigEmpty);
 
     gridReaderEmpty.readConfiguration();
@@ -126,8 +117,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridConfigNonXOrCForGrid() {
     File gridConfigNoXCForGrid = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/incorrect_grid_config_non_xc_for_grid.txt");
+            "gridconfigs/incorrect_grid_config_non_xc_for_grid.txt");
     GridReader gridReaderNoXCForGrid = createGridReader(gridConfigNoXCForGrid);
 
     gridReaderNoXCForGrid.readConfiguration();
@@ -136,8 +126,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridConfigStringsForIntRow() {
     File gridConfigStringsForIntRow = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/incorrect_grid_config_strings_for_int_row.txt");
+            "gridconfigs/incorrect_grid_config_strings_for_int_row.txt");
     GridReader gridReaderStringsForIntRow = createGridReader(gridConfigStringsForIntRow);
 
     gridReaderStringsForIntRow.readConfiguration();
@@ -146,8 +135,7 @@ public class GridReaderTests {
   @Test(expected = IllegalArgumentException.class)
   public void testModelStartGameGridConfigIntegersForGrid() {
     File gridConfigIntegersForGrid = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/test/" +
-                    "cs3500/threetrios/gridconfigs/incorrect_grid_config_integers_for_grid.txt");
+            "gridconfigs/incorrect_grid_config_integers_for_grid.txt");
     GridReader gridReaderIntegersForGrid = createGridReader(gridConfigIntegersForGrid);
 
     gridReaderIntegersForGrid.readConfiguration();
@@ -156,8 +144,7 @@ public class GridReaderTests {
   @Test
   public void testModelStartGameGridConfigLowerCaseLettersForGrid() {
     File gridConfigLowercaseLetters = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
-                    "cs3500/threetrios/gridconfigs/grid_config_lowercase_letters.txt");
+            "gridconfigs/grid_config_lowercase_letters.txt");
     GridReader gridReaderLowercaseLetters = createGridReader(gridConfigLowercaseLetters);
 
     Grid[][] grid = gridReaderLowercaseLetters.readConfiguration();

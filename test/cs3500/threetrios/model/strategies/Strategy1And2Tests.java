@@ -11,8 +11,10 @@ import java.util.HashMap;
 import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 
+/**
+ * Tests to verify the chained version of strategies 1 and 2 works as intended.
+ */
 public class Strategy1And2Tests {
-
   ThreeTriosModel model;
 
   Strategies strategy;

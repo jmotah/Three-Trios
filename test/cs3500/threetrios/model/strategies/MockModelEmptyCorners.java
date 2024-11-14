@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.model.GamePhase;
-import cs3500.threetrios.model.GameState;
 import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.cards.CardNumbers;
@@ -15,11 +13,14 @@ import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
 
-public class MockModelEmpty implements ThreeTriosModel {
+/**
+ * Represents a mock model with all the cards played in except the four corners.
+ */
+public class MockModelEmptyCorners implements ThreeTriosModel {
 
   ThreeTriosModel model;
 
-  public MockModelEmpty() {
+  public MockModelEmptyCorners() {
     model = new PlayerPlayerModel();
   }
 

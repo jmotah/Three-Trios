@@ -13,6 +13,10 @@ import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
 
+/**
+ * Represents a new mock model with the first row filled in and the last column of the second row
+ * tile filled in.
+ */
 public class MockModelStrategy1 implements ThreeTriosModel {
   ThreeTriosModel model;
 
