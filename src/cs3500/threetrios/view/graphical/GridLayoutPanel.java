@@ -1,8 +1,15 @@
 package cs3500.threetrios.view.graphical;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Font;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.SwingConstants;
 
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.PlayingCard;
@@ -17,25 +24,24 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
 
   private final int rows;
   private final int columns;
-  private final GraphicalView graphicalView;
   private final ReadonlyThreeTriosModel model;
+  private final GraphicalView graphicalView;
   private GridTile[][] grid;
 
   /**
    * Represents a constructor for the GridLayoutPanel class. Sets up the initial visual view for
    * the grid layout.
    *
-   * @param rows          the number of rows for the grid layout
-   * @param columns       the number of columns for the grid layout
-   * @param model         a read only version of the model to gain immutable data from
-   * @param graphicalView the GraphicalView class object that oversees the grid layout
+   * @param rows       the number of rows for the grid layout
+   * @param columns    the number of columns for the grid layout
+   * @param model      a read only version of the model to gain immutable data from
    */
   GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model, GraphicalView graphicalView) {
     this.rows = rows;
     this.columns = columns;
     this.model = model;
-    this.grid = model.getGrid();
     this.graphicalView = graphicalView;
+    this.grid = model.getGrid();
 
     this.setLayout(new GridLayout(rows, columns));
     this.setPreferredSize(new Dimension(400, 400));
@@ -84,7 +90,6 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
         break;
       case CARD_CELL:
         panelTile.setBackground(Color.YELLOW);
-        panelTile.addMouseListener(graphicalView);
         break;
       case PLAYER_CELL:
         panelTile.setBackground(tile.getWhichPlayersTile().getPlayersColor().getColor());
@@ -123,6 +128,9 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
         panelTile.add(south, BorderLayout.SOUTH);
         panelTile.add(east, BorderLayout.EAST);
         panelTile.add(west, BorderLayout.WEST);
+        break;
+      default:
+        break;
     }
   }
 }

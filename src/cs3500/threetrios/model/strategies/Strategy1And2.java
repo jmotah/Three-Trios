@@ -1,6 +1,6 @@
 package cs3500.threetrios.model.strategies;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.List;
 import java.util.HashMap;
 
@@ -39,8 +39,8 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
    * cards on the best grid position.
    *
    * @return a HashMap object of a Point object and an Integer object where the Point object
-   * represents a tile on the grid to play the card at and the Integer object represents the card
-   * index to play from the current player's hand on that grid tile
+   *     represents a tile on the grid to play the card at and the Integer object represents the
+   *     card index to play from the current player's hand on that grid tile
    */
   @Override
   public HashMap<Point, Integer> runStrategy() {
@@ -54,9 +54,9 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
    * battling.
    *
    * @return a HashMap objects of a Point object and an Integer object representing a grid cell
-   * position and card index in the players hand, respectively. INVARIANCE: The returned HashMap
-   * object only contains one item within it which contains the best position to play at with the
-   * best card to play at that position
+   *     position and card index in the players hand, respectively. INVARIANCE: The returned HashMap
+   *     object only contains one item within it which contains the best position to play at with
+   *     the best card to play at that position
    */
   private HashMap<Point, Integer> getBestScorePositionForAllCardsInHandWithCornerConsideration() {
     int highestScore = 0;
@@ -77,7 +77,9 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
       Point comparePosition = getBestScorePosition(allPossibilities.get(i));
 
       if (highestScore == compareScore) {
-        if (strategy2.isACornerPosition(highestScorePosition) && strategy2.isACornerPosition(comparePosition)) {
+        if (strategy2.isACornerPosition(highestScorePosition) &&
+                strategy2.isACornerPosition(comparePosition)) {
+          //State should stay the same; the same card is the current best score and position
         } else if (strategy2.isACornerPosition(highestScorePosition)) {
           //State should stay the same; the same card is the current best score and position
         } else if (strategy2.isACornerPosition(comparePosition)) {
@@ -86,7 +88,8 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
           bestScoreCardIdxInHand = i;
           bestPositionAndCardIdx.put(highestScorePosition, bestScoreCardIdxInHand);
         } else {
-          Point comparisonDonePosition = comparePositions(highestScorePosition, comparePosition);
+          Point comparisonDonePosition = comparePositions(highestScorePosition,
+                  comparePosition);
 
           if (comparePosition == comparisonDonePosition) {
             bestPositionAndCardIdx.remove(highestScorePosition);
@@ -114,7 +117,7 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
    *                              the positions on a grid and Integers are the number of cards that
    *                              are flipped if you place a card there
    * @return the best position to play to get the highest score from a given HashMap of objects of
-   * Points and Integers
+   *     Points and Integers
    */
   private Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
     if (possibleMovesForACard == null) {
@@ -131,14 +134,17 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
       Point comparePosition = keys.get(i);
 
       if (highestScore == compareValue) {
-        if (strategy2.isACornerPosition(highestScorePosition) && strategy2.isACornerPosition(comparePosition)) {
-          highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+        if (strategy2.isACornerPosition(highestScorePosition) &&
+                strategy2.isACornerPosition(comparePosition)) {
+          highestScorePosition = comparePositions(highestScorePosition,
+                  comparePosition);
         } else if (strategy2.isACornerPosition(highestScorePosition)) {
           //State should stay the same; the same card is the current best score and position
         } else if (strategy2.isACornerPosition(comparePosition)) {
           highestScorePosition = comparePosition;
         } else {
-          highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+          highestScorePosition = comparePositions(highestScorePosition,
+                  comparePosition);
         }
       } else if (highestScore < compareValue) {
         highestScorePosition = comparePosition;

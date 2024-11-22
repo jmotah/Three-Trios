@@ -1,8 +1,10 @@
 package cs3500.threetrios.view.graphical;
 
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.event.MouseListener;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import cs3500.threetrios.model.player.Players;
 
@@ -58,7 +60,6 @@ public class PlayerCardsLayoutPanel extends JPanel implements ThreeTriosLayoutVi
       CardPanel card = new CardPanel(player.getHand().get(cardIdx));
       card.setBackground(player.getPlayersColor().getColor());
       card.setPreferredSize(new Dimension(110, 125 * numOfCards));
-      card.addMouseListener(graphicalView);
       card.repaint();
       card.revalidate();
       this.add(card);

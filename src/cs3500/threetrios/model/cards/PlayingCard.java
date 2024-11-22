@@ -82,8 +82,7 @@ public class PlayingCard implements Cards {
    * primarily used to consider the "A" case.
    *
    * @param direction the specific direction to grab the value from
-   * @return the String value of the PlayingCard object at the specific direction, accounting for
-   * "A"
+   * @return the String value of the PlayingCard object at the specific direction, accounting for A
    */
   public String getValueAsString(CardCompass direction) {
     if (direction == null) {

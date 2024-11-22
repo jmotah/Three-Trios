@@ -16,4 +16,8 @@ public interface ThreeTriosModel extends ReadonlyThreeTriosModel {
   void battle(int row, int column);
 
   void updatePlayerTurn();
+
+  void addListener(ThreeTriosModelListener listener);
+
+  void removeListener(ThreeTriosModelListener listener);
 }

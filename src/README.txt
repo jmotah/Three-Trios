@@ -249,10 +249,28 @@ View Testing Related Class/info
 
 
 CHANGES FROM PREVIOUS WORK:
+    - Created a read-only model interface class which only holds immutable data
+    - Altered the View Interface
+    - Added a getColor method within the PlayerColor enum and a Color object associated to each
+      PlayerColor object within the enum
+    - Made un-private fields private
+    - Refactored Source Organization to match MVC more
+    - Added getValueString() method to get the String object of the value from a CardNumbers enum
+      object
 
-- Moved the TextualView class into a sub package called text
-- Added view interface
-- Added a get color method within the PlayerColor enum and a color associated to each PlayerColor
-    within the enum
-- Made fields private
-- Refactored Source Organization to match MVC more
+EXTRA CREDIT:
+    - Created a chain version of Strategy 1 and Strategy 2 in the Strategy1And2 class.
+      Priority is placed on finding the position on the grid that
+     * will result in the most number of cards flipped. Then, it analyzes if one of those spots is a
+     * corner or not. If it is places it in the corner, if it is not places it in the uppermost
+     * leftmost cell. If there are two corners, places the card in the uppermost leftmost corner. If
+     * there are no corners, places the card in the uppermost leftmost grid cell. The card closest to
+     * index 0 that satisfies the greatest number of card flips will be played in the found position.
+
+
+CHANGES FROM PREVIOUS WORK:
+    - addition of public method in GraphicalView class to get the GridPanel and layout panels
+    - removed all mouse related events from GraphicalView class and it's sub classes
+    - and moved them to controller
+    - Model added listeners and notification to all listeners
+    - Added showing error messages to view interface

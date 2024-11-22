@@ -1,6 +1,6 @@
 package cs3500.threetrios.model.strategies;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +32,8 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
    * player's hand.
    *
    * @return a HashMap object of a Point object and an Integer object where the Point object
-   * represents a tile on the grid to play the card at and the Integer object represents the card
-   * index to play from the current player's hand on that grid tile
+   *     represents a tile on the grid to play the card at and the Integer object represents the
+   *     card index to play from the current player's hand on that grid tile
    */
   @Override
   public HashMap<Point, Integer> runStrategy() {
@@ -71,7 +71,7 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
    * @param highestDirectionalScore the highest directional score found from comparing cards
    * @param bestCardIdx             the best found card index
    * @return the card index that is greatest in value if played to the given position if it is a
-   * corner; if it is not a corner, returns 0
+   *     corner; if it is not a corner, returns 0
    */
   private int checkIfPositionIsACorner(Point bestCorner, List<PlayingCard> hand,
                                        int highestDirectionalScore, int bestCardIdx) {
@@ -93,7 +93,8 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
       bestCardIdx = cornerOperations(hand,
               CardCompass.NORTH_VALUE, CardCompass.EAST_VALUE,
               highestDirectionalScore, bestCardIdx);
-    } else if (bestCorner.getX() == model.getGrid().length - 1 && bestCorner.getY() == model.getGrid()[0].length - 1) {
+    } else if (bestCorner.getX() == model.getGrid().length - 1 && bestCorner.getY() ==
+            model.getGrid()[0].length - 1) {
       //North, west case
 
       bestCardIdx = cornerOperations(hand,
@@ -115,7 +116,7 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
    *                                value from the "battle-able" sides
    * @param bestCardIdx             the best found card's index
    * @return the card index with the greatest score calculated from adding each directional card
-   * value from the "battle-able" sides
+   *     value from the "battle-able" sides
    */
   private static int cornerOperations(List<PlayingCard> hand, CardCompass direction1,
                                       CardCompass direction2, int highestDirectionalScore,
@@ -139,8 +140,8 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
    * returns the uppermost leftmost position out of all possible playable spots on the grid.
    *
    * @return the uppermost leftmost position to play to out of the found corners; if no corners
-   * are found, it returns the uppermost leftmost position to play to out of every possible move on
-   * the grid
+   *     are found, it returns the uppermost leftmost position to play to out of every possible
+   *     move on the grid
    */
   public Point tieBreakCorner() {
     List<Point> allCorners = findAllCorners();
@@ -152,7 +153,8 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
           upperMostLeftMostOpenCorner = allCorners.get(corner);
         } else {
           upperMostLeftMostOpenCorner = comparePositions(
-                  upperMostLeftMostOpenCorner, allCorners.get(corner));
+                  upperMostLeftMostOpenCorner,
+                  allCorners.get(corner));
         }
       }
     } else {
@@ -161,7 +163,8 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
         if (upperMostLeftMostOpenCorner == null) {
           upperMostLeftMostOpenCorner = allPossibilities.get(possibility);
         } else {
-          upperMostLeftMostOpenCorner = comparePositions(upperMostLeftMostOpenCorner,
+          upperMostLeftMostOpenCorner = comparePositions(
+                  upperMostLeftMostOpenCorner,
                   allPossibilities.get(possibility));
         }
       }

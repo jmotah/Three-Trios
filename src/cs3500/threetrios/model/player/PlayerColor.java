@@ -1,6 +1,6 @@
 package cs3500.threetrios.model.player;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * An enumeration class to represent the two legal players in the game.

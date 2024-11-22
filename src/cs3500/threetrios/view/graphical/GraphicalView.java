@@ -1,12 +1,17 @@
 package cs3500.threetrios.view.graphical;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.BorderLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.BorderFactory;
 
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
+import cs3500.threetrios.model.ThreeTriosModelListener;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.view.ThreeTriosView;
 
@@ -15,7 +20,7 @@ import cs3500.threetrios.view.ThreeTriosView;
  * the grid panel, the individual grid panel tiles, each hand panel, and each individual card
  * on each hand panel.
  */
-public class GraphicalView extends JFrame implements ThreeTriosView, MouseListener {
+public class GraphicalView extends JFrame implements ThreeTriosView {
 
   private final ReadonlyThreeTriosModel model;
 
@@ -91,134 +96,21 @@ public class GraphicalView extends JFrame implements ThreeTriosView, MouseListen
   }
 
   /**
-   * Checks to see if the mouse was clicked. Performs various actions depending on what was clicked.
-   * If a playing card was clicked, and it is the respective player's turn, highlight the card
-   * and waits for further directions. If a grid tile was clicked, highlights the grid tile and
-   * waits for further directions.
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    GridPanel clickedGridCell = null;
-    CardPanel clickedCardPanel = null;
-
-    if (e.getSource() instanceof GridPanel) {
-      clickedGridCell = (GridPanel) e.getSource();
-    } else if (e.getSource() instanceof CardPanel) {
-      clickedCardPanel = (CardPanel) e.getSource();
-    } else {
-      return;
-    }
-
-    if (clickedGridCell != null) {
-      if (currentClickedGridCell == clickedGridCell) {
-        clickedGridCell.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-        currentClickedGridCell = null;
-        return;
-      } else if (currentClickedGridCell != null) {
-        currentClickedGridCell.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-      }
-
-      int[] rowAndColumn = convertGridIdxToRowAndColumn(clickedGridCell);
-
-      System.out.println("Grid cell clicked -- Row: " +
-              rowAndColumn[0] + ", Column: " + rowAndColumn[1]);
-
-      clickedGridCell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
-      currentClickedGridCell = clickedGridCell;
-      return;
-    }
-
-    //Keeps it turn-dependent so red turn cannot click blue cards and vice versa
-    if (!model.getCurrentTurnPlayer().getHand().contains(clickedCardPanel.getCardPanelCard())) {
-      return;
-    }
-
-    if (currentlyClickedCardPanel == clickedCardPanel) {
-      clickedCardPanel.setBorder(
-              BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-      currentlyClickedCardPanel = null;
-      return;
-    } else if (currentlyClickedCardPanel != null) {
-      currentlyClickedCardPanel.setBorder(
-              BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-    }
-
-    System.out.println("Card Clicked! -- " +
-            "Player: " + model.getCurrentTurnPlayer().getPlayersColor().toString()
-            + " -- Index: " + model.getCurrentTurnPlayer().getHand().indexOf(
-            clickedCardPanel.getCardPanelCard()));
-
-    clickedCardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
-    currentlyClickedCardPanel = clickedCardPanel;
-  }
-
-  /**
-   * Checks to see if the mouse was pressed down.
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void mousePressed(MouseEvent e) {
-    //Do not need to check if the mouse was pressed down, so method is left empty.
-  }
-
-  /**
-   * Checks to see if the mouse was released.
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    //Do not need to check if the mouse was released, so method is left empty.
-  }
-
-  /**
-   * Checks to see if the mouse entered a certain space.
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    //Do not need to check if the mouse entered, so method is left empty.
-  }
-
-  /**
-   * Checks to see if the mouse exited a certain space.
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void mouseExited(MouseEvent e) {
-    //Do not need to check if the mouse exited, so method is left empty.
-  }
-
-  /**
    * Updates the graphical frame by updating the title to the next player's turn.
    */
   private void updateFrame() {
     this.setTitle("Current Player: " + model.getCurrentTurnPlayer().getPlayersColor().toString());
   }
 
-  /**
-   * Converts a grid index to the respective row and column.
-   *
-   * @param clickedGridPanel the currently clicked GridPanel object
-   * @return an array of integers where the 0th index is the row the clicked GridPanel object is
-   * stored in while the 1st index is the column the clicked GridPanel object is stored in
-   */
-  private int[] convertGridIdxToRowAndColumn(GridPanel clickedGridPanel) {
-    int totalNumOfCells = model.getGrid().length * model.getGrid()[0].length;
-    int[] rowAndColumn = new int[2];
+  public PlayerCardsLayoutPanel getRedCardPanel() {
+    return redCardPanel;
+  }
 
-    for (int i = 0; i < totalNumOfCells; i++) {
-      if (gridPanel.getComponents()[i] == clickedGridPanel) {
-        rowAndColumn[0] = i / model.getGrid()[0].length;
-        rowAndColumn[1] = i % model.getGrid()[0].length;
-        break;
-      }
-    }
-    return rowAndColumn;
+  public PlayerCardsLayoutPanel getBlueCardPanel() {
+    return blueCardPanel;
+  }
+
+  public GridLayoutPanel getGridPanel() {
+    return gridPanel;
   }
 }

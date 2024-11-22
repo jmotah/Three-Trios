@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.HashMap;
 
 import cs3500.threetrios.model.ThreeTriosModel;

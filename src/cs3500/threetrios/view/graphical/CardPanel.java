@@ -1,8 +1,14 @@
 package cs3500.threetrios.view.graphical;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.PlayingCard;

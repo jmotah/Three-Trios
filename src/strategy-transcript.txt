@@ -1,3 +1,15 @@
-We did not utilize mocks. Instead, to create the environment for our tests, we created various
-card/board configurations and played the ThreeTrios game within the test until the desired point
-to perform our test at.
+MockModelEmptyCorners class:
+    Fills in every cell except the four corners with random playing cards. Setups the test to
+    prepare for strategy 2 to verify that it plays to the correct corner. The grid size is a 3x3.
+
+MockModelStrategy1 class:
+    Fills in the entire first row with random playing cards as well as placing a card within the
+    second row and last column. Setups the test to prepare for strategy 1 to verify that it plays
+    to the grid tile to result in the most number of cards flipped. The grid size is 3x3.
+
+
+As well as mocks, we created numerous environments for our tests to test then with asserted. We
+created various card/board configurations and played the ThreeTrios game within the test until the
+desired point to perform our test at. These assertions have a majority of our strategy tests. The
+expected HashMap<Point, Integer> works by having the Point object to represent the position on the
+grid while the Integer object represents the card index to play to that position.

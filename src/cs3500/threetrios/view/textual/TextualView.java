@@ -7,6 +7,8 @@ import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.view.ThreeTriosView;
+import cs3500.threetrios.view.graphical.GridLayoutPanel;
+import cs3500.threetrios.view.graphical.PlayerCardsLayoutPanel;
 
 /**
  * A textual view for the Three Trios game. Is in charge of displaying the current player's turn,
@@ -49,6 +51,21 @@ public class TextualView implements ThreeTriosView {
     } else {
       System.out.println(endGameMessage());
     }
+  }
+
+  @Override
+  public PlayerCardsLayoutPanel getRedCardPanel() {
+    return null;
+  }
+
+  @Override
+  public PlayerCardsLayoutPanel getBlueCardPanel() {
+    return null;
+  }
+
+  @Override
+  public GridLayoutPanel getGridPanel() {
+    return null;
   }
 
   /**

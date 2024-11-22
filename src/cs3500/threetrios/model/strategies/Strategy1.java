@@ -1,6 +1,6 @@
 package cs3500.threetrios.model.strategies;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,8 +37,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * position.
    *
    * @return a HashMap object of a Point object and an Integer object where the Point object
-   * represents a tile on the grid to play the card at and the Integer object represents the card
-   * index to play from the current player's hand on that grid tile
+   *     represents a tile on the grid to play the card at and the Integer object represents the
+   *     card index to play from the current player's hand on that grid tile
    */
   @Override
   public HashMap<Point, Integer> runStrategy() {
@@ -52,9 +52,9 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * battling.
    *
    * @return a HashMap objects of a Point object and an Integer object representing a grid cell
-   * position and card index in the players hand, respectively. INVARIANCE: The returned HashMap
-   * object only contains one item within it which contains the best position to play at with the
-   * best card to play at that position
+   *     position and card index in the players hand, respectively. INVARIANCE: The returned HashMap
+   *     object only contains one item within it which contains the best position to play at with
+   *     the best card to play at that position
    */
   private HashMap<Point, Integer> getBestScorePositionForAllCardsInHand() {
     int highestScore = 0;
@@ -74,7 +74,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
       Point comparePosition = getBestScorePosition(allPossibilities.get(i));
 
       if (highestScore == compareScore) {
-        Point comparisonDonePosition = comparePositions(highestScorePosition, comparePosition);
+        Point comparisonDonePosition = comparePositions(highestScorePosition,
+                comparePosition);
 
         if (comparePosition == comparisonDonePosition) {
           bestPositionAndCardIdx.remove(highestScorePosition);
@@ -101,7 +102,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    *                              the positions on a grid and Integers are the number of cards that
    *                              are flipped if you place a card there
    * @return the best position to play to get the highest score from a given HashMap of objects of
-   * Points and Integers
+   *     Points and Integers
    */
   protected Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
     if (possibleMovesForACard == null) {
@@ -119,7 +120,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
 
       if (highestScore == compareValue) {
 
-        highestScorePosition = comparePositions(highestScorePosition, comparePosition);
+        highestScorePosition = comparePositions(highestScorePosition,
+                comparePosition);
       } else if (highestScore < compareValue) {
         highestScorePosition = comparePosition;
       }
@@ -150,14 +152,15 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * moves/spaces to play to.
    *
    * @return return a list of HashMap objects of type Point (key) and Integer (value) where each
-   * Point object represents the position of a tile on a grid and each Integer object represents
-   * the number of cards that would be flipped if the specified card was played to that position.
-   * Each index within the list represents the index of the card emulating battle with (ex. the
-   * 0th index HashMap object within the list represents the positions and scores of emulating battle
-   * with the 0th card index in the player's hand; the 1st index HashMap object is for the 1st card
-   * index in the player's hand and so on
+   *     Point object represents the position of a tile on a grid and each Integer object represents
+   *     the number of cards that would be flipped if the specified card was played to that position
+   *     Each index within the list represents the index of the card emulating battle with (ex. the
+   *     0th index HashMap object within the list represents the positions and scores of emulating
+   *     battle with the 0th card index in the player's hand; the 1st index HashMap object is for
+   *     the 1st card index in the player's hand and so on
    */
-  protected java.util.List<HashMap<Point, Integer>> emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
+  protected java.util.List<HashMap<Point, Integer>>
+      emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
     java.util.List<PlayingCard> hand = model.getCurrentTurnPlayer().getHand();
     java.util.List<HashMap<Point, Integer>> allPossibleMovesWithScores = new ArrayList<>();
 
@@ -174,8 +177,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    *
    * @param cardIdxInHand the card in the player's hand to emulate battle for
    * @return returns a HashMap object of type Point (key) and Integer (value) where each Point
-   * object represents the position of a tile on a grid and each Integer object represents the
-   * number of cards that would be flipped if the specified card was played to that position.
+   *     object represents the position of a tile on a grid and each Integer object represents the
+   *     number of cards that would be flipped if the specified card was played to that position.
    */
   protected HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
           int cardIdxInHand) {
@@ -206,7 +209,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * This battling occurs on a copy of a grid, so it does not take place on the true game grid.
    *
    * @param row           the desired row index to initiate the battle with; number is 0-index based
-   * @param column        the desired column index to initiate the battle with; number is 0-index based
+   * @param column        the desired column index to initiate the battle with; number is 0-index
+   *                      based
    * @param cardIdxInHand the index of the card in the player's hand to place at the desired
    *                      row and column index
    * @param grid          the grid to perform the battling on
@@ -219,7 +223,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
     } else if (row < 0 || row >= grid.length ||
             column < 0 || column >= grid[0].length) {
       throw new IllegalArgumentException("Row and/or column index out of bounds!");
-    } else if (cardIdxInHand < 0 || cardIdxInHand >= model.getCurrentTurnPlayer().getHand().size()) {
+    } else if (cardIdxInHand < 0 ||
+            cardIdxInHand >= model.getCurrentTurnPlayer().getHand().size()) {
       throw new IllegalArgumentException("Given card index out of bounds!");
     }
 
@@ -255,10 +260,14 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
 
     GridTile placedTile = grid[row][column];
 
-    score += battleSpecificDirection(placedTile, row - 1, column, CardCompass.NORTH_VALUE, grid);
-    score += battleSpecificDirection(placedTile, row + 1, column, CardCompass.SOUTH_VALUE, grid);
-    score += battleSpecificDirection(placedTile, row, column + 1, CardCompass.EAST_VALUE, grid);
-    score += battleSpecificDirection(placedTile, row, column - 1, CardCompass.WEST_VALUE, grid);
+    score += battleSpecificDirection(placedTile, row - 1, column,
+            CardCompass.NORTH_VALUE, grid);
+    score += battleSpecificDirection(placedTile, row + 1, column,
+            CardCompass.SOUTH_VALUE, grid);
+    score += battleSpecificDirection(placedTile, row, column + 1,
+            CardCompass.EAST_VALUE, grid);
+    score += battleSpecificDirection(placedTile, row, column - 1,
+            CardCompass.WEST_VALUE, grid);
     return score;
   }
 

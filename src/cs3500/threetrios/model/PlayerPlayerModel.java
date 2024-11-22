@@ -26,6 +26,8 @@ public class PlayerPlayerModel implements ThreeTriosModel {
   private GameState currentGameState = GameState.NOT_STARTED;
   private GamePhase currentGamePhase;
 
+  private List<ThreeTriosModelListener> listeners = new ArrayList<>();
+
   /**
    * The grid is 0-index based. As a result, the first row and first column of the grid is at index
    * or row 0 and column 0 in the grid.
@@ -33,8 +35,6 @@ public class PlayerPlayerModel implements ThreeTriosModel {
    */
   private GridTile[][] grid;
 
-  private int rows;
-  private int columns;
   private int handSize;
 
   /**
@@ -70,8 +70,8 @@ public class PlayerPlayerModel implements ThreeTriosModel {
       this.deck = cardReader.readConfiguration();
       this.grid = gridReader.readConfiguration();
 
-      this.rows = grid.length;
-      this.columns = grid[0].length;
+      int rows = grid.length;
+      int columns = grid[0].length;
 
       int gridCardCellCount = getNumCardCells();
 
@@ -169,6 +169,7 @@ public class PlayerPlayerModel implements ThreeTriosModel {
     currentGamePhase = GamePhase.PLACING;
     updatePlayerTurn();
     checkAndSetForGameOver();
+    alertListeners();
   }
 
   /**
@@ -500,5 +501,21 @@ public class PlayerPlayerModel implements ThreeTriosModel {
 
     currentPlayersTurn = playerRed;
     currentGamePhase = GamePhase.PLACING;
+  }
+
+  @Override
+  public void addListener(ThreeTriosModelListener listener) {
+    listeners.add(listener);
+  }
+
+  @Override
+  public void removeListener(ThreeTriosModelListener listener) {
+    listeners.remove(listener);
+  }
+
+  private void alertListeners() {
+    for (ThreeTriosModelListener listener : listeners) {
+      listener.modelWasUpdated();
+    }
   }
 }

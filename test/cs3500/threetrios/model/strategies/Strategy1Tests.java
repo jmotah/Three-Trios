@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Point;
 import java.io.File;
 import java.util.HashMap;
 
@@ -22,14 +22,19 @@ public class Strategy1Tests {
   @Before
   public void setup() {
     this.model = new PlayerPlayerModel();
-    this.cardConfig = new File("/Users/ayush/Desktop/ThreeTrios/src/cs3500/threetrios/cardconfigs/randomized_card_configuration.txt");
-    this.gridConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/gridconfigs/grid_config_large.txt");
+    this.cardConfig = new File(
+            "/Users/ayush/Desktop/ThreeTrios/src/cs3500/threetrios/cardconfigs/" +
+                    "randomized_card_configuration.txt");
+    this.gridConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/" +
+            "gridconfigs/grid_config_large.txt");
   }
 
   @Test
   public void testStrategyOnePlacingCardDecidingBetweenTwoPositions() {
-    this.cardConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/cardconfigs/card_config_standard.txt");
-    this.gridConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/gridconfigs/grid_config_getBestScorePositionForAllCardsInHand.txt");
+    this.cardConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/" +
+            "cardconfigs/card_config_standard.txt");
+    this.gridConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/" +
+            "gridconfigs/grid_config_getBestScorePositionForAllCardsInHand.txt");
 
     this.model.startGame(this.cardConfig, this.gridConfig);
     Strategies strategyOne = new Strategy1(this.model);
