@@ -30,12 +30,10 @@ public class ThreeTriosGame {
    */
   public static void main(String[] args) {
     File cardConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
-                    "cs3500/threetrios/cardconfigs/randomized_card_configuration.txt");
+            "src/cs3500/threetrios/cardconfigs/randomized_card_configuration.txt");
 
     File gridConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
-                    "cs3500/threetrios/gridconfigs/grid_configuration.txt");
+            "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
 
     if (args.length == 0) {
       throw new IllegalArgumentException("A game type must be specified!");
