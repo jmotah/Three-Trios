@@ -3,6 +3,8 @@ package cs3500.threetrios.controller;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -158,31 +160,8 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
   }
 
   /**
-   * Places a card to a grid cell and resets the logic of clicking a card and grid.
-   *
-   * @param clickedGridPanel the clicked grid panel to play to
-   */
-  private void placeCardToGridCell(GridPanel clickedGridPanel) {
-    if (clickedGridPanel == null) {
-      throw new IllegalArgumentException("ClickedGridPanel cannot be null");
-    }
-
-    int cardIndex = model.getPlayerOfColor(player.getPlayersColor()).getHand().indexOf(
-            currentlyClickedCardPanel.getCardPanelCard());
-
-    int[] rowAndColumn = convertGridIdxToRowAndColumn(clickedGridPanel);
-    int row = rowAndColumn[0];
-    int column = rowAndColumn[1];
-
-    model.playToGrid(row, column, cardIndex);
-    model.battle(row, column);
-
-    currentlyClickedCardPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-    currentlyClickedCardPanel = null;
-  }
-
-  /**
-   * Handles clicking a card on the view.
+   * Handles clicking a card on the view. Ensures the card clicked is that player's card by the
+   * card's name and not it's values.
    *
    * @param e the respective mouse event for clicking a card
    */
@@ -197,7 +176,21 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
 
     CardPanel clickedCardPanel = (CardPanel) e.getSource();
 
-    clickingACardLogic(clickedCardPanel);
+    List<String> listOfCardNames = new ArrayList<>();
+    Players modelPlayer = model.getPlayerOfColor(player.getPlayersColor());
+
+    for (int i = 0; i < modelPlayer.getHand().size(); i++) {
+      listOfCardNames.add(modelPlayer.getHand().get(i).getName());
+    }
+
+    if (!listOfCardNames.contains(clickedCardPanel.getCardPanelCard().getName())) {
+      this.view.showErrorMessage("This is not your card!");
+      return;
+    }
+
+    int cardIndex = listOfCardNames.indexOf(clickedCardPanel.getCardPanelCard().getName());
+
+    selectCard(cardIndex);
   }
 
   /**
@@ -254,7 +247,11 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
       GridPanel clickedGridCell = (GridPanel) e.getSource();
 
       if (currentlyClickedCardPanel != null) {
-        placeCardToGridCell(clickedGridCell);
+        int[] rowAndColumn = convertGridIdxToRowAndColumn(clickedGridCell);
+        int row = rowAndColumn[0];
+        int column = rowAndColumn[1];
+
+        selectGridCell(row, column);
       } else {
         this.view.showErrorMessage("You must select a card to play to the grid first!");
       }
@@ -307,9 +304,9 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
 
     if (model.isGameOver()) {
       if (model.findWinningPlayer() == null) {
-        this.view.showErrorMessage("Game over! It was a tie!");
+        view.showMessage("Game Over!", "Game Over! It was a tie!");
       } else {
-        this.view.showErrorMessage("Game over! " +
+        view.showMessage("Game Over!", "Game Over! " +
                 model.findWinningPlayer().getPlayersColor().toString() + " wins!");
       }
     }

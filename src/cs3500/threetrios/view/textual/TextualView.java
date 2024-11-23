@@ -86,6 +86,18 @@ public class TextualView implements ThreeTriosView {
   }
 
   /**
+   * Transmit a message to the view.
+   * Since this is unnecessary in a textual view, just returns.
+   *
+   * @param title   the title of the message window
+   * @param message the message to transmit
+   */
+  @Override
+  public void showMessage(String title, String message) {
+    return;
+  }
+
+  /**
    * Transmit an error message to the view, in case the command could not be processed correctly.
    * Since this is unnecessary in a textual view, just returns.
    *

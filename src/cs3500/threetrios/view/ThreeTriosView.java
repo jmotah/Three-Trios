@@ -18,5 +18,7 @@ public interface ThreeTriosView {
 
   GridLayoutPanel getGridPanel();
 
+  void showMessage(String title, String message);
+
   void showErrorMessage(String error);
 }

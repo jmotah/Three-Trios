@@ -125,8 +125,21 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
   }
 
   /**
-   * Transmit an error message to the view, in case
-   * the command could not be processed correctly
+   * Transmit a message to the views.
+   *
+   * @param title   the title of the display box
+   * @param message the message to display to the player
+   */
+  @Override
+  public void showMessage(String title, String message) {
+    JOptionPane.showMessageDialog(this,
+            message,
+            title,
+            JOptionPane.INFORMATION_MESSAGE);
+  }
+
+  /**
+   * Transmit an error message to the view, in case the command could not be processed correctly.
    *
    * @param error the error to display to the player
    */
