@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cs3500.threetrios.controller.ThreeTriosController;
+import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.player.AIPlayer;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
@@ -29,7 +29,7 @@ public class ThreeTriosGame {
    */
   public static void main(String[] args) {
     File cardConfig = new File(
-            "src/cs3500/threetrios/cardconfigs/tie_setup_card_config.txt");
+            "src/cs3500/threetrios/cardconfigs/card_configuration.txt");
 
     File gridConfig = new File(
             "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
@@ -38,17 +38,17 @@ public class ThreeTriosGame {
       throw new IllegalArgumentException("Player types must be specified!");
     }
 
-    ThreeTriosModel model = new PlayerPlayerModel();
+    ThreeTriosModel model = new GameModel();
     model.startGame(cardConfig, gridConfig);
-    ThreeTriosView viewPlayer1 = new GraphicalView(model);
-    ThreeTriosView viewPlayer2 = new GraphicalView(model);
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosView blueView = new GraphicalView(model);
     Players playerRed = processPlayerType(args[0], PlayerColor.RED, model);
     Players playerBlue = processPlayerType(args[1], PlayerColor.BLUE, model);
-    ThreeTriosController controller1 = new ThreeTriosController(model, playerRed, viewPlayer1);
-    ThreeTriosController controller2 = new ThreeTriosController(model, playerBlue, viewPlayer2);
+    ThreeTriosController controllerRed = new ThreeTriosController(model, playerRed, redView);
+    ThreeTriosController controllerBlue = new ThreeTriosController(model, playerBlue, blueView);
 
-    viewPlayer1.makeVisible();
-    viewPlayer2.makeVisible();
+    redView.makeVisible();
+    blueView.makeVisible();
   }
 
   /**
@@ -69,17 +69,18 @@ public class ThreeTriosGame {
       throw new IllegalArgumentException("Model cannot be null!");
     }
 
-    switch (typeInput.toLowerCase()) {
-      case "human":
-        return new Player(color, new ArrayList<>());
-      case "strategy1":
-        return new AIPlayer(color, new ArrayList<>(), new Strategy1(model));
-      case "strategy2":
-        new AIPlayer(color, new ArrayList<>(), new Strategy2(model));
-      case "strategy1and2":
-        new AIPlayer(color, new ArrayList<>(), new Strategy1And2(model));
-      default:
-        throw new IllegalArgumentException("Invalid player type: " + typeInput);
+    typeInput = typeInput.toLowerCase().trim();
+
+    if (typeInput.equals("human")) {
+      return new Player(color, new ArrayList<>());
+    } else if (typeInput.equals("strategy1")) {
+      return new AIPlayer(color, new ArrayList<>(), new Strategy1(model));
+    } else if (typeInput.equals("strategy2")) {
+      return new AIPlayer(color, new ArrayList<>(), new Strategy2(model));
+    } else if (typeInput.equals("strategy1and2")) {
+      return new AIPlayer(color, new ArrayList<>(), new Strategy1And2(model));
+    } else {
+      throw new IllegalArgumentException("Invalid player type: " + typeInput);
     }
   }
 }

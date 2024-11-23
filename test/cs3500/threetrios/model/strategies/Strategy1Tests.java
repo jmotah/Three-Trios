@@ -8,7 +8,7 @@ import java.awt.Point;
 import java.io.File;
 import java.util.HashMap;
 
-import cs3500.threetrios.model.PlayerPlayerModel;
+import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 
 /**
@@ -21,7 +21,7 @@ public class Strategy1Tests {
 
   @Before
   public void setup() {
-    this.model = new PlayerPlayerModel();
+    this.model = new GameModel();
     this.cardConfig = new File(
             "/Users/ayush/Desktop/ThreeTrios/src/cs3500/threetrios/cardconfigs/" +
                     "randomized_card_configuration.txt");

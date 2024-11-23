@@ -268,9 +268,48 @@ EXTRA CREDIT:
      * index 0 that satisfies the greatest number of card flips will be played in the found position.
 
 
-CHANGES FROM PREVIOUS WORK:
+CHANGES FROM PREVIOUS WORK (HW5):
     - addition of public method in GraphicalView class to get the GridPanel and layout panels
     - removed all mouse related events from GraphicalView class and it's sub classes
     - and moved them to controller
     - Model added listeners and notification to all listeners
     - Added showing error messages to view interface
+
+NEW IN THIS HOMEWORK:
+    - Incorporation of a Features interface
+        - Represents features that the controller manages to interact with the game. These methods
+          permit players to perform features of the game through actions like selecting a card at a
+          specific index or selecting a grid cell at a specific row and column.
+    - Incorporation of an AIPLayerListener interface
+        - Represents a listener for AI players in the Three Trios game. The listener is responsible
+          for performing the AI player's next turn after the previous player plays. This turn is
+           triggered by the model.
+    - Incorporation of a ThreeTriosModelListener interface
+        - Represents an interface for updating the view when a card has been played to the grid in
+          the model. Whenever the model state changes, listeners will notify classes that implement
+          this interface and perform an action accordingly.
+    - Incorporation of a ThreeTriosController class
+        - The controller class for a Three Trios game. Analyzes and reads user interactions and
+          generates an output accordingly to the input. Manages communications between the model,
+          view, and inputs.
+    - Incorporated an AIPlayer class
+        - Represents an AI-controlled player in the Three Trios game. The AI player works the same
+          as a normal player, but has a specific strategy associated with it to perform its moves
+          based off of when it is their turn. This is not user-controlled. An AI player is
+          controlled by the computer.
+
+
+
+CHANGES FOR PART 3:  (EXPLAIN TOO!!!!!)
+    - Fixed the strategy-transcript.txt to include a visual of what the grid would look like before
+      and after playing the strategy
+    - Adds java docs to the ReadonlyThreeTriosModel interface
+    - Added the method addViewListener in the ThreeTriosModel interface
+        - Adds a listener to prepare the view to be updated when the model notifies it to.
+    - Added the method addAITurnListener in the ThreeTriosModel interface
+        - Adds a listener to prepare the AI to commence its turn when the model notifies it to.
+    - Added private methods alertViewListener and alertAITurnListener to notify when to provoke the
+      methods within our listeners
+    - Added findWinningPlayerScore method to the ThreeTriosModel interface
+        - Returns the winning player's score.
+    - Added a private method to support the findWinningPlayerScore method

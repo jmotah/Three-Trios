@@ -1,8 +1,30 @@
 MockModelEmptyCorners class:
+    GRID BEFORE STRATEGY:
+        XCCX
+        CCCC
+        CCCC
+        XCCX
+
+    GRID AFTER STRATEGY:
+        CCCX
+        CCCC
+        CCCC
+        XCCX
     Fills in every cell except the four corners with random playing cards. Setups the test to
     prepare for strategy 2 to verify that it plays to the correct corner. The grid size is a 3x3.
 
 MockModelStrategy1 class:
+    GRID BEFORE STRATEGY:
+        CCXX
+        CXCX
+        CXXX
+        CXXX
+
+    GRID AFTER STRATEGY:
+        CCXX
+        CCCX
+        CXXX
+        CXXX
     Fills in the entire first row with random playing cards as well as placing a card within the
     second row and last column. Setups the test to prepare for strategy 1 to verify that it plays
     to the grid tile to result in the most number of cards flipped. The grid size is 3x3.

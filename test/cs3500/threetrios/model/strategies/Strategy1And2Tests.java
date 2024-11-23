@@ -8,7 +8,7 @@ import java.awt.Point;
 import java.io.File;
 import java.util.HashMap;
 
-import cs3500.threetrios.model.PlayerPlayerModel;
+import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 
 /**
@@ -24,7 +24,7 @@ public class Strategy1And2Tests {
 
   @Before
   public void setup() {
-    model = new PlayerPlayerModel();
+    model = new GameModel();
     strategy = new Strategy1And2(model);
 
     this.cardConfig = new File(

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-import cs3500.threetrios.model.PlayerPlayerModel;
+import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.textual.TextualView;
 import cs3500.threetrios.view.ThreeTriosView;
@@ -20,7 +20,7 @@ public class Examples {
 
   @Before
   public void setup() {
-    model = new PlayerPlayerModel();
+    model = new GameModel();
     view = new TextualView(model);
 
     File cardConfig = new File(

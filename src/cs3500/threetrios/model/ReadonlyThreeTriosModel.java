@@ -26,6 +26,8 @@ public interface ReadonlyThreeTriosModel {
    */
   Players findWinningPlayer(); //returns null when there is a tie
 
+  int findWinningPlayerScore();
+
   /**
    * Gets the current game grid.
    *

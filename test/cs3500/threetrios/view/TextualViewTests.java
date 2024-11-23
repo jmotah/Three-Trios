@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
-import cs3500.threetrios.model.PlayerPlayerModel;
+import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.textual.TextualView;
 
@@ -27,7 +27,7 @@ public class TextualViewTests {
 
   @Before
   public void setup() {
-    this.model = new PlayerPlayerModel();
+    this.model = new GameModel();
     this.cardConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/cardconfigs/card_configuration.txt");

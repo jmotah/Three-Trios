@@ -6,12 +6,12 @@ package cs3500.threetrios.model;
  * for the creation of the specific model we want which is the PlayerPlayerModel in this case.
  * Any PlayerPlayerModel specific tests are beneath this.
  */
-public class PlayerPlayerModelTests extends AbstractVariantModelTests {
+public class GameModelTests extends AbstractVariantModelTests {
 
   private ThreeTriosModel model;
 
   @Override
   protected ThreeTriosModel createModel() {
-    return new PlayerPlayerModel();
+    return new GameModel();
   }
 }

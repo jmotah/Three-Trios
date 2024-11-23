@@ -237,9 +237,10 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
         return;
       } else if (player instanceof AIPlayer) {
         return;
-      }
-
-      if (model.getCurrentTurnPlayer().getPlayersColor() != player.getPlayersColor()) {
+      } else if (model.isGameOver()) {
+        view.showErrorMessage("The game is over! Game play will not continue!");
+        return;
+      } else if (model.getCurrentTurnPlayer().getPlayersColor() != player.getPlayersColor()) {
         this.view.showErrorMessage("It is not your turn!");
         return;
       }
@@ -256,7 +257,9 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
         this.view.showErrorMessage("You must select a card to play to the grid first!");
       }
     } catch (IllegalStateException ex) {
-      view.showErrorMessage("The game is over! Game play will not continue!");
+      view.showErrorMessage("This is not a valid cell to play to!");
+    } catch (IllegalArgumentException ex) {
+      return;
     }
   }
 
@@ -304,10 +307,12 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
 
     if (model.isGameOver()) {
       if (model.findWinningPlayer() == null) {
-        view.showMessage("Game Over!", "Game Over! It was a tie!");
+        view.showMessage("Game Over!", "Game Over! It was a tie! Score: " +
+                model.findWinningPlayerScore());
       } else {
         view.showMessage("Game Over!", "Game Over! " +
-                model.findWinningPlayer().getPlayersColor().toString() + " wins!");
+                model.findWinningPlayer().getPlayersColor().toString() + " wins! Score: " +
+                model.findWinningPlayerScore());
       }
     }
   }

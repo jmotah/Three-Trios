@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.File;
 
+import cs3500.threetrios.controller.ThreeTriosModelListener;
+import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.PlayerColor;
 
 /**
@@ -521,4 +523,80 @@ public abstract class AbstractVariantModelTests {
 
     Assert.assertEquals(PlayerColor.BLUE, model.findWinningPlayer().getPlayersColor());
   }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testModelAddViewListenerNull() {
+    model.startGame(cardConfig, gridConfig);
+
+    model.addViewListener(null);
+  }
+
+  @Test
+  public void testModelAddViewListener() {
+    model.startGame(cardConfig, gridConfig);
+    final boolean[] updated = {false};
+
+    class MockModelListener implements ThreeTriosModelListener {
+
+      @Override
+      public void modelWasUpdated() {
+        updated[0] = true;
+      }
+    }
+
+    ThreeTriosModelListener listener = new MockModelListener();
+    model.addViewListener(listener);
+
+    Assert.assertFalse(updated[0]);
+  }
+
+  @Test
+  public void testModelAddTurnListener() {
+    model.startGame(cardConfig, gridConfig);
+    final boolean[] updated = {false};
+
+    class MockAIListener implements AIPlayerListener {
+      @Override
+      public void performTurn(PlayerColor color) {
+        updated[0] = true;
+      }
+    }
+
+    AIPlayerListener listener = new MockAIListener();
+    model.addAITurnListener(listener);
+
+    Assert.assertFalse(updated[0]);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testModelAddTurnListenerNull() {
+    model.startGame(cardConfig, gridConfig);
+
+    model.addAITurnListener(null);
+  }
+
+  @Test
+  public void testModelFindWinningPlayerScore() {
+    model.startGame(cardConfig, gridConfig);
+
+    int expected = 8;
+
+    Assert.assertEquals(expected, model.findWinningPlayerScore());
+  }
+
+  @Test
+  public void testModelFindWinningPlayerScoreInMiddleOfGame() {
+    model.startGame(cardConfig, gridConfig);
+
+    model.playToGrid(0, 0, 0);
+    model.battle(0, 0);
+
+    model.playToGrid(0, 1, 0);
+    model.battle(0, 1);
+
+    int expected = 9;
+
+    Assert.assertEquals(expected, model.findWinningPlayerScore());
+  }
+
 }

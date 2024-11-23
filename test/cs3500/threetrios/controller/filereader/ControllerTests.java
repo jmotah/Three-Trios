@@ -5,15 +5,21 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 
+import cs3500.threetrios.controller.Features;
 import cs3500.threetrios.controller.ThreeTriosController;
-import cs3500.threetrios.model.PlayerPlayerModel;
+import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.cards.CardNumbers;
 import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.player.AIPlayer;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
+import cs3500.threetrios.model.strategies.Strategy1;
+import cs3500.threetrios.model.strategies.Strategy1And2;
+import cs3500.threetrios.model.strategies.Strategy2;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GraphicalView;
 
@@ -25,7 +31,7 @@ public class ControllerTests {
 
   @Before
   public void setup() {
-    model = new PlayerPlayerModel();
+    model = new GameModel();
     this.cardConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
                     "src/cs3500/threetrios/cardconfigs/card_configuration.txt");
@@ -33,6 +39,28 @@ public class ControllerTests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
                     "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
     model.startGame(cardConfig, gridConfig);
+  }
+
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testControllerNullModel() {
+    Players redPlayer = model.getPlayerOfColor(PlayerColor.RED);
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(null, redPlayer, redView);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testControllerNullPlayer() {
+    Players redPlayer = model.getPlayerOfColor(PlayerColor.RED);
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, null, redView);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testControllerNullView() {
+    Players redPlayer = model.getPlayerOfColor(PlayerColor.RED);
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, null);
   }
 
   @Test
@@ -161,6 +189,161 @@ public class ControllerTests {
     controller.selectGridCell(3, 3);
   }
 
+  @Test
+  public void testControllerAIRedPlayerStrategy1() {
+    Players redPlayer = new AIPlayer(PlayerColor.RED, List.of(),
+            new Strategy1(model));
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, redView);
 
+    PlayingCard expected = new PlayingCard("OnesCard", CardNumbers.ONE,
+            CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE);
 
+    Assert.assertEquals(expected, model.getGrid()[0][0].getPlayingCard());
+  }
+
+  @Test
+  public void testControllerAIRedPlayerStrategy2() {
+    Players redPlayer = new AIPlayer(PlayerColor.RED, List.of(),
+            new Strategy2(model));
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, redView);
+
+    PlayingCard expected = new PlayingCard("NinesCard", CardNumbers.NINE,
+            CardNumbers.NINE, CardNumbers.NINE, CardNumbers.NINE);
+
+    Assert.assertEquals(expected, model.getGrid()[0][0].getPlayingCard());
+  }
+
+  @Test
+  public void testControllerAIRedPlayerStrategy1And2() {
+    Players redPlayer = new AIPlayer(PlayerColor.RED, List.of(),
+            new Strategy1And2(model));
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, redView);
+
+    PlayingCard expected = new PlayingCard("NinesCard", CardNumbers.ONE,
+            CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE);
+
+    Assert.assertEquals(expected, model.getGrid()[0][0].getPlayingCard());
+  }
+
+  @Test
+  public void testControllerHumanAIBluePlayerStrategy1() {
+    Players redPlayer = new Player(PlayerColor.RED, List.of());
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, redView);
+
+    Players bluePlayer = new AIPlayer(PlayerColor.BLUE, List.of(),
+            new Strategy1(model));
+    ThreeTriosView blueView = new GraphicalView(model);
+    ThreeTriosController blueController = new ThreeTriosController(model, bluePlayer, blueView);
+
+    redController.selectCard(0);
+    redController.selectGridCell(0, 0);
+
+    PlayingCard expected = new PlayingCard("TwosCard", CardNumbers.TWO,
+            CardNumbers.TWO, CardNumbers.TWO, CardNumbers.TWO);
+
+    Assert.assertEquals(expected, model.getGrid()[0][1].getPlayingCard());
+  }
+
+  @Test
+  public void testControllerHumanAIBluePlayerStrategy2() {
+    Players redPlayer = new Player(PlayerColor.RED, List.of());
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, redView);
+
+    Players bluePlayer = new AIPlayer(PlayerColor.BLUE, List.of(),
+            new Strategy2(model));
+    ThreeTriosView blueView = new GraphicalView(model);
+    ThreeTriosController blueController = new ThreeTriosController(model, bluePlayer, blueView);
+
+    redController.selectCard(0);
+    redController.selectGridCell(0, 0);
+
+    PlayingCard expected = new PlayingCard("AsCard", CardNumbers.A,
+            CardNumbers.A, CardNumbers.A, CardNumbers.A);
+
+    Assert.assertEquals(expected, model.getGrid()[0][3].getPlayingCard());
+  }
+
+  @Test
+  public void testControllerHumanAIBluePlayerStrategy1And2() {
+    Players redPlayer = new Player(PlayerColor.RED, List.of());
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, redView);
+
+    Players bluePlayer = new AIPlayer(PlayerColor.BLUE, List.of(),
+            new Strategy1And2(model));
+    ThreeTriosView blueView = new GraphicalView(model);
+    ThreeTriosController blueController = new ThreeTriosController(model, bluePlayer, blueView);
+
+    redController.selectCard(0);
+    redController.selectGridCell(0, 0);
+
+    PlayingCard expected = new PlayingCard("TwosCard", CardNumbers.TWO,
+            CardNumbers.TWO, CardNumbers.TWO, CardNumbers.TWO);
+
+    Assert.assertEquals(expected, model.getGrid()[0][1].getPlayingCard());
+  }
+
+  @Test
+  public void testControllerAIRedPlayerStrategy1AIBluePlayerStrategy1() {
+    Players redPlayer = new AIPlayer(PlayerColor.RED, List.of(),
+            new Strategy1(model));
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, redView);
+
+    Players bluePlayer = new AIPlayer(PlayerColor.BLUE, List.of(),
+            new Strategy1(model));
+    ThreeTriosView blueView = new GraphicalView(model);
+    ThreeTriosController blueController = new ThreeTriosController(model, bluePlayer, blueView);
+
+    PlayingCard expected1 = new PlayingCard("OnesCard", CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE);
+    PlayingCard expected2 = new PlayingCard("TwosCard", CardNumbers.TWO, CardNumbers.TWO, CardNumbers.TWO, CardNumbers.TWO);
+
+    Assert.assertEquals(expected1, model.getGrid()[0][0].getPlayingCard());
+    Assert.assertEquals(expected2, model.getGrid()[0][1].getPlayingCard());
+  }
+
+  @Test
+  public void testControllerAIRedPlayerStrategy1AIBluePlayerStrategy2() {
+    Players redPlayer = new AIPlayer(PlayerColor.RED, List.of(),
+            new Strategy1(model));
+    ThreeTriosView redView = new GraphicalView(model);
+    ThreeTriosController redController = new ThreeTriosController(model, redPlayer, redView);
+
+    Players bluePlayer = new AIPlayer(PlayerColor.BLUE, List.of(),
+            new Strategy2(model));
+    ThreeTriosView blueView = new GraphicalView(model);
+    ThreeTriosController blueController = new ThreeTriosController(model, bluePlayer, blueView);
+
+    PlayingCard expected1 = new PlayingCard("OnesCard", CardNumbers.ONE,
+            CardNumbers.ONE, CardNumbers.ONE, CardNumbers.ONE);
+    PlayingCard expected2 = new PlayingCard("AsCard", CardNumbers.A,
+            CardNumbers.A, CardNumbers.A, CardNumbers.A);
+
+    Assert.assertEquals(expected1, model.getGrid()[0][0].getPlayingCard());
+    Assert.assertEquals(expected2, model.getGrid()[0][3].getPlayingCard());
+  }
+
+  @Test
+  public void testPlayerAddActionListener() {
+    Players redPlayer = model.getCurrentTurnPlayer();
+
+    Features mock = new Features() {
+      @Override
+      public void selectCard(int cardIndex) {
+        return;
+      }
+
+      @Override
+      public void selectGridCell(int row, int column) {
+        return;
+      }
+    };
+
+    redPlayer.addActionListener(mock);
+  }
 }

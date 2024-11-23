@@ -21,7 +21,7 @@ import cs3500.threetrios.model.cards.PlayingCard;
  * as well as initializing the hands and the grid. This model is specifically for a Player vs.
  * Player experience.
  */
-public class PlayerPlayerModel implements ThreeTriosModel {
+public class GameModel implements ThreeTriosModel {
   private Player playerRed;
   private Player playerBlue;
 
@@ -51,7 +51,7 @@ public class PlayerPlayerModel implements ThreeTriosModel {
   /**
    * A PlayerPlayerModel constructor.
    */
-  public PlayerPlayerModel() {
+  public GameModel() {
     //Nothing needs initialized here as everything is initialized in the startGame method.
   }
 
@@ -280,6 +280,43 @@ public class PlayerPlayerModel implements ThreeTriosModel {
       throw new IllegalStateException("The game is not yet started!");
     }
 
+    int redCardCount = grabPlayersScore(PlayerColor.RED);
+    int blueCardCount = grabPlayersScore(PlayerColor.BLUE);
+
+    if (redCardCount > blueCardCount) {
+      return playerRed;
+    } else if (blueCardCount > redCardCount) {
+      return playerBlue;
+    } else {
+      return null; //Default cause when players red and blue tie
+    }
+  }
+
+  /**
+   * Returns the winning player's score.
+   *
+   * @return an integer of the winning player's score
+   */
+  @Override
+  public int findWinningPlayerScore() {
+    if (findWinningPlayer() == null) {
+      return grabPlayersScore(PlayerColor.RED);
+    }
+
+    return grabPlayersScore(findWinningPlayer().getPlayersColor());
+  }
+
+  /**
+   * Finds the score of the given player color object.
+   *
+   * @param color the player color object to find the score from
+   * @return an integer of the player's score
+   */
+  private int grabPlayersScore(PlayerColor color) {
+    if (color == null) {
+      throw new IllegalArgumentException("The provided color is null!");
+    }
+
     int redCardCount = playerRed.getHand().size();
     int blueCardCount = playerBlue.getHand().size();
 
@@ -292,14 +329,10 @@ public class PlayerPlayerModel implements ThreeTriosModel {
         }
       }
     }
-
-    if (redCardCount > blueCardCount) {
-      return playerRed;
-    } else if (blueCardCount > redCardCount) {
-      return playerBlue;
-    } else {
-      return null; //Default cause when players red and blue tie
+    if (color == PlayerColor.RED) {
+      return redCardCount;
     }
+    return blueCardCount;
   }
 
   /**

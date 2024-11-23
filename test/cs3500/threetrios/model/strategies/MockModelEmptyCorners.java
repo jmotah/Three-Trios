@@ -3,8 +3,8 @@ package cs3500.threetrios.model.strategies;
 import java.io.File;
 import java.util.List;
 
+import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.grid.CellType;
-import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.cards.CardNumbers;
@@ -23,7 +23,7 @@ public class MockModelEmptyCorners implements ThreeTriosModel {
   ThreeTriosModel model;
 
   public MockModelEmptyCorners() {
-    model = new PlayerPlayerModel();
+    model = new GameModel();
   }
 
   @Override
@@ -65,6 +65,11 @@ public class MockModelEmptyCorners implements ThreeTriosModel {
   @Override
   public Players findWinningPlayer() {
     return null;
+  }
+
+  @Override
+  public int findWinningPlayerScore() {
+    return 0;
   }
 
   @Override

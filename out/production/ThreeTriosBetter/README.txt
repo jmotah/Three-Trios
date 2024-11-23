@@ -268,9 +268,17 @@ EXTRA CREDIT:
      * index 0 that satisfies the greatest number of card flips will be played in the found position.
 
 
-CHANGES FROM PREVIOUS WORK:
+CHANGES FROM PREVIOUS WORK (HW5):
     - addition of public method in GraphicalView class to get the GridPanel and layout panels
     - removed all mouse related events from GraphicalView class and it's sub classes
     - and moved them to controller
     - Model added listeners and notification to all listeners
     - Added showing error messages to view interface
+
+CHANGES FOR PART 3:  (EXPLAIN TOO!!!!!)
+    - Fixed the strategy-transcript.txt to include a visual of what the grid would look like before
+    and after playing the strategy
+    - Incorporation of a Features interface
+    - Incorporation of an AIPLayerListener interface
+    - Incorporation of a ThreeTriosModelListener interface
+    - Incorporation of a ThreeTriosController class
