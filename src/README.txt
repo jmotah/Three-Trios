@@ -313,3 +313,4 @@ CHANGES FOR PART 3:  (EXPLAIN TOO!!!!!)
     - Added findWinningPlayerScore method to the ThreeTriosModel interface
         - Returns the winning player's score.
     - Added a private method to support the findWinningPlayerScore method
+    - Changes some source organization around. It is reflected above.
