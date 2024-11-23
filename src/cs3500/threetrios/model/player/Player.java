@@ -2,6 +2,7 @@ package cs3500.threetrios.model.player;
 
 import java.util.List;
 
+import cs3500.threetrios.controller.Features;
 import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
@@ -64,5 +65,16 @@ public class Player implements Players {
     }
 
     return this.hand.remove(index);
+  }
+
+  /**
+   * Sets an action listener for the AI player's actions. Since the Player object is not an AI
+   * player, nothing needs to happen here.
+   *
+   * @param listener the listener to associated with this AI player
+   */
+  @Override
+  public void addActionListener(Features listener) {
+    return;
   }
 }

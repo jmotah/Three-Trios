@@ -15,7 +15,6 @@ import cs3500.threetrios.model.player.Players;
 public class PlayerCardsLayoutPanel extends JPanel implements ThreeTriosLayoutView {
 
   private final Players player;
-  private final GraphicalView graphicalView;
 
   CardPanel currentlyClickedCardPanel;
 
@@ -23,10 +22,9 @@ public class PlayerCardsLayoutPanel extends JPanel implements ThreeTriosLayoutVi
    * Represents the PlayerCardsLayoutPanel constructor. Sets up the initial visual view for the
    * hand layout.
    *
-   * @param player        the Player object to get information from
-   * @param graphicalView the GraphicalView class object that oversees the grid layout
+   * @param player the Player object to get information from
    */
-  PlayerCardsLayoutPanel(Players player, GraphicalView graphicalView) {
+  PlayerCardsLayoutPanel(Players player) {
     if (player == null) {
       throw new IllegalArgumentException("Player cannot be null!");
     }
@@ -34,7 +32,6 @@ public class PlayerCardsLayoutPanel extends JPanel implements ThreeTriosLayoutVi
     currentlyClickedCardPanel = null;
 
     this.player = player;
-    this.graphicalView = graphicalView;
 
     int numOfCards = player.getHand().size();
 

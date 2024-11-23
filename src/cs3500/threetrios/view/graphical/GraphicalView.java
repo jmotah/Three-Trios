@@ -2,16 +2,11 @@ package cs3500.threetrios.view.graphical;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.BorderFactory;
+import javax.swing.*;
 
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
-import cs3500.threetrios.model.ThreeTriosModelListener;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.view.ThreeTriosView;
 
@@ -28,11 +23,9 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
   private final PlayerCardsLayoutPanel blueCardPanel;
   private final GridLayoutPanel gridPanel;
 
-  private CardPanel currentlyClickedCardPanel;
-  private GridPanel currentClickedGridCell;
-
   /**
-   * Represents a constructor for the GraphicalView class.
+   * Represents a constructor for the GraphicalView class. Also initializes all the components
+   * to be displayed in the view.
    *
    * @param model the read only model to gain access to immutable data from
    */
@@ -40,8 +33,6 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
     super();
 
     this.model = model;
-    this.currentClickedGridCell = null;
-    this.currentlyClickedCardPanel = null;
 
     this.setTitle("Current Player: " + model.getCurrentTurnPlayer().getPlayersColor().toString());
     this.setSize(1000, 1000);
@@ -49,7 +40,7 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
     this.setLayout(new BorderLayout());
 
     // Initialize the red card layout panel with cards
-    redCardPanel = new PlayerCardsLayoutPanel(model.getPlayerOfColor(PlayerColor.RED), this);
+    redCardPanel = new PlayerCardsLayoutPanel(model.getPlayerOfColor(PlayerColor.RED));
     redCardPanel.setBackground(new Color(147, 79, 79, 255));
     JScrollPane redCardPanelScrollable = new JScrollPane(redCardPanel);
     redCardPanelScrollable.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -58,7 +49,7 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
     this.add(redCardPanelScrollable, BorderLayout.WEST);
 
     //Initialize the blue card layout panel with cards
-    blueCardPanel = new PlayerCardsLayoutPanel(model.getPlayerOfColor(PlayerColor.BLUE), this);
+    blueCardPanel = new PlayerCardsLayoutPanel(model.getPlayerOfColor(PlayerColor.BLUE));
     blueCardPanel.setBackground(new Color(96, 103, 158, 255));
     JScrollPane blueCardPanelScrollable = new JScrollPane(blueCardPanel);
     blueCardPanelScrollable.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -68,7 +59,7 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
 
     //Initializes the grid layout panel
     gridPanel = new GridLayoutPanel(
-            model.getGrid().length, model.getGrid()[0].length, model, this);
+            model.getGrid().length, model.getGrid()[0].length, model);
     gridPanel.setBackground(new Color(188, 176, 112, 255));
     gridPanel.setPreferredSize(new Dimension(400, 400));
     this.add(gridPanel, BorderLayout.CENTER);
@@ -102,15 +93,46 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
     this.setTitle("Current Player: " + model.getCurrentTurnPlayer().getPlayersColor().toString());
   }
 
+  /**
+   * Gets the panel holding all the red player's cards.
+   *
+   * @return a PlayerCardsLayoutPanel object
+   */
+  @Override
   public PlayerCardsLayoutPanel getRedCardPanel() {
     return redCardPanel;
   }
 
+  /**
+   * Gets the panel holding all the blue player's cards.
+   *
+   * @return a PlayerCardsLayoutPanel object
+   */
+  @Override
   public PlayerCardsLayoutPanel getBlueCardPanel() {
     return blueCardPanel;
   }
 
+  /**
+   * Gets the panel holding all the grid tile panels.
+   *
+   * @return a GridLayoutPanel object
+   */
+  @Override
   public GridLayoutPanel getGridPanel() {
     return gridPanel;
+  }
+
+  /**
+   * Transmit an error message to the view, in case
+   * the command could not be processed correctly
+   *
+   * @param error the error to display to the player
+   */
+  @Override
+  public void showErrorMessage(String error) {
+    JOptionPane.showMessageDialog(this, error, "Error",
+            JOptionPane.ERROR_MESSAGE);
+
   }
 }

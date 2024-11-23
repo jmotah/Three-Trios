@@ -2,6 +2,9 @@ package cs3500.threetrios.model;
 
 import java.io.File;
 
+import cs3500.threetrios.controller.ThreeTriosModelListener;
+import cs3500.threetrios.model.player.AIPlayerListener;
+
 /**
  * Represents a generic model for the ThreeTrios game. The model is in charge of managing the
  * initialization of the game, managing actions done within the game, and keeping track of various
@@ -17,7 +20,7 @@ public interface ThreeTriosModel extends ReadonlyThreeTriosModel {
 
   void updatePlayerTurn();
 
-  void addListener(ThreeTriosModelListener listener);
+  void addViewListener(ThreeTriosModelListener listener);
 
-  void removeListener(ThreeTriosModelListener listener);
+  void addAITurnListener(AIPlayerListener listener);
 }

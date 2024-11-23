@@ -1,15 +1,14 @@
 package cs3500.threetrios;
 
-import java.awt.Point;
 import java.io.File;
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cs3500.threetrios.controller.ThreeTriosController;
+import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.player.AIPlayer;
+import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
@@ -50,11 +49,41 @@ public class ThreeTriosGame {
     Players playerBlue = processPlayerType(args[1], PlayerColor.BLUE, model);
     ThreeTriosController controller1 = new ThreeTriosController(model, playerRed, viewPlayer1);
     ThreeTriosController controller2 = new ThreeTriosController(model, playerBlue, viewPlayer2);
+
+    if (playerRed instanceof AIPlayerListener) {
+      model.addAITurnListener((AIPlayerListener) playerRed);
+    }
+
+    if (playerBlue instanceof AIPlayerListener) {
+      model.addAITurnListener((AIPlayerListener) playerBlue);
+    }
+
     viewPlayer1.makeVisible();
     viewPlayer2.makeVisible();
+
+    if (!args[0].equals("human")) {
+      ((AIPlayerListener) playerRed).performTurn(model.getCurrentTurnPlayer().getPlayersColor());
+    }
   }
 
-  private static Players processPlayerType(String typeInput, PlayerColor color, ThreeTriosModel model) {
+  /**
+   * Processes the player types based on type input. Provides a given color to the created
+   * Players object.
+   *
+   * @param typeInput the String to analyze
+   * @param color     the color to associate with the created Players object
+   * @param model     the model object
+   * @return a new Players object
+   */
+  private static Players processPlayerType(String typeInput, PlayerColor color, ReadonlyThreeTriosModel model) {
+    if (typeInput == null || typeInput.isEmpty()) {
+      throw new IllegalArgumentException("TypeInput cannot be null or empty!");
+    } else if (color == null) {
+      throw new IllegalArgumentException("Color cannot be null!");
+    } else if (model == null) {
+      throw new IllegalArgumentException("Model cannot be null!");
+    }
+
     switch (typeInput.toLowerCase()) {
       case "human":
         return new Player(color, new ArrayList<>());

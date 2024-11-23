@@ -6,10 +6,11 @@ import java.util.List;
 import cs3500.threetrios.model.CellType;
 import cs3500.threetrios.model.PlayerPlayerModel;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.ThreeTriosModelListener;
+import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.cards.CardNumbers;
 import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.GridTile;
+import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
@@ -47,12 +48,12 @@ public class MockModelEmptyCorners implements ThreeTriosModel {
   }
 
   @Override
-  public void addListener(ThreeTriosModelListener listener) {
+  public void addViewListener(ThreeTriosModelListener listener) {
     return;
   }
 
   @Override
-  public void removeListener(ThreeTriosModelListener listener) {
+  public void addAITurnListener(AIPlayerListener listener) {
     return;
   }
 

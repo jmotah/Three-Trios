@@ -17,4 +17,6 @@ public interface ThreeTriosView {
   PlayerCardsLayoutPanel getBlueCardPanel();
 
   GridLayoutPanel getGridPanel();
+
+  void showErrorMessage(String error);
 }

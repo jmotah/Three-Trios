@@ -74,6 +74,10 @@ public abstract class AbstractStrategies {
    *     tile on a grid.
    */
   protected List<Point> getAllPossibleMoves(ReadonlyThreeTriosModel model) {
+    if(model == null) {
+      throw new IllegalArgumentException("Model cannot be null!");
+    }
+
     List<Point> allPossibleGridMoves = new ArrayList<>();
     for (int row = 0; row < model.getGrid().length; row++) {
       for (int column = 0; column < model.getGrid()[0].length; column++) {

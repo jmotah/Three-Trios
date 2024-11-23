@@ -2,6 +2,8 @@ package cs3500.threetrios.view.textual;
 
 import java.util.List;
 
+import javax.swing.*;
+
 import cs3500.threetrios.model.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.grid.GridTile;
@@ -66,6 +68,18 @@ public class TextualView implements ThreeTriosView {
   @Override
   public GridLayoutPanel getGridPanel() {
     return null;
+  }
+
+  /**
+   * Transmit an error message to the view, in case
+   * the command could not be processed correctly
+   *
+   * @param error
+   */
+  @Override
+  public void showErrorMessage(String error) {
+    return;
+
   }
 
   /**
@@ -149,4 +163,5 @@ public class TextualView implements ThreeTriosView {
       return "" + model.findWinningPlayer().getPlayersColor();
     }
   }
+
 }

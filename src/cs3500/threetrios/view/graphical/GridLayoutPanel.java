@@ -25,22 +25,26 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
   private final int rows;
   private final int columns;
   private final ReadonlyThreeTriosModel model;
-  private final GraphicalView graphicalView;
   private GridTile[][] grid;
 
   /**
    * Represents a constructor for the GridLayoutPanel class. Sets up the initial visual view for
    * the grid layout.
    *
-   * @param rows       the number of rows for the grid layout
-   * @param columns    the number of columns for the grid layout
-   * @param model      a read only version of the model to gain immutable data from
+   * @param rows    the number of rows for the grid layout
+   * @param columns the number of columns for the grid layout
+   * @param model   a read only version of the model to gain immutable data from
    */
-  GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model, GraphicalView graphicalView) {
+  GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model) {
+    if (rows < 0 || columns < 0) {
+      throw new IllegalArgumentException("Rows and columns cannot be negative!");
+    } else if (model == null) {
+      throw new IllegalArgumentException("Model cannot be null!");
+    }
+
     this.rows = rows;
     this.columns = columns;
     this.model = model;
-    this.graphicalView = graphicalView;
     this.grid = model.getGrid();
 
     this.setLayout(new GridLayout(rows, columns));
@@ -84,6 +88,12 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
    * @param panelTile the panel tile to apply the operations to
    */
   private void performOperationBasedOnCellType(GridTile tile, GridPanel panelTile) {
+    if (tile == null) {
+      throw new IllegalArgumentException("Tile cannot be null!");
+    } else if (panelTile == null) {
+      throw new IllegalArgumentException("Panel tile cannot be null!");
+    }
+
     switch (tile.getCellType()) {
       case HOLE:
         panelTile.setBackground(Color.GRAY);

@@ -4,10 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.controller.filereader.CardReader;
 import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.grid.GridTile;
+import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.Players;
 import cs3500.threetrios.model.player.PlayerColor;
@@ -27,6 +29,7 @@ public class PlayerPlayerModel implements ThreeTriosModel {
   private GamePhase currentGamePhase;
 
   private List<ThreeTriosModelListener> listeners = new ArrayList<>();
+  private List<AIPlayerListener> aiTurnListeners = new ArrayList<>();
 
   /**
    * The grid is 0-index based. As a result, the first row and first column of the grid is at index
@@ -168,8 +171,12 @@ public class PlayerPlayerModel implements ThreeTriosModel {
     battleAllDirections(row, column);
     currentGamePhase = GamePhase.PLACING;
     updatePlayerTurn();
+    alertViewListener();
     checkAndSetForGameOver();
-    alertListeners();
+
+    if (!this.isGameOver()) {
+      alertAITurnListener();
+    }
   }
 
   /**
@@ -503,19 +510,51 @@ public class PlayerPlayerModel implements ThreeTriosModel {
     currentGamePhase = GamePhase.PLACING;
   }
 
+  /**
+   * Adds a listener to prepare the view to be updated when the model notifies it to.
+   *
+   * @param listener the listener to add to the model
+   */
   @Override
-  public void addListener(ThreeTriosModelListener listener) {
+  public void addViewListener(ThreeTriosModelListener listener) {
+    if (listener == null) {
+      throw new IllegalArgumentException("The listener cannot be null!");
+    }
+
     listeners.add(listener);
   }
 
+  /**
+   * Adds a listener to prepare the AI to commence its turn when the model notifies it to.
+   *
+   * @param listener the listener to add to the model
+   */
   @Override
-  public void removeListener(ThreeTriosModelListener listener) {
-    listeners.remove(listener);
+  public void addAITurnListener(AIPlayerListener listener) {
+    if (listener == null) {
+      throw new IllegalArgumentException("The listener cannot be null!");
+    }
+
+    aiTurnListeners.add(listener);
   }
 
-  private void alertListeners() {
+  /**
+   * Alerts the controller that all view-associated listeners that the model was updated. Actions
+   * are performed accordingly in the controller.
+   */
+  private void alertViewListener() {
     for (ThreeTriosModelListener listener : listeners) {
       listener.modelWasUpdated();
+    }
+  }
+
+  /**
+   * Alerts the controller that all AI turn-associated listeners that the model was updated. Actions
+   * are performed accordingly in the controller.
+   */
+  private void alertAITurnListener() {
+    for (AIPlayerListener listener : aiTurnListeners) {
+      listener.performTurn(this.getCurrentTurnPlayer().getPlayersColor());
     }
   }
 }
