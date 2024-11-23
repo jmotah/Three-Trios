@@ -16,8 +16,8 @@ import cs3500.threetrios.model.ReadonlyThreeTriosModel;
  * THIS IS EXTRA CREDIT.
  */
 public class Strategy1And2 extends AbstractStrategies implements Strategies {
-  ReadonlyThreeTriosModel model;
-  Strategy1 strategy1;
+  private final ReadonlyThreeTriosModel model;
+  private final Strategy1 strategy1;
   Strategy2 strategy2;
 
   /**
@@ -65,7 +65,7 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
   private HashMap<Point, Integer> getBestScorePositionForAllCardsInHandWithCornerConsideration() {
     int highestScore = 0;
     Point highestScorePosition = null;
-    int bestScoreCardIdxInHand = 0;
+    int bestScoreCardIdxInHand;
     HashMap<Point, Integer> bestPositionAndCardIdx = new HashMap<>();
     //INVARIANCE: Only one item can be placed within the bestPositionAndCardIdx HashMap object
 
@@ -115,7 +115,9 @@ public class Strategy1And2 extends AbstractStrategies implements Strategies {
 
   /**
    * Gets the Point object at which would yield the most number of cards flipped after battling
-   * from a given HashMap of objects of positions and scores.
+   * from a given HashMap of objects of positions and scores. Prioritizes corners. If all corners
+   * are taken priority is placed on the uppermost leftmost grid cell. Same logic applies to ties
+   * for corners.
    *
    * @param possibleMovesForACard a HashMap object of Points and Integers where Point objects are
    *                              the positions on a grid and Integers are the number of cards that

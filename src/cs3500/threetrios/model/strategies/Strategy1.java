@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.threetrios.model.CellType;
+import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.PlayingCard;
@@ -14,11 +14,12 @@ import cs3500.threetrios.model.grid.GridTile;
 /**
  * Implementation of the strategy 1. Strategy 1 is the idea of flipping as many cards as possible
  * for the player's turn, meaning finding the most optimal position to play a card at and then
- * finding the most optimal card to play for that position, if any.
+ * finding the most optimal card to play for that position, if any. If there is a tie for number
+ * of cards flipped, positions the card in the uppermost left-most position.
  */
 public class Strategy1 extends AbstractStrategies implements Strategies {
 
-  ReadonlyThreeTriosModel model;
+  private final ReadonlyThreeTriosModel model;
 
   /**
    * Constructor for Strategy1 class.
@@ -38,7 +39,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * Point object in the HashMap represents the position on the grid that could result in the
    * greatest number of cards flipped while the Integer object in the hashmap represents the card
    * index from the current player's hand that would flip the most number of cards on the best grid
-   * position.
+   * position. If a tie occurs, positions the card in the uppermost left-most position found that
+   * can still account for the greatest number of cards flipped.
    *
    * @return a HashMap object of a Point object and an Integer object where the Point object
    * represents a tile on the grid to play the card at and the Integer object represents the
@@ -53,7 +55,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * Gets a HashMap objects of a Point object and an Integer object representing a grid cell
    * position and card index in the players hand, respectively. This position and card index is
    * what card to place at which grid tile position to yield the most number of cards flipped after
-   * battling.
+   * battling. If a tie occurs, positions the card in the uppermost left-most position found that
+   * can still account for the greatest number of cards flipped.
    *
    * @return a HashMap objects of a Point object and an Integer object representing a grid cell
    * position and card index in the players hand, respectively. INVARIANCE: The returned HashMap
@@ -63,7 +66,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
   private HashMap<Point, Integer> getBestScorePositionForAllCardsInHand() {
     int highestScore = 0;
     Point highestScorePosition = null;
-    int bestScoreCardIdxInHand = 0;
+    int bestScoreCardIdxInHand;
     HashMap<Point, Integer> bestPositionAndCardIdx = new HashMap<>();
     //INVARIANCE: Only one item can be placed within the bestPositionAndCardIdx HashMap object
 
@@ -100,7 +103,9 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
 
   /**
    * Gets the Point object at which would yield the most number of cards flipped after battling
-   * from a given HashMap of objects of positions and scores.
+   * from a given HashMap of objects of positions and scores. This accounts for tie scenarios.
+   * If a tie occurs, positions the card in the uppermost left-most position found that can still
+   * account for the greatest number of cards flipped.
    *
    * @param possibleMovesForACard a HashMap object of Points and Integers where Point objects are
    *                              the positions on a grid and Integers are the number of cards that
@@ -108,7 +113,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @return the best position to play to get the highest score from a given HashMap of objects of
    * Points and Integers
    */
-  protected Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
+  private Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
     if (possibleMovesForACard == null) {
       throw new IllegalArgumentException("Given hash map object for all possible moves for a card" +
               "is null!");
@@ -184,7 +189,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * object represents the position of a tile on a grid and each Integer object represents the
    * number of cards that would be flipped if the specified card was played to that position.
    */
-  protected HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
+  private HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
           int cardIdxInHand) {
     if (cardIdxInHand < 0 || cardIdxInHand >= model.getCurrentTurnPlayer().getHand().size()) {
       throw new IllegalArgumentException("Given card index out of bounds!");
@@ -220,8 +225,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid          the grid to perform the battling on
    * @return an integer representing the number of cards flipped due to battling
    */
-  protected int emulateBattleToFindScore(int row, int column, int cardIdxInHand,
-                                         GridTile[][] grid) {
+  private int emulateBattleToFindScore(int row, int column, int cardIdxInHand,
+                                       GridTile[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     } else if (row < 0 || row >= grid.length ||
@@ -252,7 +257,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid   the grid to perform the battling on
    * @return an integer representing the number of cards flipped due to battling
    */
-  protected int battleAllDirections(int row, int column, GridTile[][] grid) {
+  private int battleAllDirections(int row, int column, GridTile[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     } else if (row < 0 || row >= grid.length ||
@@ -289,8 +294,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid             the grid to perform the battling on
    * @return an integer representing the number of cards flipped due to battling
    */
-  protected int battleSpecificDirection(GridTile current, int row, int column,
-                                        CardCompass compareDirection, GridTile[][] grid) {
+  private int battleSpecificDirection(GridTile current, int row, int column,
+                                      CardCompass compareDirection, GridTile[][] grid) {
     if (current == null) {
       throw new IllegalArgumentException("The provided GridTile object is null!");
     } else if (compareDirection == null) {
@@ -323,7 +328,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid the GridTile 2D array object to get a copy of
    * @return a copy of the GridTile 2D array object
    */
-  protected GridTile[][] getGridCopy(GridTile[][] grid) {
+  private GridTile[][] getGridCopy(GridTile[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     }

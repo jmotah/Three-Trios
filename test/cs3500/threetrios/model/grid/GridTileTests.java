@@ -9,8 +9,6 @@ import java.util.List;
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.CardNumbers;
 import cs3500.threetrios.model.cards.PlayingCard;
-import cs3500.threetrios.model.CellType;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.Players;
 import cs3500.threetrios.model.player.PlayerColor;

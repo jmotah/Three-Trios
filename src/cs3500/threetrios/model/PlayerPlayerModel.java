@@ -8,6 +8,7 @@ import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.controller.filereader.CardReader;
 import cs3500.threetrios.controller.filereader.GridReader;
+import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.Player;
@@ -45,7 +46,7 @@ public class PlayerPlayerModel implements ThreeTriosModel {
    * to the player's hands upon initialization. After this, the deck stays constant and no cards
    * go into it or back out.
    **/
-  List<PlayingCard> deck;
+  private List<PlayingCard> deck;
 
   /**
    * A PlayerPlayerModel constructor.

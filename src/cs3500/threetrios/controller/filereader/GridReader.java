@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import cs3500.threetrios.model.CellType;
+import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.grid.GridTile;
 
 /**

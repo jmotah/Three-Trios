@@ -11,7 +11,7 @@ import cs3500.threetrios.model.strategies.Strategies;
 /**
  * Represents an AI-controlled player in the Three Trios game. The AI player works the same as a
  * normal player, but has a specific strategy associated with it to perform its moves based off of
- * when it is their turn.
+ * when it is their turn. This is not user-controlled. An AI player is controlled by the computer.
  */
 public class AIPlayer extends Player implements AIPlayerListener {
   private final Strategies strategy;

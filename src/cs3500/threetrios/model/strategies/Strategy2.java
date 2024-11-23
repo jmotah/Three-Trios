@@ -13,19 +13,18 @@ import cs3500.threetrios.model.grid.GridTile;
 /**
  * Implementation of strategy 2. Strategy 2 is the idea of playing the highest valued card possible
  * to the corners to eliminate the possibility of 2 of the corner sides to be battled against.
- * Priority is placed on placing the highest card possible for the two "battle-able" directions in
- * the found corner position. If multiple corner positions are found, the uppermost leftmost
- * position is selected and the card is placed there. If all the corner positions are taken,
- * then the 0th index card is placed in the uppermost leftmost grid tile.
+ * Priority is placed on placing the highest card possible when summed for the two "battle-able"
+ * directions in the found corner position. If multiple corner positions are found, the uppermost
+ * leftmost position is selected and the card is placed there. If all the corner positions are
+ * taken, then the 0th index card is placed in the uppermost leftmost grid tile.
  */
 public class Strategy2 extends AbstractStrategies implements Strategies {
-  ReadonlyThreeTriosModel model;
+  private final ReadonlyThreeTriosModel model;
 
   public Strategy2(ReadonlyThreeTriosModel model) {
     if (model == null) {
       throw new IllegalArgumentException("Model cannot be null!");
     }
-
     this.model = model;
   }
 
@@ -68,7 +67,7 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
 
   /**
    * Checks if the found tie-break Point object is in the corner or not. If it is, calculates the
-   * greatest card to play to the corner. If not, 0.
+   * greatest card to play to the corner. If not, returns 0.
    *
    * @param bestCorner              the position to check if it is a corner or not
    * @param hand                    the player's hand
@@ -119,9 +118,9 @@ public class Strategy2 extends AbstractStrategies implements Strategies {
   }
 
   /**
-   * Calculates the greatest card to play to the corner.
-   * * Checks if the found tie-break Point object is in the corner or not. If it is, calculates the
-   * * greatest card to play to the corner. If not, 0.
+   * Calculates the greatest card to play to the corner. Checks if the found tie-break Point object
+   * is in the corner or not. If it is, calculates the greatest card to play to the corner.
+   * If not, returns 0.
    *
    * @param hand                    the current player's hand
    * @param direction1              one of the "battle-able" sides facing another grid tile

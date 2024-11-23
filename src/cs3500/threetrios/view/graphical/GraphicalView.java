@@ -34,7 +34,8 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
 
     this.model = model;
 
-    this.setTitle("Current Player: " + model.getCurrentTurnPlayer().getPlayersColor().toString());
+    //Basic initializes for the window
+    this.updateFrame();
     this.setSize(1000, 1000);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());

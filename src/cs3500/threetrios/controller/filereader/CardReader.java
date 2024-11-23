@@ -126,7 +126,7 @@ public class CardReader implements ConfigurationReader<List<PlayingCard>> {
    * Parses the given line to read. Checks if it is equivalent to "A" or not. If it is, returns the
    * CardNumbers rather than the card's value. Else wise, it returns the card's integer value.
    * This method allows the player to use either the integer 10, or the string "A" to represent a
-   * CardNumbers. An object within the card configuration.
+   * CardNumbers object within the card configuration.
    *
    * @param readLine the given line to read
    * @return a CardNumbers object of the
@@ -139,6 +139,12 @@ public class CardReader implements ConfigurationReader<List<PlayingCard>> {
     }
   }
 
+  /**
+   * Checks to see if there are any duplicate cards. Since cards are unique by name, if the names
+   * of two cards are equal, then throws an error.
+   *
+   * @param cards the cards to check for duplicates against
+   */
   private void checkForDuplicates(List<PlayingCard> cards) {
     List<String> seenCards = new ArrayList<>();
 

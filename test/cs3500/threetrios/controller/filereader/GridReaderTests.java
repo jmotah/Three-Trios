@@ -7,7 +7,7 @@ import java.io.File;
 
 import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.grid.GridTile;
-import cs3500.threetrios.model.CellType;
+import cs3500.threetrios.model.grid.CellType;
 
 /**
  * A test class for the GridReader class. Reads and performs various initializations based on

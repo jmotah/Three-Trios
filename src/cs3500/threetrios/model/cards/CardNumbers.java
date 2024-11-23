@@ -2,7 +2,7 @@ package cs3500.threetrios.model.cards;
 
 /**
  * An enumeration class to represent the valid numbers a card can have. The "A" key represents the
- * value 10.
+ * value 10. Each enum has a value of its integer equivalent associated to it.
  */
 public enum CardNumbers {
   ONE(1),
@@ -21,7 +21,7 @@ public enum CardNumbers {
   /**
    * Creates a CardNumbers enum with a specified integer value.
    *
-   * @param value the integer attack value, ranging from 1 to A (A is equivalent to 10)
+   * @param value the integer attack value, ranging from 1 to 10 (A is equivalent to 10)
    */
   CardNumbers(int value) {
     this.value = value;

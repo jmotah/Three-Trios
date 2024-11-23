@@ -12,7 +12,6 @@ import cs3500.threetrios.model.cards.PlayingCard;
 public class Player implements Players {
 
   private final PlayerColor playerType;
-
   private final List<PlayingCard> hand;
 
   /**
@@ -69,7 +68,7 @@ public class Player implements Players {
 
   /**
    * Sets an action listener for the AI player's actions. Since the Player object is not an AI
-   * player, nothing needs to happen here.
+   * player, nothing needs to happen here. Method simply returns.
    *
    * @param listener the listener to associated with this AI player
    */

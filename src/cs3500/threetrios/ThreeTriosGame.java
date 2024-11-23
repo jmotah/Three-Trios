@@ -48,20 +48,8 @@ public class ThreeTriosGame {
     ThreeTriosController controller1 = new ThreeTriosController(model, playerRed, viewPlayer1);
     ThreeTriosController controller2 = new ThreeTriosController(model, playerBlue, viewPlayer2);
 
-    if (playerRed instanceof AIPlayerListener) {
-      model.addAITurnListener((AIPlayerListener) playerRed);
-    }
-
-    if (playerBlue instanceof AIPlayerListener) {
-      model.addAITurnListener((AIPlayerListener) playerBlue);
-    }
-
     viewPlayer1.makeVisible();
     viewPlayer2.makeVisible();
-
-    if (!args[0].equals("human")) {
-      ((AIPlayerListener) playerRed).performTurn(model.getCurrentTurnPlayer().getPlayersColor());
-    }
   }
 
   /**

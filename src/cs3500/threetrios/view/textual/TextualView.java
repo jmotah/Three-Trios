@@ -2,9 +2,7 @@ package cs3500.threetrios.view.textual;
 
 import java.util.List;
 
-import javax.swing.*;
-
-import cs3500.threetrios.model.CellType;
+import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.PlayerColor;
@@ -55,31 +53,47 @@ public class TextualView implements ThreeTriosView {
     }
   }
 
+  /**
+   * Would return the entire red card panel. Since this is unnecessary in a textual view, returns
+   * null.
+   *
+   * @return null
+   */
   @Override
   public PlayerCardsLayoutPanel getRedCardPanel() {
     return null;
   }
 
+  /**
+   * Would return the entire blue card panel. Since this is unnecessary in a textual view, returns
+   * null.
+   *
+   * @return null
+   */
   @Override
   public PlayerCardsLayoutPanel getBlueCardPanel() {
     return null;
   }
 
+  /**
+   * Would return the entire grid panel. Since this is unnecessary in a textual view, returns null.
+   *
+   * @return null
+   */
   @Override
   public GridLayoutPanel getGridPanel() {
     return null;
   }
 
   /**
-   * Transmit an error message to the view, in case
-   * the command could not be processed correctly
+   * Transmit an error message to the view, in case the command could not be processed correctly.
+   * Since this is unnecessary in a textual view, just returns.
    *
-   * @param error
+   * @param error just returns
    */
   @Override
   public void showErrorMessage(String error) {
     return;
-
   }
 
   /**
@@ -163,5 +177,4 @@ public class TextualView implements ThreeTriosView {
       return "" + model.findWinningPlayer().getPlayersColor();
     }
   }
-
 }

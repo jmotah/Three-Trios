@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.player.AIPlayer;
+import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
 import cs3500.threetrios.view.ThreeTriosView;
@@ -48,6 +50,14 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
 
     this.model.addViewListener(this);
     this.player.addActionListener(this);
+
+
+    if (player instanceof AIPlayer && player.getPlayersColor() == PlayerColor.RED) {
+      model.addAITurnListener((AIPlayerListener) player);
+      ((AIPlayer) player).performTurn(model.getCurrentTurnPlayer().getPlayersColor());
+    } else if (player instanceof AIPlayer) {
+      model.addAITurnListener((AIPlayerListener) player);
+    }
 
     setupListeners();
   }
@@ -181,6 +191,8 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
       throw new IllegalArgumentException("MouseEvent cannot be null");
     } else if (!(e.getSource() instanceof CardPanel)) {
       return;
+    } else if (player instanceof AIPlayer) {
+      return;
     }
 
     CardPanel clickedCardPanel = (CardPanel) e.getSource();
@@ -229,6 +241,8 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
       if (e == null) {
         throw new IllegalArgumentException("MouseEvent cannot be null");
       } else if (!(e.getSource() instanceof GridPanel)) {
+        return;
+      } else if (player instanceof AIPlayer) {
         return;
       }
 
@@ -292,7 +306,9 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
     setupListeners();
 
     if (model.isGameOver()) {
-      if (model.isGameOver()) {
+      if (model.findWinningPlayer() == null) {
+        this.view.showErrorMessage("Game over! It was a tie!");
+      } else {
         this.view.showErrorMessage("Game over! " +
                 model.findWinningPlayer().getPlayersColor().toString() + " wins!");
       }

@@ -2,7 +2,6 @@ package cs3500.threetrios.view.graphical;
 
 import java.awt.GridLayout;
 import java.awt.Dimension;
-import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
@@ -16,8 +15,6 @@ public class PlayerCardsLayoutPanel extends JPanel implements ThreeTriosLayoutVi
 
   private final Players player;
 
-  CardPanel currentlyClickedCardPanel;
-
   /**
    * Represents the PlayerCardsLayoutPanel constructor. Sets up the initial visual view for the
    * hand layout.
@@ -28,8 +25,6 @@ public class PlayerCardsLayoutPanel extends JPanel implements ThreeTriosLayoutVi
     if (player == null) {
       throw new IllegalArgumentException("Player cannot be null!");
     }
-
-    currentlyClickedCardPanel = null;
 
     this.player = player;
 

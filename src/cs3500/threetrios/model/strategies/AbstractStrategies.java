@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.threetrios.model.CellType;
+import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
 /**
@@ -21,7 +21,7 @@ public abstract class AbstractStrategies {
    * @param highestScorePoint the first Point object
    * @param comparePosition   the second Point object
    * @return returns the uppermost, left-most Point object. If both Point objects yield the same x
-   *     and y values, then it returns the highestScorePoint Point object.
+   * and y values, then it returns the highestScorePoint Point object.
    */
   protected Point comparePositions(Point highestScorePoint, Point comparePosition) {
     if (highestScorePoint == null) {
@@ -48,7 +48,7 @@ public abstract class AbstractStrategies {
    * @param highestScorePoint the first Point object
    * @param comparePosition   the second Point object
    * @return returns the left-most Point object. If both Point objects have the
-   *     same Y value, then it returns the highestScorePoint Point object
+   * same Y value, then it returns the highestScorePoint Point object
    */
   private Point comparePositionsHelper(Point highestScorePoint, Point comparePosition) {
     if (highestScorePoint == null) {
@@ -71,10 +71,10 @@ public abstract class AbstractStrategies {
    * Gets all the possible moves on the grid.
    *
    * @return returns a list of Point objects. Each Point object represents the position of a
-   *     tile on a grid.
+   * tile on a grid.
    */
   protected List<Point> getAllPossibleMoves(ReadonlyThreeTriosModel model) {
-    if(model == null) {
+    if (model == null) {
       throw new IllegalArgumentException("Model cannot be null!");
     }
 
