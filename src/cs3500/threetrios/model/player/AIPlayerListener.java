@@ -7,6 +7,12 @@ package cs3500.threetrios.model.player;
  */
 public interface AIPlayerListener {
 
+  /**
+   * Performs the AI player's turn. After ensuring it is this player's turn, calculates the best
+   * card index and position to play to according to the AIPlayer object's associated strategy.
+   *
+   * @param color the color of the current player's turn
+   */
   void performTurn(PlayerColor color);
 
 }

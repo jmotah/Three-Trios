@@ -1,3 +1,0 @@
-We did not utilize mocks. Instead, to create the environment for our tests, we created various
-card/board configurations and played the ThreeTrios game within the test until the desired point
-to perform our test at.

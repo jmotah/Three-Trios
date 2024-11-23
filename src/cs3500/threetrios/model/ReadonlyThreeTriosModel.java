@@ -26,6 +26,11 @@ public interface ReadonlyThreeTriosModel {
    */
   Players findWinningPlayer(); //returns null when there is a tie
 
+  /**
+   * Returns the winning player's score.
+   *
+   * @return an integer of the winning player's score
+   */
   int findWinningPlayerScore();
 
   /**

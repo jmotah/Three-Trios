@@ -11,11 +11,33 @@ import cs3500.threetrios.model.player.Players;
  * odd number of card cells upon initialization which uses an invariance to ensure this.
  */
 public interface Grid {
+  /**
+   * Gets the cell type of this GridTile object.
+   *
+   * @return the tile's associated cell type
+   */
   CellType getCellType();
 
+  /**
+   * Gets the playing card of this GridTile object.
+   *
+   * @return the tile's associated playing card
+   */
   PlayingCard getPlayingCard();
 
+  /**
+   * Gets the player of this GridTile object.
+   *
+   * @return the tile's associated player
+   */
   Players getWhichPlayersTile();
 
+  /**
+   * Compares this GridTile object to the given other GridTile object.
+   *
+   * @param other            the GridTile object to compare to this one
+   * @param compareDirection the compass direction to look at for this GridTile object
+   * @return the GridTile object with greater value
+   */
   GridTile compareTo(GridTile other, CardCompass compareDirection);
 }

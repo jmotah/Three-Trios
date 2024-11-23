@@ -1,12 +1,13 @@
 package cs3500.threetrios.controller;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.player.AIPlayer;
@@ -214,7 +215,8 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
         currentlyClickedCardPanel = null;
       } else {
         if (currentlyClickedCardPanel != null) {
-          currentlyClickedCardPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
+          currentlyClickedCardPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,
+                  Color.GRAY));
         }
         clickedCardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         currentlyClickedCardPanel = clickedCardPanel;
@@ -268,7 +270,7 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
    *
    * @param clickedGridPanel the currently clicked GridPanel object
    * @return an array of integers where the 0th index is the row the clicked GridPanel object is
-   * stored in while the 1st index is the column the clicked GridPanel object is stored in
+   *         stored in while the 1st index is the column the clicked GridPanel object is stored in
    */
   private int[] convertGridIdxToRowAndColumn(GridPanel clickedGridPanel) {
     if (clickedGridPanel == null) {

@@ -1,6 +1,7 @@
 package cs3500.threetrios.model.player;
 
-import java.awt.*;
+import java.awt.Point;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class AIPlayer extends Player implements AIPlayerListener {
   private Features listener;
 
   /**
-   * AIPlayer class constructor,
+   * AIPlayer class constructor.
    *
    * @param color    the color of the player
    * @param hand     the list of cards in the player's hand

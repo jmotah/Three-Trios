@@ -43,8 +43,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * can still account for the greatest number of cards flipped.
    *
    * @return a HashMap object of a Point object and an Integer object where the Point object
-   * represents a tile on the grid to play the card at and the Integer object represents the
-   * card index to play from the current player's hand on that grid tile
+   *         represents a tile on the grid to play the card at and the Integer object represents the
+   *         card index to play from the current player's hand on that grid tile
    */
   @Override
   public HashMap<Point, Integer> runStrategy() {
@@ -59,9 +59,9 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * can still account for the greatest number of cards flipped.
    *
    * @return a HashMap objects of a Point object and an Integer object representing a grid cell
-   * position and card index in the players hand, respectively. INVARIANCE: The returned HashMap
-   * object only contains one item within it which contains the best position to play at with
-   * the best card to play at that position
+   *         position and card index in the players hand, respectively. INVARIANCE: The returned
+   *         HashMap object only contains one item within it which contains the best position to
+   *         play at with the best card to play at that position
    */
   private HashMap<Point, Integer> getBestScorePositionForAllCardsInHand() {
     int highestScore = 0;
@@ -111,7 +111,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    *                              the positions on a grid and Integers are the number of cards that
    *                              are flipped if you place a card there
    * @return the best position to play to get the highest score from a given HashMap of objects of
-   * Points and Integers
+   *         Points and Integers
    */
   private Point getBestScorePosition(HashMap<Point, Integer> possibleMovesForACard) {
     if (possibleMovesForACard == null) {
@@ -161,15 +161,16 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * moves/spaces to play to.
    *
    * @return return a list of HashMap objects of type Point (key) and Integer (value) where each
-   * Point object represents the position of a tile on a grid and each Integer object represents
-   * the number of cards that would be flipped if the specified card was played to that position
-   * Each index within the list represents the index of the card emulating battle with (ex. the
-   * 0th index HashMap object within the list represents the positions and scores of emulating
-   * battle with the 0th card index in the player's hand; the 1st index HashMap object is for
-   * the 1st card index in the player's hand and so on
+   *         Point object represents the position of a tile on a grid and each Integer
+   *         object represents the number of cards that would be flipped if the specified card
+   *         was played to that position. Each index within the list represents the index of the
+   *         card emulating battle with (ex. the 0th index HashMap object within the list
+   *         represents the positions and scores of emulating battle with the 0th card index
+   *         in the player's hand; the 1st index HashMap object is for the 1st card index in the
+   *         player's hand and so on
    */
   protected List<HashMap<Point, Integer>>
-  emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
+      emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
     java.util.List<PlayingCard> hand = model.getCurrentTurnPlayer().getHand();
     java.util.List<HashMap<Point, Integer>> allPossibleMovesWithScores = new ArrayList<>();
 
@@ -186,8 +187,9 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    *
    * @param cardIdxInHand the card in the player's hand to emulate battle for
    * @return returns a HashMap object of type Point (key) and Integer (value) where each Point
-   * object represents the position of a tile on a grid and each Integer object represents the
-   * number of cards that would be flipped if the specified card was played to that position.
+   *         object represents the position of a tile on a grid and each Integer object
+   *         represents the number of cards that would be flipped if the specified card was played
+   *         to that position.
    */
   private HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
           int cardIdxInHand) {

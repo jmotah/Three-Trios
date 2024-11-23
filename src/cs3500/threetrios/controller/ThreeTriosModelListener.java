@@ -7,5 +7,8 @@ package cs3500.threetrios.controller;
  */
 public interface ThreeTriosModelListener {
 
+  /**
+   * Refreshes the view and adds and readjusts the listeners to every clickable panel.
+   */
   void modelWasUpdated();
 }

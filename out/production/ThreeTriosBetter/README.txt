@@ -55,40 +55,74 @@ the example setup below. A card configuration file, a grid configuration file, a
 a view object are required to run the game. Once made, run the main class and the game will start!
 
     public static void main(String[] args) {
-        ThreeTriosModel<PlayingCard> model = new PlayerPlayerModel();
-        ThreeTriosView view = new TextualView(model);
-
         File cardConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
-                "tie_setup_card_config.txt");
-        File gridConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
-                "tie_setup_grid_config.txt");
+                "src/cs3500/threetrios/cardconfigs/card_configuration.txt");
 
+        File gridConfig = new File(
+                "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
+
+        if (args.length < 2) {
+          throw new IllegalArgumentException("Player types must be specified!");
+        }
+
+        ThreeTriosModel model = new GameModel();
         model.startGame(cardConfig, gridConfig);
-    }
+        ThreeTriosView redView = new GraphicalView(model);
+        ThreeTriosView blueView = new GraphicalView(model);
+        Players playerRed = processPlayerType(args[0], PlayerColor.RED, model);
+        Players playerBlue = processPlayerType(args[1], PlayerColor.BLUE, model);
+        ThreeTriosController controllerRed = new ThreeTriosController(model, playerRed, redView);
+        ThreeTriosController controllerBlue = new ThreeTriosController(model, playerBlue, blueView);
+
+        redView.makeVisible();
+        blueView.makeVisible();
+      }
 
 
 
 KEY COMPONENTS
 
-Model: ThreeTriosModel and PlayerPlayerModel
-    This is the main body/source of code. The responsibility of the model class is to manage/change
-    game states, game phases, player actions, and initializations.
+Model:
+    - ThreeTriosModel and GameModel and ReadonlyThreeTriosModel
+        - This is the main body/source of code. The responsibility of the model class is to
+        manage/change game states, game phases, player actions, and initializations.
 
-ConfigurationReaders: CardReader and GridReader
+    - Cards and PlayingCard
+        - Manages and defines what a card actually is.
+
+    - Grid and GridTile
+        - Manages and defines what a game grid is in terms of the game and how a tile should be
+          represented.
+
+    - Player and Players and AIPlayerListener and AIPlayer
+        - Defines what a player actually is. In this instance, Players is the interface while Player
+          implements Players, allowing for variation for a possible AI player in the future. A player
+          must possess a respective color and hand of list of playing cards.
+
+    - Strategies and Abstract Strategies and Strategy1 and Strategy2 and Strategy1And2
+        - Manages and defines logic for various AI strategies in the game.
+
+
+Controller:
+    - Features and ThreeTriosController and ThreeTriosModelListener
+        - Sets up logic to read user interactions while managing communications between the model,
+          view, and various user inputs through functions like listeners.
+
+    - CardReader and GridReader and ConfigurationReader
     These classes primarily work to read, understand, and convert text to understandable code.
     These classes are working to make the game fully customizable through a configuration file!
 
-Player: HumanPlayer
-    Defines what a player actually is. In this instance, Player is the interface while HumanPlayer
-    implements Player, allowing for variation for a possible AI player in the future. A player
-    must possess a respective color and hand of list of playing cards.
+View:
+    - ThreeTriosView
+        - Manages the main visual display/text display of the game. Communicates with the model to
+          create this display.
 
-View: ThreeTriosView and TextualView
-    Manages the main visual display/text display of the game. Communicates with the model to
-    create this display.
+    - GraphicalView
+        - Manages the main graphical visual display. Focuses on updated the view when needed to,
+        primarily done through listeners, and ensuring readability.
 
+    - TextualView
+         - Manages the textual visual display. Focuses on updating the textual display.
 
 
 KEY SUBCOMPONENTS
@@ -130,7 +164,8 @@ Main Method Class:
 
 
 Controller Related Class/Info:
-    Includes filereader package
+    Includes filereader package. Features interface, ThreeTriosController class,
+    ThreeTriosModelListener interface
     [src folder -> cs3500.threetrios.controller package]
 
     filereader package:
@@ -153,7 +188,8 @@ Model Related Class/Info:
     [src folder -> cs3500.threetrios.model.grid package]
 
     player package:
-    Includes Player interface, PlayerColor enum, and Player class
+    Includes AIPlayerListener interface, AIPlayer class, Player interface, PlayerColor enum,
+    and Player class
     [src folder -> cs3500.threetrios.model.player package]
 
     strategies package:
@@ -167,7 +203,7 @@ View Related Class/info
 
     graphical package:
     Includes CardPanel class, GraphicalView class, GridLayoutPanel class, GridPanel class,
-    PlayerCardsLayoutPanel class
+    PlayerCardsLayoutPanel class, ThreeTriosCardPanelView interface, ThreeTriosLayoutView interface
     [src folder -> cs3500.threetrios.view.graphical package]
 
     textual package:
@@ -191,7 +227,6 @@ Card Testing Related Class/Info:
     Includes the PlayingCardTests class
     [test folder -> cs3500.threetrios.card package]
 
-
 TEST FOLDER:
 
 Examples Class:
@@ -205,7 +240,7 @@ Card Testing Config Related Files/Info:
 
 
 Controller Testing Related Class/Info:
-    Includes filereader package
+    Includes filereader package, and ControllerTests class
     [test folder -> cs3500.threetrios.controller package]
 
     filereader package:
@@ -238,15 +273,13 @@ Model Testing Related Class/Info:
 
     strategies package:
         Includes MockModelEmpty class, MockModelStrategy1 class, MockStrategy1 class,
-        MockStrategy2 class, Strategy1And2Tests class
+        MockStrategy2 class, Strategy1And2Tests class, Strategy1Tests, Strategy2Tests
         [test folder -> cs3500.threetrios.model.strategies package]
 
 
 View Testing Related Class/info
     Includes TextualViewTests class
     [test folder -> cs3500.threetrios.view package]
-
-
 
 CHANGES FROM PREVIOUS WORK:
     - Created a read-only model interface class which only holds immutable data
@@ -267,18 +300,75 @@ EXTRA CREDIT:
      * there are no corners, places the card in the uppermost leftmost grid cell. The card closest to
      * index 0 that satisfies the greatest number of card flips will be played in the found position.
 
-
-CHANGES FROM PREVIOUS WORK (HW5):
-    - addition of public method in GraphicalView class to get the GridPanel and layout panels
-    - removed all mouse related events from GraphicalView class and it's sub classes
-    - and moved them to controller
-    - Model added listeners and notification to all listeners
-    - Added showing error messages to view interface
-
-CHANGES FOR PART 3:  (EXPLAIN TOO!!!!!)
-    - Fixed the strategy-transcript.txt to include a visual of what the grid would look like before
-    and after playing the strategy
+NEW IN THIS HOMEWORK:
     - Incorporation of a Features interface
+        - Represents features that the controller manages to interact with the game. These methods
+          permit players to perform features of the game through actions like selecting a card at a
+          specific index or selecting a grid cell at a specific row and column.
     - Incorporation of an AIPLayerListener interface
+        - Represents a listener for AI players in the Three Trios game. The listener is responsible
+          for performing the AI player's next turn after the previous player plays. This turn is
+           triggered by the model.
     - Incorporation of a ThreeTriosModelListener interface
+        - Represents an interface for updating the view when a card has been played to the grid in
+          the model. Whenever the model state changes, listeners will notify classes that implement
+          this interface and perform an action accordingly.
     - Incorporation of a ThreeTriosController class
+        - The controller class for a Three Trios game. Analyzes and reads user interactions and
+          generates an output accordingly to the input. Manages communications between the model,
+          view, and inputs.
+    - Incorporated an AIPlayer class
+        - Represents an AI-controlled player in the Three Trios game. The AI player works the same
+          as a normal player, but has a specific strategy associated with it to perform its moves
+          based off of when it is their turn. This is not user-controlled. An AI player is
+          controlled by the computer.
+    - Added the ControllerTests class to verify our controller works as intended
+
+
+
+CHANGES FOR PART 3:
+    - Fixed the strategy-transcript.txt to include a visual of what the grid would look like before
+      and after playing the strategy
+    - Adds java docs to the ReadonlyThreeTriosModel interface
+    - Added the method addViewListener in the ThreeTriosModel interface
+        - Adds a listener to prepare the view to be updated when the model notifies it to.
+    - Added the method addAITurnListener in the ThreeTriosModel interface
+        - Adds a listener to prepare the AI to commence its turn when the model notifies it to.
+    - Added private methods alertViewListener and alertAITurnListener to notify when to provoke the
+      methods within our listeners
+    - Added findWinningPlayerScore method to the ThreeTriosModel interface
+        - Returns the winning player's score.
+    - Added a private method to support the findWinningPlayerScore method
+    - Changes some source organization around. It is reflected above.
+    - Added the findWinningScore, addAITurnListener, and alertViewListener tests done for the
+      methods within the GameModelTests class
+        - Represents tests for the ThreeTrios game controller which manages instructions
+           between the controller, model, and view.
+    - Added tests to the GameModelTests class for adding listeners
+    - addition of public method in GraphicalView class to get the GridPanel and layout panels
+        - removed all mouse related events from GraphicalView class, and it's sub subclasses
+        - and moved them to controller
+        - Model added listeners and notification to all listeners
+        - Added showing error messages to view interface
+        - Added the getRedCardPanel method to the ThreeTriosView interface
+            - Gets the panel holding all the red player's cards.
+        - Added the getBlueCardPanel method to the ThreeTriosView interface
+            - Gets the panel holding all the blue player's cards.
+        - Added the getGridPanel method to the ThreeTriosView interface
+            - Gets the panel holding all the grid tile panels.
+        - Added the showMessage method to the ThreeTriosView interface
+            - Transmit a message to the views.
+        - Added the showErrorMessage method to the ThreeTriosView interface
+            - Transmit an error message to the view, in case the command could not be processed correctly.
+        - Changes the main method to incorporate what was required
+        - Added descriptive java docs to every interface
+        - Added the addActionListener method to the Players interface
+            - Sets an action listener for the AI player's actions.
+
+
+
+WHAT I HAD TO DELETE TO GET MY SUBMISSION TO GO THROUGH:
+    - I deleted all the test classes that were created before and not changed. The only test
+    classes included in my test folder are those for the controller and model as these were the
+    only test classes that I created for this homework. All test classes made in the previous
+    homework were deleted to meet submission size requirement. This includes configuration files.

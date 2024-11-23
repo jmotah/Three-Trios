@@ -84,6 +84,7 @@ public class PlayingCard implements Cards {
    * @param direction the specific direction to grab the value from
    * @return the String value of the PlayingCard object at the specific direction, accounting for A
    */
+  @Override
   public String getValueAsString(CardCompass direction) {
     if (direction == null) {
       throw new IllegalArgumentException("Cannot grab from a null direction!");
@@ -106,7 +107,7 @@ public class PlayingCard implements Cards {
    * @param number the CardNumbers object value of the number to check
    * @return the String value of the card number
    */
-  public String checkForACase(CardNumbers number) {
+  private String checkForACase(CardNumbers number) {
     if (number == CardNumbers.A) {
       return "A";
     } else {

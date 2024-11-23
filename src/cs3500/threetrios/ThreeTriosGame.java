@@ -60,7 +60,8 @@ public class ThreeTriosGame {
    * @param model     the model object
    * @return a new Players object
    */
-  private static Players processPlayerType(String typeInput, PlayerColor color, ReadonlyThreeTriosModel model) {
+  private static Players processPlayerType(String typeInput, PlayerColor color,
+                                           ReadonlyThreeTriosModel model) {
     if (typeInput == null || typeInput.isEmpty()) {
       throw new IllegalArgumentException("TypeInput cannot be null or empty!");
     } else if (color == null) {
