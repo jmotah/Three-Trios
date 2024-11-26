@@ -14,7 +14,7 @@ import cs3500.threetrios.model.cards.PlayingCard;
  */
 public class PlayingCardTests {
 
-  PlayingCard card;
+  private PlayingCard card;
 
   @Before
   public void setup() {

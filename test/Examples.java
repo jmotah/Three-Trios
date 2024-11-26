@@ -15,8 +15,8 @@ import cs3500.threetrios.view.ThreeTriosView;
  * end game, and displaying the textual view.
  */
 public class Examples {
-  ThreeTriosModel model;
-  ThreeTriosView view;
+  private ThreeTriosModel model;
+  private ThreeTriosView view;
 
   @Before
   public void setup() {

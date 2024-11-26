@@ -19,8 +19,8 @@ import cs3500.threetrios.model.player.PlayerColor;
  */
 public class GridTileTests {
 
-  Players human;
-  Players human2;
+  private Players human;
+  private Players human2;
 
   @Before
   public void setup() {
