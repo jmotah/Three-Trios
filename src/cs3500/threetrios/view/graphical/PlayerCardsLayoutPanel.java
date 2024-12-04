@@ -21,7 +21,7 @@ public class PlayerCardsLayoutPanel extends JPanel implements ThreeTriosLayoutVi
    *
    * @param player the Player object to get information from
    */
-  PlayerCardsLayoutPanel(Players player) {
+  public PlayerCardsLayoutPanel(Players player) {
     if (player == null) {
       throw new IllegalArgumentException("Player cannot be null!");
     }

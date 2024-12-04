@@ -2,20 +2,44 @@ package cs3500.threetrios.providers.model.enum_adapters;
 
 import cs3500.threetrios.providers.model.AttackValue;
 
+/**
+ * Class to help convert from the AttackValue enum to an integer value.
+ */
 public class ProviderAttackValueToMainInteger implements ConvertEnums<Integer> {
 
   private final AttackValue attackValue;
 
+  /**
+   * ProviderAttackValueToMainInteger class constructor.
+   *
+   * @param attackValue the AttackValue enum value to translate from
+   */
   public ProviderAttackValueToMainInteger(AttackValue attackValue) {
+    if(attackValue == null) {
+      throw new IllegalArgumentException("Attack value cannot be null!");
+    }
+
     this.attackValue = attackValue;
   }
 
+  /**
+   * Converts from the AttackValue enum to an integer.
+   *
+   * @return the translated integer value which we translated from the AttackValue
+   * enum value
+   */
   @Override
   public Integer convertEnums() {
-    return providerAttackValueToMainInteger(attackValue);
+    return providerAttackValueToMainInteger();
   }
 
-  private int providerAttackValueToMainInteger(AttackValue attackValue) {
+  /**
+   * Helper class to perform the switch from the AttackValue enum value to integer value.
+   *
+   * @return the translated integer value which we translated from the AttackValue
+   * enum value
+   */
+  private int providerAttackValueToMainInteger() {
     switch (attackValue) {
       case ONE:
         return 1;

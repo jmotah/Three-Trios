@@ -37,7 +37,7 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
    * @param columns the number of columns for the grid layout
    * @param model   a read only version of the model to gain immutable data from
    */
-  GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model) {
+  public GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model) {
     if (rows < 0 || columns < 0) {
       throw new IllegalArgumentException("Rows and columns cannot be negative!");
     } else if (model == null) {
