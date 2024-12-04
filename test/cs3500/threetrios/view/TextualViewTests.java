@@ -7,9 +7,16 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
+import java.util.List;
 
+import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.Grid;
+import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.view.textual.TextualView;
 
 /**
@@ -18,8 +25,11 @@ import cs3500.threetrios.view.textual.TextualView;
  */
 public class TextualViewTests {
   private ThreeTriosModel model;
-  private File cardConfig;
   private File gridConfig;
+  private File cardConfig;
+
+  private Grid[][] grid;
+  private List<Cards> deck;
 
   //This is used to test the void render() method. Captures the output sent through
   //System.out
@@ -28,12 +38,18 @@ public class TextualViewTests {
   @Before
   public void setup() {
     this.model = new GameModel();
-    this.cardConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
-                    "cs3500/threetrios/cardconfigs/card_configuration.txt");
     this.gridConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
-                    "cs3500/threetrios/gridconfigs/board_2x3.txt");
+                    "cs3500/threetrios/grids/card_configuration.txt");
+    this.cardConfig = new File(
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
+                    "cs3500/threetrios/decks/board_2x3.txt");
+
+    GridReader gridReader = new GridReader(this.gridConfig);
+    CardReader cardReader = new CardReader(this.cardConfig);
+
+    grid = gridReader.readConfiguration();
+    deck = cardReader.readConfiguration();
 
     //This is used to test the void render() method. Captures the output sent through
     //System.out
@@ -55,7 +71,7 @@ public class TextualViewTests {
   @Test
   public void testTextualViewToStringAfterStartGame() {
     ThreeTriosView view = new TextualView(model);
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     String expected = "Player: RED\n" +
             "___\n" +
@@ -71,7 +87,7 @@ public class TextualViewTests {
   @Test
   public void testTextualViewToStringAfterAMove() {
     ThreeTriosView view = new TextualView(model);
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -91,7 +107,7 @@ public class TextualViewTests {
   @Test
   public void testTextualViewToStringAfterBattle() {
     ThreeTriosView view = new TextualView(model);
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
 
@@ -112,7 +128,7 @@ public class TextualViewTests {
   @Test
   public void testTextualViewRenderBeforeGameOver() {
     ThreeTriosView view = new TextualView(model);
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     view.refresh();
 
@@ -131,7 +147,7 @@ public class TextualViewTests {
   @Test
   public void testTextualViewRenderAfterGameOver() {
     ThreeTriosView view = new TextualView(model);
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);

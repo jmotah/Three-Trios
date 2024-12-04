@@ -7,9 +7,16 @@ import org.junit.Test;
 import java.awt.Point;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
+import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.Grid;
+import cs3500.threetrios.model.grid.GridTile;
 
 /**
  * Tests to verify the chained version of strategies 1 and 2 works as intended.
@@ -22,6 +29,9 @@ public class Strategy1And2Tests {
   File cardConfig;
   File gridConfig;
 
+  private Grid[][] grid;
+  private List<Cards> deck;
+
   @Before
   public void setup() {
     model = new GameModel();
@@ -32,11 +42,17 @@ public class Strategy1And2Tests {
     this.gridConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
                     "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
+
+    GridReader gridReader = new GridReader(this.gridConfig);
+    CardReader cardReader = new CardReader(this.cardConfig);
+
+    grid = gridReader.readConfiguration();
+    deck = cardReader.readConfiguration();
   }
 
   @Test
   public void testPlayToGridAIInitialMove() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     HashMap<Point, Integer> expected = new HashMap<Point, Integer>();
     expected.put(new Point(0, 0), 0);
@@ -46,7 +62,7 @@ public class Strategy1And2Tests {
 
   @Test
   public void testPlayToGridAIGoForHighestScore() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -74,7 +90,7 @@ public class Strategy1And2Tests {
 
   @Test
   public void testPlayToGridAIGoForUpmostWhenPotentialScoresAreEqual() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(1, 1, 6);
     model.battle(1, 1);
@@ -97,7 +113,11 @@ public class Strategy1And2Tests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/grid_config_large.txt");
 
-    model.startGame(cardConfig, gridConfig);
+    GridReader gridReader = new GridReader(gridConfig);
+
+    grid = gridReader.readConfiguration();
+
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -116,7 +136,7 @@ public class Strategy1And2Tests {
 
   @Test
   public void testPlayToGridAIGoForCornerWhenPotentialScoresAreEqual() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -142,7 +162,11 @@ public class Strategy1And2Tests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/grid_config_large.txt");
 
-    model.startGame(cardConfig, gridConfig);
+    GridReader gridReader = new GridReader(gridConfig);
+
+    grid = gridReader.readConfiguration();
+
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 2, 0);
     model.battle(0, 2);
@@ -177,7 +201,11 @@ public class Strategy1And2Tests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/grid_config_large.txt");
 
-    model.startGame(cardConfig, gridConfig);
+    GridReader gridReader = new GridReader(gridConfig);
+
+    grid = gridReader.readConfiguration();
+
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 3, 0);
     model.battle(0, 3);
@@ -212,7 +240,11 @@ public class Strategy1And2Tests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/grid_config_large.txt");
 
-    model.startGame(cardConfig, gridConfig);
+    GridReader gridReader = new GridReader(gridConfig);
+
+    grid = gridReader.readConfiguration();
+
+    model.startGame(grid, deck);
 
     model.playToGrid(2, 0, 5);
     model.battle(2, 0);

@@ -7,9 +7,16 @@ import org.junit.Test;
 import java.awt.Point;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
+import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.Grid;
+import cs3500.threetrios.model.grid.GridTile;
 
 /**
  * Represents tests for strategy 1.
@@ -19,6 +26,9 @@ public class Strategy1Tests {
   private File cardConfig;
   private File gridConfig;
 
+  private Grid[][] grid;
+  private List<Cards> deck;
+
   @Before
   public void setup() {
     this.model = new GameModel();
@@ -27,6 +37,12 @@ public class Strategy1Tests {
                     "randomized_card_configuration.txt");
     this.gridConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/" +
             "gridconfigs/grid_config_large.txt");
+
+    GridReader gridReader = new GridReader(this.gridConfig);
+    CardReader cardReader = new CardReader(this.cardConfig);
+
+    grid = gridReader.readConfiguration();
+    deck = cardReader.readConfiguration();
   }
 
   @Test
@@ -36,7 +52,13 @@ public class Strategy1Tests {
     this.gridConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/" +
             "gridconfigs/grid_config_getBestScorePositionForAllCardsInHand.txt");
 
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    GridReader gridReader = new GridReader(gridConfig);
+    CardReader cardReader = new CardReader(cardConfig);
+
+    grid = gridReader.readConfiguration();
+    deck = cardReader.readConfiguration();
+
+    this.model.startGame(grid, deck);
     Strategies strategyOne = new Strategy1(this.model);
 
     this.model.playToGrid(0, 0, 0);
@@ -67,7 +89,7 @@ public class Strategy1Tests {
 
   @Test
   public void testStrategyOneOpenGridPicksCorrectPosition() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyOne = new Strategy1(this.model);
 
     this.model.playToGrid(1, 1, 0);
@@ -92,7 +114,7 @@ public class Strategy1Tests {
 
   @Test
   public void testStrategyOneOpenGridCornerAndNotFirstHandIndex() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyOne = new Strategy1(this.model);
 
     this.model.playToGrid(0, 4, 0);
@@ -117,7 +139,7 @@ public class Strategy1Tests {
 
   @Test
   public void testStrategyOneComboStep() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyOne = new Strategy1(this.model);
 
     this.model.playToGrid(0, 0, 0);

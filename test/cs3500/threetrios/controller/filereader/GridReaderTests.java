@@ -24,7 +24,7 @@ public class GridReaderTests {
     File gridConfig = new File("gridconfigs/board_with_holes_two_groups.txt");
     GridReader gridReader = createGridReader(gridConfig);
 
-    GridTile[][] grid = gridReader.readConfiguration();
+    Grid[][] grid = gridReader.readConfiguration();
 
     Assert.assertEquals(4, grid.length);
     Assert.assertEquals(4, grid[0].length);

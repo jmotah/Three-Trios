@@ -5,8 +5,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 
 import cs3500.threetrios.controller.ThreeTriosModelListener;
+import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.controller.filereader.GridReader;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.Grid;
+import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.PlayerColor;
 
@@ -28,6 +35,9 @@ public abstract class AbstractVariantModelTests {
   private File cardConfig;
   private File gridConfig;
 
+  private Grid[][] grid;
+  private List<Cards> deck;
+
   @Before
   public void setup() {
     this.model = createModel();
@@ -38,10 +48,16 @@ public abstract class AbstractVariantModelTests {
     this.gridConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
                     "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
+
+    GridReader gridReader = new GridReader(this.gridConfig);
+    CardReader cardReader = new CardReader(this.cardConfig);
+
+    grid = gridReader.readConfiguration();
+    deck = cardReader.readConfiguration();
   }
 
   private ThreeTriosModel playGameTilGameOver() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -93,20 +109,20 @@ public abstract class AbstractVariantModelTests {
 
   @Test(expected = IllegalStateException.class)
   public void testModelStartGameGameAlreadyStarted() {
-    model.startGame(cardConfig, gridConfig);
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
+    model.startGame(grid, deck);
   }
 
   @Test(expected = IllegalStateException.class)
   public void testModelStartGameGameAlreadyEnded() {
     model = playGameTilGameOver();
 
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
   }
 
   @Test
   public void testModelStartGameHandSizeEqualsThreeWhenLessThanThree() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     int expected = 8;
 
@@ -128,28 +144,28 @@ public abstract class AbstractVariantModelTests {
 
   @Test(expected = IllegalArgumentException.class)
   public void testModelPlayToGridNegativeRowOrColOrCardIdx() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(-1, -1, -1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testModelPlayToGridRowOrColGreaterThanGridLength() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(4, 4, 0);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testModelPlayToGridCardIdxIsGreaterOrEqualToHandSize() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, model.getPlayerOfColor(PlayerColor.RED).getHand().size());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testModelPlayToGridPlayingToAlreadyPlayedToCell() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -160,7 +176,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test(expected = IllegalStateException.class)
   public void testModelPlayToGridCalledWhileNotInPlacingPhase() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
 
@@ -193,7 +209,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test(expected = IllegalArgumentException.class)
   public void testModelBattleRowOrColLessThanZero() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(-1, -1);
@@ -201,7 +217,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test(expected = IllegalArgumentException.class)
   public void testModelBattleRowOrColGreaterOrEqualToGridLength() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(4, 4);
@@ -209,14 +225,14 @@ public abstract class AbstractVariantModelTests {
 
   @Test(expected = IllegalStateException.class)
   public void testModelBattleNotInBattlePhase() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.battle(0, 0);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testModelBattleRowAndColLeadToInvalidCard() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
 
@@ -225,7 +241,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelBattleSideBySide() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -251,7 +267,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelBattleBattleAgainstEdgeZero() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(1, 0, 0);
     model.battle(1, 0);
@@ -268,7 +284,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelBattleBattleOccursRecursively() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -291,7 +307,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelBattleDoesNotCombatSameCard() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -312,7 +328,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelBattleEnsureCardsNotConnectingArentAffected() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -358,7 +374,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelIsGameOverWhenNotActuallyOver() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -385,7 +401,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelFindWinningPlayerValid() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -414,7 +430,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelUpdatePlayerTurnGivenPlayerRed() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.updatePlayerTurn();
 
@@ -425,7 +441,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelUpdatePlayerTurnGivenPlayerBlue() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -451,7 +467,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelGetCurrentTurnPlayerValid() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     PlayerColor expected = PlayerColor.RED;
 
@@ -464,7 +480,11 @@ public abstract class AbstractVariantModelTests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
                     "cs3500/threetrios/cardconfigs/randomized_card_configuration.txt");
 
-    model.startGame(betterCardConfig, gridConfig);
+    CardReader cardReader = new CardReader(betterCardConfig);
+
+    deck = cardReader.readConfiguration();
+
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);
@@ -486,7 +506,11 @@ public abstract class AbstractVariantModelTests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/cardconfigs/card_config_three_cards.txt");
 
-    model.startGame(cardConfigThreeCards, gridConfig);
+    CardReader cardReader = new CardReader(cardConfigThreeCards);
+
+    deck = cardReader.readConfiguration();
+
+    model.startGame(grid, deck);
   }
 
   @Test
@@ -495,7 +519,11 @@ public abstract class AbstractVariantModelTests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/grid_config_size_of_twenty.txt");
 
-    model.startGame(cardConfig, gridConfigSizeOfTwenty);
+    GridReader gridReader = new GridReader(gridConfigSizeOfTwenty);
+
+    grid = gridReader.readConfiguration();
+
+    model.startGame(grid, deck);
 
     int expected = 5;
 
@@ -508,12 +536,16 @@ public abstract class AbstractVariantModelTests {
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/test/" +
                     "cs3500/threetrios/gridconfigs/incorrect_grid_config_card_cells_even.txt");
 
-    model.startGame(cardConfig, gridConfigEvenCardCellCount);
+    GridReader gridReader = new GridReader(gridConfigEvenCardCellCount);
+
+    grid = gridReader.readConfiguration();
+
+    model.startGame(grid, deck);
   }
 
   @Test
   public void testModelBattleCornerEdge() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(1, 0, 0);
     model.battle(1, 0);
@@ -524,16 +556,16 @@ public abstract class AbstractVariantModelTests {
     Assert.assertEquals(PlayerColor.BLUE, model.findWinningPlayer().getPlayersColor());
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testModelAddViewListenerNull() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.addViewListener(null);
   }
 
   @Test
   public void testModelAddViewListener() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
     final boolean[] updated = {false};
 
     class MockModelListener implements ThreeTriosModelListener {
@@ -552,7 +584,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelAddTurnListener() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
     final boolean[] updated = {false};
 
     class MockAIListener implements AIPlayerListener {
@@ -568,16 +600,16 @@ public abstract class AbstractVariantModelTests {
     Assert.assertFalse(updated[0]);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testModelAddTurnListenerNull() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.addAITurnListener(null);
   }
 
   @Test
   public void testModelFindWinningPlayerScore() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     int expected = 8;
 
@@ -586,7 +618,7 @@ public abstract class AbstractVariantModelTests {
 
   @Test
   public void testModelFindWinningPlayerScoreInMiddleOfGame() {
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
 
     model.playToGrid(0, 0, 0);
     model.battle(0, 0);

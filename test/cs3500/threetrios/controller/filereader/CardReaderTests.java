@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.List;
 
 import cs3500.threetrios.model.cards.CardNumbers;
+import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
@@ -25,7 +26,7 @@ public class CardReaderTests {
 
     int expected = 41;
 
-    List<PlayingCard> deck = cardReader.readConfiguration();
+    List<Cards> deck = cardReader.readConfiguration();
 
     Assert.assertEquals(expected, deck.size());
   }
@@ -93,7 +94,7 @@ public class CardReaderTests {
     CardReader cardReaderLowercaseUppercaseIntegerA =
             createCardReader(cardConfigLowercaseUppercaseIntegerA);
 
-    List<PlayingCard> deck = cardReaderLowercaseUppercaseIntegerA.readConfiguration();
+    List<Cards> deck = cardReaderLowercaseUppercaseIntegerA.readConfiguration();
 
     PlayingCard expected = new PlayingCard("lowerCaseACardWith3", CardNumbers.A,
             CardNumbers.THREE, CardNumbers.A, CardNumbers.A);
@@ -107,7 +108,7 @@ public class CardReaderTests {
             "cardconfigs/card_config_duplicates_dif_name.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
-    List<PlayingCard> deck = cardReaderDupDifName.readConfiguration();
+    List<Cards> deck = cardReaderDupDifName.readConfiguration();
 
     PlayingCard expected1 = new PlayingCard("Card1", CardNumbers.ONE, CardNumbers.ONE,
             CardNumbers.ONE, CardNumbers.ONE);
@@ -124,7 +125,7 @@ public class CardReaderTests {
             "cardconfigs/incorrect_card_config_duplicates_same_name.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
-    List<PlayingCard> deck = cardReaderDupDifName.readConfiguration();
+    List<Cards> deck = cardReaderDupDifName.readConfiguration();
   }
 
   @Test (expected = IllegalStateException.class)
@@ -133,6 +134,6 @@ public class CardReaderTests {
             "cardconfigs/incorrect_card_config_same_name_dif_value.txt");
     CardReader cardReaderDupDifName = createCardReader(cardConfigDupDifName);
 
-    List<PlayingCard> deck = cardReaderDupDifName.readConfiguration();
+    List<Cards> deck = cardReaderDupDifName.readConfiguration();
   }
 }

@@ -4,11 +4,13 @@ import java.io.File;
 import java.util.List;
 
 import cs3500.threetrios.model.GameModel;
+import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.cards.CardNumbers;
 import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.Player;
@@ -27,8 +29,8 @@ public class MockModelEmptyCorners implements ThreeTriosModel {
   }
 
   @Override
-  public void startGame(File cardConfig, File gridConfig) {
-    model.startGame(cardConfig, gridConfig);
+  public void startGame(Grid[][] grid, List<Cards> deck) {
+    model.startGame(grid, deck);
   }
 
   @Override

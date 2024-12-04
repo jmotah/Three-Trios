@@ -7,9 +7,16 @@ import org.junit.Test;
 import java.awt.Point;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
+import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.Grid;
+import cs3500.threetrios.model.grid.GridTile;
 
 /**
  * Represents tests for strategy 2.
@@ -19,6 +26,9 @@ public class Strategy2Tests {
   private File cardConfig;
   private File gridConfig;
 
+  private Grid[][] grid;
+  private List<Cards> deck;
+
   @Before
   public void setup() {
     this.model = new GameModel();
@@ -26,11 +36,17 @@ public class Strategy2Tests {
             "cardconfigs/randomized_card_configuration.txt");
     this.gridConfig = new File("/Users/ayush/Desktop/ThreeTrios/test/cs3500/threetrios/" +
             "gridconfigs/grid_config_large.txt");
+
+    GridReader gridReader = new GridReader(this.gridConfig);
+    CardReader cardReader = new CardReader(this.cardConfig);
+
+    grid = gridReader.readConfiguration();
+    deck = cardReader.readConfiguration();
   }
 
   @Test
   public void testStrategyTwoCornerAndBigCard() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyTwo = new Strategy2(this.model);
 
     this.model.playToGrid(1, 0, 0);
@@ -55,7 +71,7 @@ public class Strategy2Tests {
 
   @Test
   public void testStrategyTwoOpenGrid() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyTwo = new Strategy2(this.model);
 
     this.model.playToGrid(1, 1, 0);
@@ -80,7 +96,7 @@ public class Strategy2Tests {
 
   @Test
   public void testStrategyTwoTopLeftOccupied() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyTwo = new Strategy2(this.model);
 
     this.model.playToGrid(0, 0, 0);
@@ -111,7 +127,7 @@ public class Strategy2Tests {
 
   @Test
   public void testStrategyTwoTopCornersOccupied() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyTwo = new Strategy2(this.model);
 
     this.model.playToGrid(0, 0, 0);
@@ -136,7 +152,7 @@ public class Strategy2Tests {
 
   @Test
   public void testStrategyTwoTopRightCornerOccupied() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyTwo = new Strategy2(this.model);
 
     this.model.playToGrid(0, 5, 0);
@@ -155,7 +171,7 @@ public class Strategy2Tests {
 
   @Test
   public void testStrategyTwoAllCornersOccupied() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyTwo = new Strategy2(this.model);
 
     this.model.playToGrid(0, 0, 0);
@@ -180,7 +196,7 @@ public class Strategy2Tests {
 
   @Test
   public void testStrategyTwoAllCornersClusterOccupied() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyTwo = new Strategy2(this.model);
 
     this.model.playToGrid(0, 0, 0);
@@ -241,7 +257,7 @@ public class Strategy2Tests {
 
   @Test
   public void testStrategyTwoAllCornersClusterOccupiedAndExtraInTopLeft() {
-    this.model.startGame(this.cardConfig, this.gridConfig);
+    this.model.startGame(grid, deck);
     Strategies strategyTwo = new Strategy2(this.model);
 
     this.model.playToGrid(0, 0, 0);

@@ -7,10 +7,15 @@ import org.junit.Test;
 import java.io.File;
 import java.util.List;
 
+import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.cards.CardNumbers;
+import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.Grid;
+import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.AIPlayer;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
@@ -29,6 +34,9 @@ public class ControllerTests {
 
   private ThreeTriosModel model;
 
+  private Grid[][] grid;
+  private List<Cards> deck;
+
   @Before
   public void setup() {
     model = new GameModel();
@@ -38,7 +46,14 @@ public class ControllerTests {
     File gridConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
                     "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
-    model.startGame(cardConfig, gridConfig);
+
+    GridReader gridReader = new GridReader(gridConfig);
+    CardReader cardReader = new CardReader(cardConfig);
+
+    grid = gridReader.readConfiguration();
+    deck = cardReader.readConfiguration();
+
+    model.startGame(grid, deck);
   }
 
 
