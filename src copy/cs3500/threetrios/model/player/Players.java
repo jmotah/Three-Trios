@@ -3,7 +3,7 @@ package cs3500.threetrios.model.player;
 import java.util.List;
 
 import cs3500.threetrios.controller.Features;
-import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.cards.Cards;
 
 /**
  * Represents a type of player which possesses a player color and a hand of PlayingCard objects.
@@ -23,7 +23,7 @@ public interface Players {
    *
    * @return the player's hand
    */
-  List<PlayingCard> getHand();
+  List<Cards> getHand();
 
   /**
    * Removes a PlayingCard object at the given index and returns it.
@@ -31,7 +31,7 @@ public interface Players {
    * @param index the index at which to remove the card from
    * @return the removed PlayingCard
    */
-  PlayingCard removeCardAtIndex(int index);
+  Cards removeCardAtIndex(int index);
 
   /**
    * Sets an action listener for the AI player's actions.

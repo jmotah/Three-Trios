@@ -5,7 +5,6 @@ import java.util.List;
 import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.grid.Grid;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GridLayoutPanel;

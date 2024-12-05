@@ -1,6 +1,6 @@
 package cs3500.threetrios.model;
 
-import cs3500.threetrios.model.grid.GridTile;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.player.Players;
 import cs3500.threetrios.model.player.PlayerColor;
 
@@ -38,7 +38,7 @@ public interface ReadonlyThreeTriosModel {
    *
    * @return a copy of the game grid
    */
-  GridTile[][] getGrid();
+  Grid[][] getGrid();
 
   /**
    * Gets the current player's turn.

@@ -15,14 +15,13 @@ import cs3500.threetrios.model.cards.CardNumbers;
 import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.Grid;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.AIPlayer;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
-import cs3500.threetrios.model.strategies.Strategy1;
-import cs3500.threetrios.model.strategies.Strategy1And2;
-import cs3500.threetrios.model.strategies.Strategy2;
+import cs3500.threetrios.model.aistrategies.Strategy1;
+import cs3500.threetrios.model.aistrategies.Strategy1And2;
+import cs3500.threetrios.model.aistrategies.Strategy2;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GraphicalView;
 
@@ -33,9 +32,6 @@ import cs3500.threetrios.view.graphical.GraphicalView;
 public class ControllerTests {
 
   private ThreeTriosModel model;
-
-  private Grid[][] grid;
-  private List<Cards> deck;
 
   @Before
   public void setup() {
@@ -50,8 +46,8 @@ public class ControllerTests {
     GridReader gridReader = new GridReader(gridConfig);
     CardReader cardReader = new CardReader(cardConfig);
 
-    grid = gridReader.readConfiguration();
-    deck = cardReader.readConfiguration();
+    Grid[][] grid = gridReader.readConfiguration();
+    List<Cards> deck = cardReader.readConfiguration();
 
     model.startGame(grid, deck);
   }

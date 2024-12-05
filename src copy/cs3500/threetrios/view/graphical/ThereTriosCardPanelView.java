@@ -1,6 +1,6 @@
 package cs3500.threetrios.view.graphical;
 
-import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.cards.Cards;
 
 /**
  * An interface representing the view for a card panel within a card panel layout with necessary
@@ -12,5 +12,5 @@ public interface ThereTriosCardPanelView {
    *
    * @return the PlayingCard object associated with this card panel
    */
-  PlayingCard getCardPanelCard();
+  Cards getCardPanelCard();
 }

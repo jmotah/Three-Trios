@@ -2,7 +2,6 @@ package cs3500.threetrios.model.grid;
 
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.player.Players;
 
 /**

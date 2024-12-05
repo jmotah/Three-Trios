@@ -1,7 +1,7 @@
 package cs3500.threetrios.model;
 
+import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.model.grid.Grid;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.Players;
 import cs3500.threetrios.model.player.PlayerColor;
 
@@ -55,4 +55,6 @@ public interface ReadonlyThreeTriosModel {
    * @return the found Player object
    */
   Players getPlayerOfColor(PlayerColor color);
+
+  BattleStrategies getBattleStrategy();
 }

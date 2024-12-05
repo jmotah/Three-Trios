@@ -10,9 +10,7 @@ import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.Grid;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.view.textual.TextualView;
 import cs3500.threetrios.view.ThreeTriosView;
 
@@ -24,9 +22,6 @@ import cs3500.threetrios.view.ThreeTriosView;
 public class Examples {
   private ThreeTriosModel model;
   private ThreeTriosView view;
-
-  private Grid[][] grid;
-  private List<Cards> deck;
 
   @Before
   public void setup() {
@@ -43,8 +38,8 @@ public class Examples {
     GridReader gridReader = new GridReader(gridConfig);
     CardReader cardReader = new CardReader(cardConfig);
 
-    grid = gridReader.readConfiguration();
-    deck = cardReader.readConfiguration();
+    Grid[][] grid = gridReader.readConfiguration();
+    List<Cards> deck = cardReader.readConfiguration();
 
     model.startGame(grid, deck);
   }

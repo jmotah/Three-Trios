@@ -62,7 +62,9 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
       model.addAITurnListener((AIPlayerListener) player);
     }
 
-    setupListeners();
+    if (view.getRedCardPanel() != null) {
+      setupListeners();
+    }
   }
 
   /**
@@ -270,7 +272,7 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
    *
    * @param clickedGridPanel the currently clicked GridPanel object
    * @return an array of integers where the 0th index is the row the clicked GridPanel object is
-   *         stored in while the 1st index is the column the clicked GridPanel object is stored in
+   *     stored in while the 1st index is the column the clicked GridPanel object is stored in
    */
   private int[] convertGridIdxToRowAndColumn(GridPanel clickedGridPanel) {
     if (clickedGridPanel == null) {

@@ -1,0 +1,50 @@
+The main thing I wish I had done differently in my design/implementation was
+regarding setting up the input listeners (mouse clicks). Initially when creating
+our view implementation, we initialized and setup mouse click listeners in the view
+package. However, brainstorming the idea of where the listeners should be placed with
+my partner, we deduced that the view panel listeners should be placed in the controller
+as mouse clicks are considered inputs. This change was primarily due to the idea that
+the controller is the one who manages input and output commands between the view
+and the model, so when reconsidering it, we decided to shift our mouse clicks listeners
+from the originally placed view to the controller. However, with mouse clicks listeners now
+being in the controller, it diverted JSwing information from just being placed within the view,
+to now being seen within the view and the controller. This also resulted in various methods
+in our view to grab those JPanel/JFrame objects and send them to the controller. Come to
+adapting, the appearance of our mouse click listeners in our view and controller made it
+impossible for us to adapt certain features from our providers to our code. Looking back
+at this design choice, we should have kept our mouse click listeners within the view to
+keep all JSwing components in one area rather than scattering it across our view and
+controller. Another design/implementation mistake we made was using type references to
+concrete classes rather than those from our interfaces. Using interfaces as type references
+greatly improves the modularity, testability, maintainability, and flexibility of our code
+as it continues to follow object-oriented principles and allows for lesser code modification.
+
+Regarding lessons learned from the code given to us, we learned how crucial well documented
+code can be, especially when working in large teams. With the code we received, there were
+a few methods with poorly documented code, making it very difficult to fully understand
+what the purpose of the method was. In addition, there were even some methods in the
+provided interfaces without any documentation at all! This only caused wasted time as I had
+to go out of my way to email my providers to get any missing information not clearly
+explained or even labelled in the documentation. Ultimately, this inconvenience taught us
+how crucial providing explicitly clear and thorough documentation can be for our future
+selves looking at code we may have written in the past, or even other group members
+or other programmers that may have to utilize our code in the future. Furthermore, we
+learned the importance of documenting code WITHIN our methods. For longer methods that may
+be confusing to another program reading them, it would be helpful to have 1-2 lines of
+documentation explaining certain segments of what it's doing and how it's happening. As a
+result and a courtesy to our customers, it would have been helpful to include those 1-2
+lines of documentation wherever we see fit for longer and messier methods. In addition, we
+also learned to consider the idea of how adaptable our code is/how we can make it more
+adaptable.
+
+As per updates we had to make for our customers, we had to change type references to methods
+from concrete classes to that of interfaces. There was no intention to make the return types
+of these methods concrete classes, but rather we simply forgot to ensure that they return
+the implemented interface of those concrete classes. As a result, our providers asked us to make
+that change for them to ensure the modularity, testability, maintainability, and flexibility
+we talked about before.
+
+The experience with our providers was exceptional. Despite having some issues with
+understanding their code or needing assistance in certain areas, our providers were
+very open to helping us out in any area we asked about. Their communication was on
+point, responding very quickly (within the hour) to our asked questions.

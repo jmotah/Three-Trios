@@ -14,9 +14,7 @@ import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.Grid;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.view.textual.TextualView;
 
 /**
@@ -25,8 +23,6 @@ import cs3500.threetrios.view.textual.TextualView;
  */
 public class TextualViewTests {
   private ThreeTriosModel model;
-  private File gridConfig;
-  private File cardConfig;
 
   private Grid[][] grid;
   private List<Cards> deck;
@@ -38,15 +34,15 @@ public class TextualViewTests {
   @Before
   public void setup() {
     this.model = new GameModel();
-    this.gridConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
-                    "cs3500/threetrios/grids/card_configuration.txt");
-    this.cardConfig = new File(
-            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/src/" +
-                    "cs3500/threetrios/decks/board_2x3.txt");
+    File cardConfig = new File(
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/" +
+                    "ThreeTriosBetter/src/cs3500/threetrios/cardconfigs/card_configuration.txt");
+    File gridConfig = new File(
+            "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/" +
+                    "ThreeTriosBetter/src/cs3500/threetrios/gridconfigs/board_2x3.txt");
 
-    GridReader gridReader = new GridReader(this.gridConfig);
-    CardReader cardReader = new CardReader(this.cardConfig);
+    GridReader gridReader = new GridReader(gridConfig);
+    CardReader cardReader = new CardReader(cardConfig);
 
     grid = gridReader.readConfiguration();
     deck = cardReader.readConfiguration();

@@ -11,9 +11,7 @@ import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.controller.filereader.CardReader;
 import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.Grid;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.PlayerColor;
 
@@ -32,8 +30,6 @@ public abstract class AbstractVariantModelTests {
   protected abstract ThreeTriosModel createModel();
 
   private ThreeTriosModel model;
-  private File cardConfig;
-  private File gridConfig;
 
   private Grid[][] grid;
   private List<Cards> deck;
@@ -42,15 +38,15 @@ public abstract class AbstractVariantModelTests {
   public void setup() {
     this.model = createModel();
 
-    this.cardConfig = new File(
+    File cardConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
                     "src/cs3500/threetrios/cardconfigs/card_configuration.txt");
-    this.gridConfig = new File(
+    File gridConfig = new File(
             "/Users/julienmotaharian/Desktop/OOD Projects/Group Projects/ThreeTriosBetter/" +
                     "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
 
-    GridReader gridReader = new GridReader(this.gridConfig);
-    CardReader cardReader = new CardReader(this.cardConfig);
+    GridReader gridReader = new GridReader(gridConfig);
+    CardReader cardReader = new CardReader(cardConfig);
 
     grid = gridReader.readConfiguration();
     deck = cardReader.readConfiguration();

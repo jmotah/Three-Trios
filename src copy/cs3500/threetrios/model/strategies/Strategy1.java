@@ -1,14 +1,15 @@
-package cs3500.threetrios.model.strategies;
+package cs3500.threetrios.model.aistrategies;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.cards.CardCompass;
-import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.grid.GridTile;
 
 /**
@@ -171,8 +172,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    */
   protected List<HashMap<Point, Integer>>
       emulateBattleToFindScoreForAllCardsInAllPossibleSpaces() {
-    java.util.List<PlayingCard> hand = model.getCurrentTurnPlayer().getHand();
-    java.util.List<HashMap<Point, Integer>> allPossibleMovesWithScores = new ArrayList<>();
+    List<Cards> hand = model.getCurrentTurnPlayer().getHand();
+    List<HashMap<Point, Integer>> allPossibleMovesWithScores = new ArrayList<>();
 
     for (int card = 0; card < hand.size(); card++) {
       allPossibleMovesWithScores.add(
@@ -197,8 +198,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
       throw new IllegalArgumentException("Given card index out of bounds!");
     }
 
-    final GridTile[][] gridStartCopy = model.getGrid();
-    GridTile[][] grid = getGridCopy(gridStartCopy);
+    final Grid[][] gridStartCopy = model.getGrid();
+    Grid[][] grid = getGridCopy(gridStartCopy);
     HashMap<Point, Integer> pointsAndScoresOfCard = new HashMap<>();
 
     for (int row = 0; row < grid.length; row++) {
@@ -228,7 +229,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @return an integer representing the number of cards flipped due to battling
    */
   private int emulateBattleToFindScore(int row, int column, int cardIdxInHand,
-                                       GridTile[][] grid) {
+                                       Grid[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     } else if (row < 0 || row >= grid.length ||
@@ -259,7 +260,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid   the grid to perform the battling on
    * @return an integer representing the number of cards flipped due to battling
    */
-  private int battleAllDirections(int row, int column, GridTile[][] grid) {
+  private int battleAllDirections(int row, int column, Grid[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     } else if (row < 0 || row >= grid.length ||
@@ -269,7 +270,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
 
     int score = 0;
 
-    GridTile placedTile = grid[row][column];
+    Grid placedTile = grid[row][column];
 
     score += battleSpecificDirection(placedTile, row - 1, column,
             CardCompass.NORTH_VALUE, grid);
@@ -296,8 +297,8 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid             the grid to perform the battling on
    * @return an integer representing the number of cards flipped due to battling
    */
-  private int battleSpecificDirection(GridTile current, int row, int column,
-                                      CardCompass compareDirection, GridTile[][] grid) {
+  private int battleSpecificDirection(Grid current, int row, int column,
+                                      CardCompass compareDirection, Grid[][] grid) {
     if (current == null) {
       throw new IllegalArgumentException("The provided GridTile object is null!");
     } else if (compareDirection == null) {
@@ -310,7 +311,7 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
     if (row >= 0 && row < grid.length &&
             column >= 0 && column < grid[0].length &&
             grid[row][column].getCellType() == CellType.PLAYER_CELL) {
-      GridTile compareToTile = grid[row][column];
+      Grid compareToTile = grid[row][column];
 
       if (current.compareTo(compareToTile, compareDirection) == current &&
               compareToTile.getWhichPlayersTile() != model.getCurrentTurnPlayer()) {
@@ -330,12 +331,12 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @param grid the GridTile 2D array object to get a copy of
    * @return a copy of the GridTile 2D array object
    */
-  private GridTile[][] getGridCopy(GridTile[][] grid) {
+  private Grid[][] getGridCopy(Grid[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("Given grid is null!");
     }
 
-    GridTile[][] copy = new GridTile[grid.length][grid[0].length];
+    Grid[][] copy = new GridTile[grid.length][grid[0].length];
     for (int row = 0; row < grid.length; row++) {
       System.arraycopy(grid[row], 0, copy[row], 0, grid[0].length);
     }

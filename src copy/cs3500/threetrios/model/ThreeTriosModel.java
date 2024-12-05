@@ -1,8 +1,10 @@
 package cs3500.threetrios.model;
 
-import java.io.File;
+import java.util.List;
 
 import cs3500.threetrios.controller.ThreeTriosModelListener;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.player.AIPlayerListener;
 
 /**
@@ -15,10 +17,12 @@ public interface ThreeTriosModel extends ReadonlyThreeTriosModel {
   /**
    * Starts the game with a given set of configurations from a card and grid configuration file.
    *
-   * @param cardConfig the desired card configuration file
-   * @param gridConfig the desired grid configuration file
+   * @param grid the desired grid configuration to use; this usually is delivered from a grid
+   *             configuration reader class
+   * @param deck the desired deck to use; this usually is delivered from a card configuration
+   *             reader class
    */
-  void startGame(File cardConfig, File gridConfig);
+  void startGame(Grid[][] grid, List<Cards> deck);
 
   /**
    * Plays a desired card from the current player's hand to a desired cell in the grid.

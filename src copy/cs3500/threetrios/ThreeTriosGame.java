@@ -2,18 +2,23 @@ package cs3500.threetrios;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import cs3500.threetrios.controller.ThreeTriosController;
+import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.player.AIPlayer;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
-import cs3500.threetrios.model.strategies.Strategy1;
-import cs3500.threetrios.model.strategies.Strategy1And2;
-import cs3500.threetrios.model.strategies.Strategy2;
+import cs3500.threetrios.model.aistrategies.Strategy1;
+import cs3500.threetrios.model.aistrategies.Strategy1And2;
+import cs3500.threetrios.model.aistrategies.Strategy2;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GraphicalView;
 
@@ -38,8 +43,15 @@ public class ThreeTriosGame {
       throw new IllegalArgumentException("Player types must be specified!");
     }
 
+    CardReader cardReader = new CardReader(cardConfig);
+    GridReader gridReader = new GridReader(gridConfig);
+
+    List<Cards> deck = cardReader.readConfiguration();
+    Grid[][] grid = gridReader.readConfiguration();
+    //grab the try and catch from git hub in the startgame method!
+
     ThreeTriosModel model = new GameModel();
-    model.startGame(cardConfig, gridConfig);
+    model.startGame(grid, deck);
     ThreeTriosView redView = new GraphicalView(model);
     ThreeTriosView blueView = new GraphicalView(model);
     Players playerRed = processPlayerType(args[0], PlayerColor.RED, model);

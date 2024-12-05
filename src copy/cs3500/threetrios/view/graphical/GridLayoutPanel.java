@@ -12,8 +12,8 @@ import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
 
 import cs3500.threetrios.model.cards.CardCompass;
-import cs3500.threetrios.model.cards.PlayingCard;
-import cs3500.threetrios.model.grid.GridTile;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
 /**
@@ -25,7 +25,7 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
   private final int rows;
   private final int columns;
   private final ReadonlyThreeTriosModel model;
-  private GridTile[][] grid;
+  private Grid[][] grid;
 
   /**
    * Represents a constructor for the GridLayoutPanel class. Sets up the initial visual view for
@@ -35,7 +35,7 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
    * @param columns the number of columns for the grid layout
    * @param model   a read only version of the model to gain immutable data from
    */
-  GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model) {
+  public GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model) {
     if (rows < 0 || columns < 0) {
       throw new IllegalArgumentException("Rows and columns cannot be negative!");
     } else if (model == null) {
@@ -70,7 +70,7 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
       for (int column = 0; column < columns; column++) {
         GridPanel panelTile = new GridPanel();
 
-        GridTile tile = grid[row][column];
+        Grid tile = grid[row][column];
 
         performOperationBasedOnCellType(tile, panelTile);
         this.add(panelTile);
@@ -87,7 +87,7 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
    * @param tile      the tile to grab the cell type from
    * @param panelTile the panel tile to apply the operations to
    */
-  private void performOperationBasedOnCellType(GridTile tile, GridPanel panelTile) {
+  private void performOperationBasedOnCellType(Grid tile, GridPanel panelTile) {
     if (tile == null) {
       throw new IllegalArgumentException("Tile cannot be null!");
     } else if (panelTile == null) {
@@ -105,7 +105,7 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
         panelTile.setBackground(tile.getWhichPlayersTile().getPlayersColor().getColor());
         panelTile.setLayout(new BorderLayout());
 
-        PlayingCard card = tile.getPlayingCard();
+        Cards card = tile.getPlayingCard();
 
         JLabel north = new JLabel(card.getValueAsString(CardCompass.NORTH_VALUE));
         JLabel south = new JLabel(card.getValueAsString(CardCompass.SOUTH_VALUE));

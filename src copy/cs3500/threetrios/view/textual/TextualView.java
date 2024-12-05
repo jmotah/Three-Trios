@@ -4,7 +4,7 @@ import java.util.List;
 
 import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.grid.GridTile;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GridLayoutPanel;
@@ -128,9 +128,9 @@ public class TextualView implements ThreeTriosView {
   private String textualGrid() {
     StringBuilder returnString = new StringBuilder();
 
-    GridTile[][] grid = this.model.getGrid();
-    for (GridTile[] gridTiles : grid) {
-      for (GridTile tile : gridTiles) {
+    Grid[][] grid = this.model.getGrid();
+    for (Grid[] gridTiles : grid) {
+      for (Grid tile : gridTiles) {
         if (tile.getCellType() == CellType.PLAYER_CELL) {
           if (tile.getWhichPlayersTile().getPlayersColor() == PlayerColor.RED) {
             returnString.append("R");

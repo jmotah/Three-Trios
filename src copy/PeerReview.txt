@@ -1,0 +1,91 @@
+Ultimately, our providers' code was fairly easy to work with. Much of the code was
+very similar to that of our implementation, which made the entire process much
+easier for us to manage. There are only a few main critiques we would have
+for our providers.
+
+
+DOCUMENTATION CRITIQUE:
+
+One main critique is regarding documentation. On occasion, we had difficulty fully
+understanding what certain methods did. Similarly, some methods did not have
+documentation at all! As a result, this created a slight inconvenience when
+creating the adapters as we had to spend unnecessary time trying to figure out
+what certain portions of their code did. However, despite this inconvenience, our
+providers were exceptional at communication. Whenever we asked them about information
+regarding a missing portion or a further explanation of what was needing to be done,
+they were responding very quickly and were very open to helping us in whatever section
+we needed.
+
+
+DESIGN/IMPLEMENTATION CRITIQUE:
+
+Another critique is regarding the entire idea of battling. Our providers did not have
+a separate method for battling, reducing flexibility. Rather, they had a placeCard method
+that would manage playing the desired card to the grid AND battling for that card.
+Greater flexibility could be discovered by creating a separate method for battling in
+their interface. To give an example how this could be useful, suppose there is an AI
+strategy where battling occurs in other instances than just when a card is played to
+a grid. As a result, it would be very useful to have implemented battle method into
+their model interface, to have access to that battle method handy, rather than going
+back and having to change their interface and shift their battle logic around to
+account for this new feature.
+
+
+DESIGN/CODE LIMITATIONS WITH SUGGESTIONS:
+
+The main limitation with our providers' code was regarding the battle method. They
+incorporated battling within their playing to the grid method. This is a limitation
+as it prevents for modularity and flexibility among their implementation.
+To give an example how this could be useful, suppose there is an AI
+strategy where battling occurs in other instances than just when a card is played to
+a grid. As a result, it would be very useful to have implemented battle method into
+their model interface, to have access to that battle method handy, rather than going
+back and having to change their interface and shift their battle logic around to
+account for this new feature. Ultimately, it would create much less work for our
+providers to include this battle method within their interface from the beginning.
+
+Another limitation we noticed was the notifyTurn method within the Player interface.
+This method is a public method, meaning it is accessed by the client. As a result,
+these turn notifications can happen at the client's will which is something that
+should not be addressable. Rather, this method should be a private method that is
+called upon the by the program's will after a specific action has occurred. With
+client-side access to this method, it creates a design error as a method that
+should not be called by the client can be called by the client.
+
+
+CODE CAPABILITY:
+
+The views our providers gave us were very capable and efficient to use. They were very
+modular, like including separate rendering functions as well as an entire one. To clarify,
+our providers included a refreshHand method that would simply refresh/update anything that
+may have changed within the visually displayed player hands while also having a refreshGrid
+method that would simply refresh/update anything that may have changed visually within the
+displayed grid. However, in case both method functionalities were desired, they also
+included a render method that would render/refresh/update both the hand and grid visuals.
+The inclusion of these separated methods creates much more modularity. On the contrary,
+there are a few methods, like the lack of a battle method, where our providers' code
+lacked modularity.
+
+For the most part their code was cleanly written, however there are numerous scenarios in the
+view implementation that could be clarified upon. As an example, for lengthier methods, reading
+the code gets much more confusing as a lot is going on. Having a 1-2 line comment describing
+sections of that code would have made it much cleaner and much more descriptive while figuring
+out the functionality of these longer and messier methods.
+
+
+CHANGE REQUESTS:
+
+No changes had to be requested.
+
+
+CONCLUSION:
+
+Our providers' code was pretty similar to ours for the most part, making most of the
+adaptation fairly straight forward. The only main issue that caused problems was with
+the location of our listeners being placed within the controller while our providers
+placed it within their view. As a result, it was fairly convenient to reuse their code.
+
+Our providers did their very best to help make our lives easier. They provided us with
+effective communication, and were very welcoming and opening to answering any questions
+we had with their code. They provided assistance where needed and guided us when we
+needed guidance.

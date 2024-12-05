@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import cs3500.threetrios.model.grid.CellType;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.grid.GridTile;
 
 /**
@@ -31,7 +32,7 @@ import cs3500.threetrios.model.grid.GridTile;
  * XXCC
  * CXCC
  */
-public class GridReader implements ConfigurationReader<GridTile[][]> {
+public class GridReader implements ConfigurationReader<Grid[][]> {
 
   private final BufferedReader gridConfigReader;
 
@@ -64,7 +65,7 @@ public class GridReader implements ConfigurationReader<GridTile[][]> {
    * @return the grid layout in the form of a 2D array of GridTiles.
    */
   @Override
-  public GridTile[][] readConfiguration() {
+  public Grid[][] readConfiguration() {
     readRowAndColumnSizeFromGridConfig();
 
     return readGridFromGridConfig();
@@ -101,10 +102,10 @@ public class GridReader implements ConfigurationReader<GridTile[][]> {
    *
    * @return the read 2D GridTile object to become the grid
    */
-  private GridTile[][] readGridFromGridConfig() {
+  private Grid[][] readGridFromGridConfig() {
     try {
       String readLine = this.gridConfigReader.readLine();
-      GridTile[][] grid = new GridTile[numRows][numCols];
+      Grid[][] grid = new GridTile[numRows][numCols];
 
       int lineRowIndex = 0;
 

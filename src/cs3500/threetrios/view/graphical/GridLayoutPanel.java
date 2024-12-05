@@ -13,9 +13,7 @@ import javax.swing.SwingConstants;
 
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.Grid;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
 /**

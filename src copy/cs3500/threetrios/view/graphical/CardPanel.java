@@ -11,21 +11,21 @@ import javax.swing.SwingConstants;
 
 
 import cs3500.threetrios.model.cards.CardCompass;
-import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.cards.Cards;
 
 /**
  * Represents an individual card panel on top of the cards grid layout.
  */
 public class CardPanel extends JPanel implements ThereTriosCardPanelView {
 
-  private final PlayingCard card;
+  private final Cards card;
 
   /**
    * Represents the CardPanel class constructor.
    *
    * @param card the card information
    */
-  CardPanel(PlayingCard card) {
+  CardPanel(Cards card) {
     this.card = card;
     this.setLayout(new BorderLayout());
     setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
@@ -68,7 +68,7 @@ public class CardPanel extends JPanel implements ThereTriosCardPanelView {
    * @return the PlayingCard object associated with this card panel
    */
   @Override
-  public PlayingCard getCardPanelCard() {
+  public Cards getCardPanelCard() {
     return card;
   }
 }

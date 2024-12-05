@@ -7,8 +7,7 @@ import java.util.List;
 
 import cs3500.threetrios.controller.Features;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
-import cs3500.threetrios.model.strategies.Strategies;
+import cs3500.threetrios.model.aistrategies.Strategies;
 
 /**
  * Represents an AI-controlled player in the Three Trios game. The AI player works the same as a

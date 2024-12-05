@@ -1,13 +1,12 @@
 package cs3500.threetrios.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.controller.ThreeTriosModelListener;
+import cs3500.threetrios.model.battlestrategies.NormalBattleStrategy;
 import cs3500.threetrios.model.cards.CardCompass;
-import cs3500.threetrios.controller.filereader.CardReader;
-import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.grid.Grid;
@@ -30,6 +29,8 @@ public class GameModel implements ThreeTriosModel {
   private Player currentPlayersTurn;
   private GameState currentGameState = GameState.NOT_STARTED;
   private GamePhase currentGamePhase;
+
+  private BattleStrategies battleStrategy;
 
   private List<ThreeTriosModelListener> listeners = new ArrayList<>();
   private List<AIPlayerListener> aiTurnListeners = new ArrayList<>();
@@ -70,8 +71,11 @@ public class GameModel implements ThreeTriosModel {
     if (grid == null || deck == null) {
       throw new IllegalArgumentException("Grid and deck cannot be null!");
     }
+
     this.deck = deck;
     this.grid = grid;
+
+    this.battleStrategy = new NormalBattleStrategy();
 
     int rows = grid.length;
     int columns = grid[0].length;
@@ -85,10 +89,6 @@ public class GameModel implements ThreeTriosModel {
       throw new IllegalStateException("The game has already been started!");
     } else if (currentGameState == GameState.GAME_OVER) {
       throw new IllegalStateException("The game has already ended!");
-    } else if (deck == null) {
-      throw new IllegalArgumentException("The deck cannot be null!");
-    } else if (grid == null) {
-      throw new IllegalArgumentException("The grid cannot be null!");
     } else if (gridContainsNullField(grid)) {
       throw new IllegalArgumentException("The grid contains a null field!");
     } else if (rows <= 0 || columns <= 0) {
@@ -175,6 +175,14 @@ public class GameModel implements ThreeTriosModel {
     }
   }
 
+  @Override
+  public void setBattleRule(BattleStrategies strategy) {
+    if (strategy == null) {
+      throw new IllegalArgumentException("Battle strategy cannot be null!");
+    }
+    this.battleStrategy = strategy;
+  }
+
   /**
    * Starts the battle in all four compass directions including north, south, east, and west from
    * the specified tile in the grid.
@@ -195,31 +203,31 @@ public class GameModel implements ThreeTriosModel {
       throw new IllegalArgumentException("The given row and column lead to an un-playable cell!");
     }
 
-    Grid placedTile = grid[row][column];
+    Grid attackerTile = grid[row][column];
 
-    battleSpecificDirection(placedTile, row - 1, column, CardCompass.NORTH_VALUE);
-    battleSpecificDirection(placedTile, row + 1, column, CardCompass.SOUTH_VALUE);
-    battleSpecificDirection(placedTile, row, column + 1, CardCompass.EAST_VALUE);
-    battleSpecificDirection(placedTile, row, column - 1, CardCompass.WEST_VALUE);
+    battleSpecificDirection(attackerTile, row - 1, column, CardCompass.NORTH_VALUE);
+    battleSpecificDirection(attackerTile, row + 1, column, CardCompass.SOUTH_VALUE);
+    battleSpecificDirection(attackerTile, row, column + 1, CardCompass.EAST_VALUE);
+    battleSpecificDirection(attackerTile, row, column - 1, CardCompass.WEST_VALUE);
   }
 
   /**
    * Executes a battle in a specific direction from the given GridTile object. Compares the
    * GridTile object with the object in the specified row and column.
    *
-   * @param current          the object to execute the battle with
+   * @param attackerTile     the object to execute the battle with
    * @param row              the row of the object to compare with the current GridTile object with;
    *                         number is 0-index based
    * @param column           the column of the object to compare with the current GridTile object
    *                         with; number is 0-index based
    * @param compareDirection the direction of comparison
    */
-  private void battleSpecificDirection(Grid current, int row, int column,
+  private void battleSpecificDirection(Grid attackerTile, int row, int column,
                                        CardCompass compareDirection) {
     if (currentGameState == GameState.NOT_STARTED ||
             currentGameState == GameState.GAME_OVER) {
       throw new IllegalStateException("The game is not yet started or the game is already over!");
-    } else if (current == null) {
+    } else if (attackerTile == null) {
       throw new IllegalArgumentException("The provided GridTile object is null!");
     } else if (compareDirection == null) {
       throw new IllegalArgumentException("The provided CardCompass object is null!");
@@ -228,16 +236,30 @@ public class GameModel implements ThreeTriosModel {
     if (row >= 0 && row < grid.length &&
             column >= 0 && column < grid[0].length &&
             grid[row][column].getCellType() == CellType.PLAYER_CELL) {
-      Grid compareToTile = grid[row][column];
+      Grid defenderTile = grid[row][column];
 
-      if (current.compareTo(compareToTile, compareDirection) == current &&
-              compareToTile.getWhichPlayersTile() != currentPlayersTurn) {
-        grid[row][column] = new GridTile(compareToTile.getCellType(),
-                compareToTile.getPlayingCard(),
+      if (canAttackerAttack(attackerTile, defenderTile, compareDirection) &&
+              defenderTile.getWhichPlayersTile() != currentPlayersTurn) {
+        grid[row][column] = new GridTile(defenderTile.getCellType(),
+                defenderTile.getPlayingCard(),
                 currentPlayersTurn);
         battleAllDirections(row, column);
       }
     }
+  }
+
+  private boolean canAttackerAttack(Grid attackerTile, Grid defenderTile,
+                                    CardCompass comparisonDirection) {
+
+    CardCompass oppositeDirection = comparisonDirection.oppositeDirection();
+
+    int attackerDirectionalValue =
+            attackerTile.getPlayingCard().getValue(comparisonDirection);
+    int defenderOppositeDirectionalValue =
+            defenderTile.getPlayingCard().getValue(oppositeDirection);
+
+    return this.battleStrategy.shouldCardFlip(attackerDirectionalValue,
+            defenderOppositeDirectionalValue);
   }
 
   /**
@@ -377,6 +399,11 @@ public class GameModel implements ThreeTriosModel {
       return playerBlue;
     }
     throw new IllegalArgumentException("The provided PlayerColor object is not valid!");
+  }
+
+  @Override
+  public BattleStrategies getBattleStrategy() {
+    return battleStrategy;
   }
 
   /**

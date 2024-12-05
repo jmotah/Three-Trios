@@ -2,7 +2,6 @@ package cs3500.threetrios.model.grid;
 
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.player.Players;
 
 /**
@@ -106,7 +105,8 @@ public class GridTile implements Grid {
       throw new IllegalArgumentException("You can't compare a null grid tile!");
     } else if (this.cellCard == null && other.getPlayingCard() == null) {
       throw new IllegalArgumentException("Cannot compare tiles of both null cards");
-    } else if (this.cellType != CellType.PLAYER_CELL || other.getCellType() != CellType.PLAYER_CELL) {
+    } else if (this.cellType != CellType.PLAYER_CELL ||
+            other.getCellType() != CellType.PLAYER_CELL) {
       throw new IllegalArgumentException("This GridTile object and the given other GridTile " +
               "object just be of cell type PLAYER_CELL!");
     } else if (this.cellCard == null) {

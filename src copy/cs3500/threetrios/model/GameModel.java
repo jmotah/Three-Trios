@@ -1,14 +1,13 @@
 package cs3500.threetrios.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.cards.CardCompass;
-import cs3500.threetrios.controller.filereader.CardReader;
-import cs3500.threetrios.controller.filereader.GridReader;
+import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.grid.CellType;
+import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.AIPlayerListener;
 import cs3500.threetrios.model.player.Player;
@@ -37,7 +36,7 @@ public class GameModel implements ThreeTriosModel {
    * or row 0 and column 0 in the grid.
    * INVARIANCE: The grid must contain an odd number of grid tiles with the cell type of CELL_CARD
    */
-  private GridTile[][] grid;
+  private Grid[][] grid;
 
   private int handSize;
 
@@ -46,7 +45,7 @@ public class GameModel implements ThreeTriosModel {
    * to the player's hands upon initialization. After this, the deck stays constant and no cards
    * go into it or back out.
    **/
-  private List<PlayingCard> deck;
+  private List<Cards> deck;
 
   /**
    * A PlayerPlayerModel constructor.
@@ -58,52 +57,45 @@ public class GameModel implements ThreeTriosModel {
   /**
    * Starts the game with a given set of configurations from a card and grid configuration file.
    *
-   * @param cardConfig the desired card configuration file
-   * @param gridConfig the desired grid configuration file
+   * @param grid the desired grid configuration to use; this usually is delivered from a grid
+   *             configuration reader class
+   * @param deck the desired deck to use; this usually is delivered from a card configuration
+   *             reader class
    */
   @Override
-  public void startGame(File cardConfig, File gridConfig) {
-    if (cardConfig == null || gridConfig == null) {
-      throw new IllegalArgumentException("Card config and grid config files cannot be null!");
+  public void startGame(Grid[][] grid, List<Cards> deck) {
+    if (grid == null || deck == null) {
+      throw new IllegalArgumentException("Grid and deck cannot be null!");
     }
+    this.deck = deck;
+    this.grid = grid;
 
-    try {
-      CardReader cardReader = new CardReader(cardConfig);
-      GridReader gridReader = new GridReader(gridConfig);
+    int rows = grid.length;
+    int columns = grid[0].length;
 
-      this.deck = cardReader.readConfiguration();
-      this.grid = gridReader.readConfiguration();
+    int gridCardCellCount = getNumCardCells();
 
-      int rows = grid.length;
-      int columns = grid[0].length;
+    int minNumOfCardsNeededToStart = gridCardCellCount + 1;
+    handSize = minNumOfCardsNeededToStart / 2;
 
-      int gridCardCellCount = getNumCardCells();
-
-      int minNumOfCardsNeededToStart = gridCardCellCount + 1;
-      handSize = minNumOfCardsNeededToStart / 2;
-
-      if (currentGameState == GameState.IN_PROGRESS) {
-        throw new IllegalStateException("The game has already been started!");
-      } else if (currentGameState == GameState.GAME_OVER) {
-        throw new IllegalStateException("The game has already ended!");
-      } else if (deck == null) {
-        throw new IllegalArgumentException("The deck cannot be null!");
-      } else if (grid == null) {
-        throw new IllegalArgumentException("The grid cannot be null!");
-      } else if (gridContainsNullField(grid)) {
-        throw new IllegalArgumentException("The grid contains a null field!");
-      } else if (rows <= 0 || columns <= 0) {
-        throw new IllegalArgumentException(
-                "The number of rows and columns must be greater than zero!");
-      } else if (deck.size() < minNumOfCardsNeededToStart) {
-        throw new IllegalArgumentException("The size of the deck must be greater than double the " +
-                "number of cells on the grid plus one!");
-      }
-
-      ensureInvarianceAndSetStates();
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException("The rows and columns but be valid integers!");
+    if (currentGameState == GameState.IN_PROGRESS) {
+      throw new IllegalStateException("The game has already been started!");
+    } else if (currentGameState == GameState.GAME_OVER) {
+      throw new IllegalStateException("The game has already ended!");
+    } else if (deck == null) {
+      throw new IllegalArgumentException("The deck cannot be null!");
+    } else if (grid == null) {
+      throw new IllegalArgumentException("The grid cannot be null!");
+    } else if (gridContainsNullField(grid)) {
+      throw new IllegalArgumentException("The grid contains a null field!");
+    } else if (rows <= 0 || columns <= 0) {
+      throw new IllegalArgumentException(
+              "The number of rows and columns must be greater than zero!");
+    } else if (deck.size() < minNumOfCardsNeededToStart) {
+      throw new IllegalArgumentException("The size of the deck must be greater than double the " +
+              "number of cells on the grid plus one!");
     }
+    ensureInvarianceAndSetStates();
   }
 
   /**
@@ -200,7 +192,7 @@ public class GameModel implements ThreeTriosModel {
       throw new IllegalArgumentException("The given row and column lead to an un-playable cell!");
     }
 
-    GridTile placedTile = grid[row][column];
+    Grid placedTile = grid[row][column];
 
     battleSpecificDirection(placedTile, row - 1, column, CardCompass.NORTH_VALUE);
     battleSpecificDirection(placedTile, row + 1, column, CardCompass.SOUTH_VALUE);
@@ -219,7 +211,7 @@ public class GameModel implements ThreeTriosModel {
    *                         with; number is 0-index based
    * @param compareDirection the direction of comparison
    */
-  private void battleSpecificDirection(GridTile current, int row, int column,
+  private void battleSpecificDirection(Grid current, int row, int column,
                                        CardCompass compareDirection) {
     if (currentGameState == GameState.NOT_STARTED ||
             currentGameState == GameState.GAME_OVER) {
@@ -233,7 +225,7 @@ public class GameModel implements ThreeTriosModel {
     if (row >= 0 && row < grid.length &&
             column >= 0 && column < grid[0].length &&
             grid[row][column].getCellType() == CellType.PLAYER_CELL) {
-      GridTile compareToTile = grid[row][column];
+      Grid compareToTile = grid[row][column];
 
       if (current.compareTo(compareToTile, compareDirection) == current &&
               compareToTile.getWhichPlayersTile() != currentPlayersTurn) {
@@ -257,7 +249,7 @@ public class GameModel implements ThreeTriosModel {
       throw new IllegalStateException("The game is not yet started!");
     }
 
-    for (GridTile[] gridTile : grid) {
+    for (Grid[] gridTile : grid) {
       for (int column = 0; column < grid[0].length; column++) {
         if (gridTile[column].getCellType() == CellType.CARD_CELL) {
           return false;
@@ -320,7 +312,7 @@ public class GameModel implements ThreeTriosModel {
     int redCardCount = playerRed.getHand().size();
     int blueCardCount = playerBlue.getHand().size();
 
-    for (GridTile[] gridTile : grid) {
+    for (Grid[] gridTile : grid) {
       for (int column = 0; column < grid[0].length; column++) {
         if (gridTile[column].getWhichPlayersTile() == playerRed) {
           redCardCount++;
@@ -390,7 +382,7 @@ public class GameModel implements ThreeTriosModel {
    * @return a copy of the game grid
    */
   @Override
-  public GridTile[][] getGrid() {
+  public Grid[][] getGrid() {
     GridTile[][] gridCopy = new GridTile[grid.length][grid[0].length];
 
     for (int i = 0; i < grid.length; i++) {
@@ -404,7 +396,7 @@ public class GameModel implements ThreeTriosModel {
    * player. This goes back and forth until player's hand sizes are full. This method should
    * primarily be used when starting the game.
    */
-  private List<PlayingCard>[] initializePlayerHands() {
+  private List<Cards>[] initializePlayerHands() {
     throwErrorIfGameNotStartedOrGameOver("Cannot initialize the players hands. The game is not " +
             "started or the game is over!");
 
@@ -413,14 +405,13 @@ public class GameModel implements ThreeTriosModel {
               "initialize both player hands!");
     }
 
-    @SuppressWarnings("unchecked")
-    List<PlayingCard>[] hands = new ArrayList[2];
+    List<Cards>[] hands = new ArrayList[2];
     hands[0] = new ArrayList<>();
     hands[1] = new ArrayList<>();
 
     for (int i = 0; i < handSize; i++) {
-      hands[0].add(deck.remove(0));
-      hands[1].add(deck.remove(0));
+      hands[0].add((PlayingCard) deck.remove(0));
+      hands[1].add((PlayingCard) deck.remove(0));
     }
     return hands;
   }
@@ -432,7 +423,7 @@ public class GameModel implements ThreeTriosModel {
    *                      number is 0-index based
    * @return the removed PlayingCard object
    */
-  private PlayingCard removeCardFromCurrentPlayer(int cardIdxInHand) {
+  private Cards removeCardFromCurrentPlayer(int cardIdxInHand) {
     throwErrorIfGameNotStartedOrGameOver("Cannot remove a card from the players hand. The game" +
             "is not yet started or the game is over!");
     if (cardIdxInHand < 0) {
@@ -464,13 +455,13 @@ public class GameModel implements ThreeTriosModel {
    * @param grid the given grid to display
    * @return true if the grid contains a null field, false otherwise
    */
-  private boolean gridContainsNullField(GridTile[][] grid) {
+  private boolean gridContainsNullField(Grid[][] grid) {
     if (grid == null) {
       throw new IllegalArgumentException("The provided grid is null!");
     }
 
-    for (GridTile[] gridTiles : grid) {
-      for (GridTile gridTile : gridTiles) {
+    for (Grid[] gridTiles : grid) {
+      for (Grid gridTile : gridTiles) {
         if (gridTile == null) {
           return true;
         }
@@ -496,8 +487,8 @@ public class GameModel implements ThreeTriosModel {
   private void ensureGridInvariance() {
     int cellCardCount = 0;
 
-    for (GridTile[] gridTiles : grid) {
-      for (GridTile gridTile : gridTiles) {
+    for (Grid[] gridTiles : grid) {
+      for (Grid gridTile : gridTiles) {
         if (gridTile.getCellType() == CellType.CARD_CELL) {
           cellCardCount++;
         }
@@ -516,7 +507,7 @@ public class GameModel implements ThreeTriosModel {
    */
   private int getNumCardCells() {
     int count = 0;
-    for (GridTile[] gridTiles : grid) {
+    for (Grid[] gridTiles : grid) {
       for (int column = 0; column < grid[0].length; column++) {
         if (gridTiles[column].getCellType() == CellType.CARD_CELL) {
           count++;
@@ -535,7 +526,7 @@ public class GameModel implements ThreeTriosModel {
 
     currentGameState = GameState.IN_PROGRESS;
 
-    List<PlayingCard>[] hands = this.initializePlayerHands();
+    List<Cards>[] hands = this.initializePlayerHands();
 
     playerRed = new Player(PlayerColor.RED, hands[0]);
     playerBlue = new Player(PlayerColor.BLUE, hands[1]);

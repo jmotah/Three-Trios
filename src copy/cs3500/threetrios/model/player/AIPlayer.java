@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import cs3500.threetrios.controller.Features;
-import cs3500.threetrios.model.cards.PlayingCard;
-import cs3500.threetrios.model.strategies.Strategies;
+import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.aistrategies.Strategies;
 
 /**
  * Represents an AI-controlled player in the Three Trios game. The AI player works the same as a
@@ -25,7 +25,7 @@ public class AIPlayer extends Player implements AIPlayerListener {
    * @param hand     the list of cards in the player's hand
    * @param strategy the strategy the AI should use
    */
-  public AIPlayer(PlayerColor color, List<PlayingCard> hand, Strategies strategy) {
+  public AIPlayer(PlayerColor color, List<Cards> hand, Strategies strategy) {
     super(color, hand);
 
     if (strategy == null) {
@@ -51,7 +51,7 @@ public class AIPlayer extends Player implements AIPlayerListener {
    * @return the player's hand
    */
   @Override
-  public List<PlayingCard> getHand() {
+  public List<Cards> getHand() {
     return super.getHand();
   }
 
@@ -62,7 +62,7 @@ public class AIPlayer extends Player implements AIPlayerListener {
    * @return the removed PlayingCard
    */
   @Override
-  public PlayingCard removeCardAtIndex(int index) {
+  public Cards removeCardAtIndex(int index) {
     return super.removeCardAtIndex(index);
   }
 

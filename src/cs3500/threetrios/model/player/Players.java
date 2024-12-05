@@ -4,7 +4,6 @@ import java.util.List;
 
 import cs3500.threetrios.controller.Features;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
  * Represents a type of player which possesses a player color and a hand of PlayingCard objects.

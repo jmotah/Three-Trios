@@ -1,7 +1,7 @@
 package cs3500.threetrios.model.grid;
 
 import cs3500.threetrios.model.cards.CardCompass;
-import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.player.Players;
 
 /**
@@ -23,7 +23,7 @@ public interface Grid {
    *
    * @return the tile's associated playing card
    */
-  PlayingCard getPlayingCard();
+  Cards getPlayingCard();
 
   /**
    * Gets the player of this GridTile object.
@@ -39,5 +39,5 @@ public interface Grid {
    * @param compareDirection the compass direction to look at for this GridTile object
    * @return the GridTile object with greater value
    */
-  GridTile compareTo(GridTile other, CardCompass compareDirection);
+  Grid compareTo(Grid other, CardCompass compareDirection);
 }

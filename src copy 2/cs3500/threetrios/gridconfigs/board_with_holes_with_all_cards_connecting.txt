@@ -1,5 +1,0 @@
-4 4
-CCCC
-CXXC
-CXXC
-CCXC

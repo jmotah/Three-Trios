@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.threetrios.model.cards.CardNumbers;
+import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.cards.PlayingCard;
 
 /**
@@ -28,7 +29,7 @@ import cs3500.threetrios.model.cards.PlayingCard;
  * CardFive 1 1 1 1
  * CardSix 1 1 1 1
  */
-public class CardReader implements ConfigurationReader<List<PlayingCard>> {
+public class CardReader implements ConfigurationReader<List<Cards>> {
   private final BufferedReader cardConfigReader;
 
   /**
@@ -55,8 +56,8 @@ public class CardReader implements ConfigurationReader<List<PlayingCard>> {
    * @return list of playing cards retrieved from the configuration file
    */
   @Override
-  public List<PlayingCard> readConfiguration() {
-    List<PlayingCard> cards = readCardsFromCardConfig();
+  public List<Cards> readConfiguration() {
+    List<Cards> cards = readCardsFromCardConfig();
     checkForDuplicates(cards);
 
     return cards;
@@ -69,10 +70,10 @@ public class CardReader implements ConfigurationReader<List<PlayingCard>> {
    *
    * @return a list of PlayingCard objects of the cards read from the card configuration file
    */
-  private List<PlayingCard> readCardsFromCardConfig() {
+  private List<Cards> readCardsFromCardConfig() {
     try {
       String readLine = this.cardConfigReader.readLine();
-      List<PlayingCard> deck = new ArrayList<>(List.of());
+      List<Cards> deck = new ArrayList<>(List.of());
 
       if (readLine.isEmpty()) {
         throw new IllegalArgumentException("Card config file must contain cards!");
@@ -95,7 +96,7 @@ public class CardReader implements ConfigurationReader<List<PlayingCard>> {
    * @param readLine the line to analyze from the file reader
    * @return a PlayingCard object for the read playing card from the card configuration
    */
-  private static PlayingCard configLineToPlayingCard(String readLine) {
+  private static Cards configLineToPlayingCard(String readLine) {
     String name;
     CardNumbers north;
     CardNumbers south;
@@ -145,10 +146,10 @@ public class CardReader implements ConfigurationReader<List<PlayingCard>> {
    *
    * @param cards the cards to check for duplicates against
    */
-  private void checkForDuplicates(List<PlayingCard> cards) {
+  private void checkForDuplicates(List<Cards> cards) {
     List<String> seenCards = new ArrayList<>();
 
-    for (PlayingCard card : cards) {
+    for (Cards card : cards) {
       if (!seenCards.contains(card.getName())) {
         seenCards.add(card.getName());
       } else {

@@ -159,7 +159,7 @@ Model Related Class/Info:
     strategies package:
     Includes AbstractStrategies class, Strategies interface, Strategy1 class, Strategy1And2 class,
     and Strategy2 class
-    [src folder -> cs3500.threetrios.model.strategies package]
+    [src folder -> cs3500.threetrios.model.aistrategies package]
 
 View Related Class/info
     Includes ThreeTriosView interface, graphical package, and textual package
@@ -239,7 +239,7 @@ Model Testing Related Class/Info:
     strategies package:
         Includes MockModelEmpty class, MockModelStrategy1 class, MockStrategy1 class,
         MockStrategy2 class, Strategy1And2Tests class
-        [test folder -> cs3500.threetrios.model.strategies package]
+        [test folder -> cs3500.threetrios.model.aistrategies package]
 
 
 View Testing Related Class/info
@@ -314,3 +314,53 @@ CHANGES FOR PART 3:  (EXPLAIN TOO!!!!!)
         - Returns the winning player's score.
     - Added a private method to support the findWinningPlayerScore method
     - Changes some source organization around. It is reflected above.
+
+
+
+HW 8 INFORMATION:
+
+COMMAND-LINE OPTIONS:
+    THIS REQUIRES 2 OF THE SPECIFIED ARGUMENTS:
+        - "human" --> allows for an actual player to play the game
+        - "strategy1" --> allows for an AI player to play the game using strategy 1
+        - "strategy2" --> allows for an AI player to play the game using strategy 2
+        - "strategy1and2" --> allows for an AI player to play the game using strategy 1 and 2
+            combined
+
+CHANGES IN VEW FOR CUSTOMERS - HW8:
+    - There were no changes in my view for our customers.
+
+REMOVED TO FIT UNDER LIMIT:
+    - entire cardconfigs package in src/ and test/ folders
+    - entire gridconfigs package in src/ and test/ folders
+    - removed the entire test folder to fit under limit; tests can be found in previous submission
+
+
+PROVIDER CODE REVIEW:
+    - Done within the PeerReview.txt file
+
+
+EXPERIENCE REVIEW:
+    - Done within the SelfReview.txt file
+
+
+WHICH FEATURES WE WERE ABLE TO GET WORKING AND WHICH DO NOT:
+    WORKING:
+        - The main features that work are the views appearing and card selection. In addition, the
+        playToGrid methods work as expected for the red player (main view) and both views update as
+        expected. In addition, all game functionality works perfectly fine except the listeners to
+        manage playing to grid for the provider's view which is explained more below. This is a
+        one-sided problem.
+
+    NOT WORKING:
+        - The feature we could not get working is the playing to grid and battling methods for
+        specifically the provider's view (this works perfectly fine for the main view). This is
+        primarily due to setting up listeners in different classes. With the idea of a mouse click
+        being an input, we set up our mouse click listeners in the controller. On the contrary, our
+        providers set it up in their view. With this being said, it became impossible to adapt the
+        playToGrid functionality as we had no way to communicate the selection information from
+        the view to the controller. Without the extra listeners our provider's had, there is no way
+        for us to adapt the playToGrid functionality and send the required information from the view
+        to the controller. If you consult the console, you can still tell that the grid cell clicks
+        and card cell clicks are being processed, but the playing to the grid function is not being
+        processed.

@@ -3,7 +3,7 @@ package cs3500.threetrios.model.player;
 import java.util.List;
 
 import cs3500.threetrios.controller.Features;
-import cs3500.threetrios.model.cards.PlayingCard;
+import cs3500.threetrios.model.cards.Cards;
 
 /**
  * Represents a non-computer controlled player. Possessing a color representing their player
@@ -12,7 +12,7 @@ import cs3500.threetrios.model.cards.PlayingCard;
 public class Player implements Players {
 
   private final PlayerColor playerType;
-  private final List<PlayingCard> hand;
+  private final List<Cards> hand;
 
   /**
    * A HumanPlayer class constructor.
@@ -20,7 +20,7 @@ public class Player implements Players {
    * @param color the color of the player
    * @param hand  the player's hand
    */
-  public Player(PlayerColor color, List<PlayingCard> hand) {
+  public Player(PlayerColor color, List<Cards> hand) {
     if (color == null) {
       throw new IllegalArgumentException("The player color cannot be null!");
     } else if (hand == null) {
@@ -47,7 +47,7 @@ public class Player implements Players {
    * @return the player's hand
    */
   @Override
-  public List<PlayingCard> getHand() {
+  public List<Cards> getHand() {
     return hand;
   }
 
@@ -58,7 +58,7 @@ public class Player implements Players {
    * @return the removed PlayingCard
    */
   @Override
-  public PlayingCard removeCardAtIndex(int index) {
+  public Cards removeCardAtIndex(int index) {
     if (index < 0 || index >= hand.size()) {
       throw new IllegalArgumentException("The index out of bounds!");
     }

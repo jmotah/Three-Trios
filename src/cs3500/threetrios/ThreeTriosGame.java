@@ -10,17 +10,20 @@ import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.battlestrategies.BattleStrategies;
+import cs3500.threetrios.model.battlestrategies.FallenAceBattleStrategy;
+import cs3500.threetrios.model.battlestrategies.NormalBattleStrategy;
+import cs3500.threetrios.model.battlestrategies.ReverseBattleStrategy;
+import cs3500.threetrios.model.battlestrategies.ReverseFallenAceBattleStrategy;
 import cs3500.threetrios.model.cards.Cards;
-import cs3500.threetrios.model.cards.PlayingCard;
 import cs3500.threetrios.model.grid.Grid;
-import cs3500.threetrios.model.grid.GridTile;
 import cs3500.threetrios.model.player.AIPlayer;
 import cs3500.threetrios.model.player.Player;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.model.player.Players;
-import cs3500.threetrios.model.strategies.Strategy1;
-import cs3500.threetrios.model.strategies.Strategy1And2;
-import cs3500.threetrios.model.strategies.Strategy2;
+import cs3500.threetrios.model.aistrategies.Strategy1;
+import cs3500.threetrios.model.aistrategies.Strategy1And2;
+import cs3500.threetrios.model.aistrategies.Strategy2;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GraphicalView;
 
@@ -54,10 +57,20 @@ public class ThreeTriosGame {
 
     ThreeTriosModel model = new GameModel();
     model.startGame(grid, deck);
+    model.setBattleRule(new NormalBattleStrategy());
+
     ThreeTriosView redView = new GraphicalView(model);
     ThreeTriosView blueView = new GraphicalView(model);
+
     Players playerRed = processPlayerType(args[0], PlayerColor.RED, model);
     Players playerBlue = processPlayerType(args[1], PlayerColor.BLUE, model);
+
+    if (args.length == 3) {
+      model.setBattleRule(processBattleStrategy(args[2]));
+    } else {
+      model.setBattleRule(new NormalBattleStrategy());
+    }
+
     ThreeTriosController controllerRed = new ThreeTriosController(model, playerRed, redView);
     ThreeTriosController controllerBlue = new ThreeTriosController(model, playerBlue, blueView);
 
@@ -96,6 +109,26 @@ public class ThreeTriosGame {
       return new AIPlayer(color, new ArrayList<>(), new Strategy1And2(model));
     } else {
       throw new IllegalArgumentException("Invalid player type: " + typeInput);
+    }
+  }
+
+  private static BattleStrategies processBattleStrategy(String typeInput) {
+    if (typeInput == null || typeInput.isEmpty()) {
+      throw new IllegalArgumentException("TypeInput cannot be null or empty!");
+    }
+
+    typeInput = typeInput.toLowerCase().trim();
+
+    if (typeInput.equals("normal")) {
+      return new NormalBattleStrategy();
+    } else if (typeInput.equals("reverse")) {
+      return new ReverseBattleStrategy();
+    } else if (typeInput.equals("fallenace")) {
+      return new FallenAceBattleStrategy();
+    } else if (typeInput.equals("reverseandfallenace")) {
+      return new ReverseFallenAceBattleStrategy();
+    } else {
+      throw new IllegalArgumentException("Invalid battle type given!");
     }
   }
 }
