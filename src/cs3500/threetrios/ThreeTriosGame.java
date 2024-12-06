@@ -6,6 +6,7 @@ import java.util.List;
 
 import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.controller.filereader.CardReader;
+import cs3500.threetrios.controller.filereader.ConfigurationReader;
 import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
@@ -39,7 +40,7 @@ public class ThreeTriosGame {
    */
   public static void main(String[] args) {
     File cardConfig = new File(
-            "src/cs3500/threetrios/cardconfigs/card_configuration.txt");
+            "src/cs3500/threetrios/cardconfigs/same_rule_card_config.txt");
 
     File gridConfig = new File(
             "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
@@ -48,8 +49,8 @@ public class ThreeTriosGame {
       throw new IllegalArgumentException("Player types must be specified!");
     }
 
-    CardReader cardReader = new CardReader(cardConfig);
-    GridReader gridReader = new GridReader(gridConfig);
+    ConfigurationReader<List<Cards>> cardReader = new CardReader(cardConfig);
+    ConfigurationReader<Grid[][]> gridReader = new GridReader(gridConfig);
 
     List<Cards> deck = cardReader.readConfiguration();
     Grid[][] grid = gridReader.readConfiguration();
@@ -76,6 +77,27 @@ public class ThreeTriosGame {
 
     redView.makeVisible();
     blueView.makeVisible();
+
+//    controllerRed.selectCard(1);
+//    controllerRed.selectGridCell(2, 2);
+//
+//    controllerBlue.selectCard(0);
+//    controllerBlue.selectGridCell(1, 3);
+//
+//    controllerRed.selectCard(1);
+//    controllerRed.selectGridCell(3, 2);
+//
+//    controllerBlue.selectCard(0);
+//    controllerBlue.selectGridCell(1, 1);
+//
+//    controllerRed.selectCard(4);
+//    controllerRed.selectGridCell(1, 0);
+//
+//    controllerBlue.selectCard(0);
+//    controllerBlue.selectGridCell(0, 2);
+//
+//    controllerRed.selectCard(0);
+//    controllerRed.selectGridCell(1, 2);
   }
 
   /**

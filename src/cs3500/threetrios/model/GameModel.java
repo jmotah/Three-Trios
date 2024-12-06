@@ -1,8 +1,11 @@
 package cs3500.threetrios.model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.threetrios.model.battlerules.BattleRules;
+import cs3500.threetrios.model.battlerules.SameBattleRule;
 import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.battlestrategies.NormalBattleStrategy;
@@ -31,6 +34,7 @@ public class GameModel implements ThreeTriosModel {
   private GamePhase currentGamePhase;
 
   private BattleStrategies battleStrategy;
+  private BattleRules battleRule;
 
   private List<ThreeTriosModelListener> listeners = new ArrayList<>();
   private List<AIPlayerListener> aiTurnListeners = new ArrayList<>();
@@ -76,6 +80,7 @@ public class GameModel implements ThreeTriosModel {
     this.grid = grid;
 
     this.battleStrategy = new NormalBattleStrategy();
+    this.battleRule = new SameBattleRule();
 
     int rows = grid.length;
     int columns = grid[0].length;
@@ -164,6 +169,8 @@ public class GameModel implements ThreeTriosModel {
       throw new IllegalArgumentException("The given row and column lead to an un-played cell!");
     }
 
+    battleForRulePreCombo(battleRule.applyRule(row, column, this.getGrid()));
+
     battleAllDirections(row, column);
     currentGamePhase = GamePhase.PLACING;
     updatePlayerTurn();
@@ -181,6 +188,27 @@ public class GameModel implements ThreeTriosModel {
       throw new IllegalArgumentException("Battle strategy cannot be null!");
     }
     this.battleStrategy = strategy;
+  }
+
+  private void battleForRulePreCombo(List<Point> matchingNumbers) {
+    if (matchingNumbers.size() < 2) {
+      return;
+    }
+
+    for (Point tileCoordinates : matchingNumbers) {
+      int row = (int) tileCoordinates.getX();
+      int column = (int) tileCoordinates.getY();
+
+      Grid tile = grid[row][column];
+
+      if (tile.getCellType() == CellType.PLAYER_CELL &&
+              tile.getWhichPlayersTile() != this.getCurrentTurnPlayer()) {
+        grid[row][column] = new GridTile(tile.getCellType(),
+                tile.getPlayingCard(),
+                this.getCurrentTurnPlayer());
+        battleAllDirections(row, column);
+      }
+    }
   }
 
   /**
@@ -202,7 +230,6 @@ public class GameModel implements ThreeTriosModel {
     } else if (grid[row][column].getPlayingCard() == null) {
       throw new IllegalArgumentException("The given row and column lead to an un-playable cell!");
     }
-
     Grid attackerTile = grid[row][column];
 
     battleSpecificDirection(attackerTile, row - 1, column, CardCompass.NORTH_VALUE);
