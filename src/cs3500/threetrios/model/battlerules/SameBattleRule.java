@@ -13,13 +13,6 @@ import cs3500.threetrios.model.player.PlayerColor;
 
 public class SameBattleRule implements BattleRules {
 
-  //get all of the adjacent cells
-  // compare the adjacent cells opposite values
-  // if the values are equal, add them to a list
-  // check if more than one values are equal, if true then swap the grid tile color
-  // manage battling
-  // perform regular battle strategy
-
   public List<Point> applyRule(int row, int column, Grid[][] grid) {
     return getMatchingNumberAdjacentTiles(row, column, grid);
   }
@@ -36,19 +29,16 @@ public class SameBattleRule implements BattleRules {
 
     if (getAdjacentGridTileSame(attackerTile, row + 1, column,
             CardCompass.SOUTH_VALUE, grid)) {
-      Grid matchedTile = grid[row + 1][column];
       matchingNumbers.add(new Point(row + 1, column));
     }
 
     if (getAdjacentGridTileSame(attackerTile, row, column + 1,
             CardCompass.EAST_VALUE, grid)) {
-      Grid matchedTile = grid[row][column + 1];
       matchingNumbers.add(new Point(row, column + 1));
     }
 
     if (getAdjacentGridTileSame(attackerTile, row, column - 1,
             CardCompass.WEST_VALUE, grid)) {
-      Grid matchedTile = grid[row][column - 1];
       matchingNumbers.add(new Point(row, column - 1));
     }
     return matchingNumbers;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.threetrios.model.battlerules.BattleRules;
+import cs3500.threetrios.model.battlerules.NormalBattleRule;
 import cs3500.threetrios.model.battlerules.SameBattleRule;
 import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.controller.ThreeTriosModelListener;
@@ -80,7 +81,7 @@ public class GameModel implements ThreeTriosModel {
     this.grid = grid;
 
     this.battleStrategy = new NormalBattleStrategy();
-    this.battleRule = new SameBattleRule();
+    this.battleRule = new NormalBattleRule();
 
     int rows = grid.length;
     int columns = grid[0].length;
@@ -183,19 +184,27 @@ public class GameModel implements ThreeTriosModel {
   }
 
   @Override
-  public void setBattleRule(BattleStrategies strategy) {
+  public void setBattleStrategy(BattleStrategies strategy) {
     if (strategy == null) {
       throw new IllegalArgumentException("Battle strategy cannot be null!");
     }
     this.battleStrategy = strategy;
   }
 
-  private void battleForRulePreCombo(List<Point> matchingNumbers) {
-    if (matchingNumbers.size() < 2) {
+  @Override
+  public void setBattleRule(BattleRules rule) {
+    if (rule == null) {
+      throw new IllegalArgumentException("Battle rule cannot be null!");
+    }
+    this.battleRule = rule;
+  }
+
+  private void battleForRulePreCombo(List<Point> pointsToBattleWith) {
+    if (pointsToBattleWith == null || pointsToBattleWith.size() < 2) {
       return;
     }
 
-    for (Point tileCoordinates : matchingNumbers) {
+    for (Point tileCoordinates : pointsToBattleWith) {
       int row = (int) tileCoordinates.getX();
       int column = (int) tileCoordinates.getY();
 

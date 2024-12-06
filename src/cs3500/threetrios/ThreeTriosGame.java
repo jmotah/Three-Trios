@@ -11,6 +11,7 @@ import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.battlerules.PlusBattleRule;
 import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.model.battlestrategies.FallenAceBattleStrategy;
 import cs3500.threetrios.model.battlestrategies.NormalBattleStrategy;
@@ -40,7 +41,7 @@ public class ThreeTriosGame {
    */
   public static void main(String[] args) {
     File cardConfig = new File(
-            "src/cs3500/threetrios/cardconfigs/same_rule_card_config.txt");
+            "src/cs3500/threetrios/cardconfigs/plus_rule_card_config.txt");
 
     File gridConfig = new File(
             "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
@@ -58,7 +59,7 @@ public class ThreeTriosGame {
 
     ThreeTriosModel model = new GameModel();
     model.startGame(grid, deck);
-    model.setBattleRule(new NormalBattleStrategy());
+    model.setBattleStrategy(new NormalBattleStrategy());
 
     ThreeTriosView redView = new GraphicalView(model);
     ThreeTriosView blueView = new GraphicalView(model);
@@ -67,10 +68,12 @@ public class ThreeTriosGame {
     Players playerBlue = processPlayerType(args[1], PlayerColor.BLUE, model);
 
     if (args.length == 3) {
-      model.setBattleRule(processBattleStrategy(args[2]));
+      model.setBattleStrategy(processBattleStrategy(args[2]));
     } else {
-      model.setBattleRule(new NormalBattleStrategy());
+      model.setBattleStrategy(new NormalBattleStrategy());
     }
+
+    model.setBattleRule(new PlusBattleRule());
 
     ThreeTriosController controllerRed = new ThreeTriosController(model, playerRed, redView);
     ThreeTriosController controllerBlue = new ThreeTriosController(model, playerBlue, blueView);

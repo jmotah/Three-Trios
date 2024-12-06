@@ -3,6 +3,7 @@ package cs3500.threetrios.model.aistrategies;
 import java.util.List;
 
 import cs3500.threetrios.model.GameModel;
+import cs3500.threetrios.model.battlerules.BattleRules;
 import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.grid.CellType;
@@ -44,7 +45,12 @@ public class MockModelEmptyCorners implements ThreeTriosModel {
   }
 
   @Override
-  public void setBattleRule(BattleStrategies strategy) {
+  public void setBattleStrategy(BattleStrategies strategy) {
+    return;
+  }
+
+  @Override
+  public void setBattleRule(BattleRules rule) {
     return;
   }
 
