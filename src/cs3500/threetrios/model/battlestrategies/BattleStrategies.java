@@ -1,5 +1,9 @@
 package cs3500.threetrios.model.battlestrategies;
 
+/**
+ * An interface for battle strategies focusing on various strategies to determine whether a card
+ * should be flipped during the battle phase or not.
+ */
 public interface BattleStrategies {
 
   /**

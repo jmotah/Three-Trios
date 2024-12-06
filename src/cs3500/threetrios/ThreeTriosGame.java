@@ -11,7 +11,10 @@ import cs3500.threetrios.controller.filereader.GridReader;
 import cs3500.threetrios.model.GameModel;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.battlerules.BattleRules;
+import cs3500.threetrios.model.battlerules.NormalBattleRule;
 import cs3500.threetrios.model.battlerules.PlusBattleRule;
+import cs3500.threetrios.model.battlerules.SameBattleRule;
 import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.model.battlestrategies.FallenAceBattleStrategy;
 import cs3500.threetrios.model.battlestrategies.NormalBattleStrategy;
@@ -55,11 +58,22 @@ public class ThreeTriosGame {
 
     List<Cards> deck = cardReader.readConfiguration();
     Grid[][] grid = gridReader.readConfiguration();
-    //grab the try and catch from git hub in the startgame method!
 
     ThreeTriosModel model = new GameModel();
     model.startGame(grid, deck);
     model.setBattleStrategy(new NormalBattleStrategy());
+
+    for (int i = 2; i < args.length; i++) {
+      String typeInput = args[i].toLowerCase().trim();
+
+      if (typeInput.charAt(0) == 'r') {
+        model.setBattleRule(processBattleRule(typeInput));
+      } else if (typeInput.charAt(0) == 's') {
+        model.setBattleStrategy(processBattleStrategy(typeInput));
+      } else {
+        throw new IllegalArgumentException("Unknown type input!");
+      }
+    }
 
     ThreeTriosView redView = new GraphicalView(model);
     ThreeTriosView blueView = new GraphicalView(model);
@@ -67,40 +81,11 @@ public class ThreeTriosGame {
     Players playerRed = processPlayerType(args[0], PlayerColor.RED, model);
     Players playerBlue = processPlayerType(args[1], PlayerColor.BLUE, model);
 
-    if (args.length == 3) {
-      model.setBattleStrategy(processBattleStrategy(args[2]));
-    } else {
-      model.setBattleStrategy(new NormalBattleStrategy());
-    }
-
-    model.setBattleRule(new PlusBattleRule());
-
     ThreeTriosController controllerRed = new ThreeTriosController(model, playerRed, redView);
     ThreeTriosController controllerBlue = new ThreeTriosController(model, playerBlue, blueView);
 
     redView.makeVisible();
     blueView.makeVisible();
-
-//    controllerRed.selectCard(1);
-//    controllerRed.selectGridCell(2, 2);
-//
-//    controllerBlue.selectCard(0);
-//    controllerBlue.selectGridCell(1, 3);
-//
-//    controllerRed.selectCard(1);
-//    controllerRed.selectGridCell(3, 2);
-//
-//    controllerBlue.selectCard(0);
-//    controllerBlue.selectGridCell(1, 1);
-//
-//    controllerRed.selectCard(4);
-//    controllerRed.selectGridCell(1, 0);
-//
-//    controllerBlue.selectCard(0);
-//    controllerBlue.selectGridCell(0, 2);
-//
-//    controllerRed.selectCard(0);
-//    controllerRed.selectGridCell(1, 2);
   }
 
   /**
@@ -137,6 +122,13 @@ public class ThreeTriosGame {
     }
   }
 
+  /**
+   * Processes the battle strategy based on type input.
+   *
+   * @param typeInput the String to analyze. The provided string must contain "strat:" before the
+   *                  specified type input
+   * @return the respective battle strategies object depending on the type input
+   */
   private static BattleStrategies processBattleStrategy(String typeInput) {
     if (typeInput == null || typeInput.isEmpty()) {
       throw new IllegalArgumentException("TypeInput cannot be null or empty!");
@@ -144,16 +136,41 @@ public class ThreeTriosGame {
 
     typeInput = typeInput.toLowerCase().trim();
 
-    if (typeInput.equals("normal")) {
+    if (typeInput.equals("strat:normal")) {
       return new NormalBattleStrategy();
-    } else if (typeInput.equals("reverse")) {
+    } else if (typeInput.equals("strat:reverse")) {
       return new ReverseBattleStrategy();
-    } else if (typeInput.equals("fallenace")) {
+    } else if (typeInput.equals("strat:fallenace")) {
       return new FallenAceBattleStrategy();
-    } else if (typeInput.equals("reverseandfallenace")) {
+    } else if (typeInput.equals("strat:reverseandfallenace")) {
       return new ReverseFallenAceBattleStrategy();
     } else {
-      throw new IllegalArgumentException("Invalid battle type given!");
+      throw new IllegalArgumentException("Invalid type input given!");
+    }
+  }
+
+  /**
+   * Processes the battle rule based on type input.
+   *
+   * @param typeInput the String to analyze. The provided string must contain "rule:" before the
+   *                  specified type input
+   * @return the respective battle rule object depending on the type input
+   */
+  private static BattleRules processBattleRule(String typeInput) {
+    if (typeInput == null || typeInput.isEmpty()) {
+      throw new IllegalArgumentException("TypeInput cannot be null or empty!");
+    }
+
+    typeInput = typeInput.toLowerCase().trim();
+
+    if (typeInput.equals("rule:normal")) {
+      return new NormalBattleRule();
+    } else if (typeInput.equals("rule:same")) {
+      return new SameBattleRule();
+    } else if (typeInput.equals("rule:plus")) {
+      return new PlusBattleRule();
+    } else {
+      throw new IllegalArgumentException("Invalid type input given!");
     }
   }
 }

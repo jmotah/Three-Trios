@@ -183,6 +183,11 @@ public class GameModel implements ThreeTriosModel {
     }
   }
 
+  /**
+   * Sets the variant battle strategy to take priority in the model.
+   *
+   * @param strategy the strategy to set as the understanding for how battling takes place
+   */
   @Override
   public void setBattleStrategy(BattleStrategies strategy) {
     if (strategy == null) {
@@ -191,6 +196,13 @@ public class GameModel implements ThreeTriosModel {
     this.battleStrategy = strategy;
   }
 
+  /**
+   * Sets the variant battle rule that occurs prior to any battle strategy. This only happens before
+   * the combo step.
+   *
+   * @param rule the rule to set as the understanding for how the initial battling step occurs
+   *             before the combo step. The strategy takes place after this
+   */
   @Override
   public void setBattleRule(BattleRules rule) {
     if (rule == null) {
@@ -199,6 +211,16 @@ public class GameModel implements ThreeTriosModel {
     this.battleRule = rule;
   }
 
+  /**
+   * Performs battling for the battle rule prior to the main battle combo taking place. Ensures
+   * there are at least two points to battle with and that the provided list of Point objects is
+   * not null. As long as the cases are true, the method iterates through the list of Point objects
+   * and flips the cards and performs typical battling as per the battle strategy for each flipped
+   * card.
+   *
+   * @param pointsToBattleWith a list of cell positions stored through a list of Point objects
+   *                           representing the cells that have to be flipped and then combo battled
+   */
   private void battleForRulePreCombo(List<Point> pointsToBattleWith) {
     if (pointsToBattleWith == null || pointsToBattleWith.size() < 2) {
       return;
