@@ -1,0 +1,16 @@
+Card1 6 8 3 2
+Card2 5 3 1 8
+Card3 9 8 3 7
+Card4 6 5 1 9
+Card5 5 4 3 A
+Card6 1 1 1 1
+Card7 1 1 1 1
+Card8 1 1 1 1
+Card9 1 1 1 1
+Card10 1 1 1 1
+Card11 1 1 1 1
+Card12 1 1 1 1
+Card13 1 1 1 1
+Card14 1 1 1 1
+Card15 1 1 1 1
+Card16 1 1 1 1
