@@ -44,10 +44,10 @@ public class ThreeTriosGame {
    */
   public static void main(String[] args) {
     File cardConfig = new File(
-            "src/cs3500/threetrios/cardconfigs/plus_rule_card_config.txt");
+            "test/cs3500/threetrios/cardconfigs/card_config_fallen_ace_tests.txt");
 
     File gridConfig = new File(
-            "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
+            "test/cs3500/threetrios/gridconfigs/grid_config_large.txt");
 
     if (args.length < 2) {
       throw new IllegalArgumentException("Player types must be specified!");
@@ -61,7 +61,6 @@ public class ThreeTriosGame {
 
     ThreeTriosModel model = new GameModel();
     model.startGame(grid, deck);
-    model.setBattleStrategy(new NormalBattleStrategy());
 
     for (int i = 2; i < args.length; i++) {
       String typeInput = args[i].toLowerCase().trim();
@@ -74,6 +73,9 @@ public class ThreeTriosGame {
         throw new IllegalArgumentException("Unknown type input!");
       }
     }
+
+    model.setBattleRule(new NormalBattleRule());
+    model.setBattleStrategy(new ReverseFallenAceBattleStrategy());
 
     ThreeTriosView redView = new GraphicalView(model);
     ThreeTriosView blueView = new GraphicalView(model);
