@@ -459,11 +459,23 @@ public class GameModel implements ThreeTriosModel {
     throw new IllegalArgumentException("The provided PlayerColor object is not valid!");
   }
 
+  /**
+   * Gets the variant battle strategy being used in the model.
+   *
+   * @return the strategy set as the understanding for how battling takes place
+   */
   @Override
   public BattleStrategies getBattleStrategy() {
     return battleStrategy;
   }
 
+  /**
+   * Gets the variant battle rule that occurs prior to any battle strategy. This only happens before
+   * the combo step.
+   *
+   * @return the rule that is set as the understanding for how the initial battling step occurs
+   *     before the combo step. The strategy takes place after this
+   */
   @Override
   public BattleRules getBattleRule() {
     return battleRule;

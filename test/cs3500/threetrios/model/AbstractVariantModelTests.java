@@ -10,6 +10,15 @@ import java.util.List;
 import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.controller.filereader.CardReader;
 import cs3500.threetrios.controller.filereader.GridReader;
+import cs3500.threetrios.model.battlerules.BattleRules;
+import cs3500.threetrios.model.battlerules.NormalBattleRule;
+import cs3500.threetrios.model.battlerules.PlusBattleRule;
+import cs3500.threetrios.model.battlerules.SameBattleRule;
+import cs3500.threetrios.model.battlestrategies.BattleStrategies;
+import cs3500.threetrios.model.battlestrategies.FallenAceBattleStrategy;
+import cs3500.threetrios.model.battlestrategies.NormalBattleStrategy;
+import cs3500.threetrios.model.battlestrategies.ReverseBattleStrategy;
+import cs3500.threetrios.model.battlestrategies.ReverseFallenAceBattleStrategy;
 import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.player.AIPlayerListener;
@@ -627,4 +636,105 @@ public abstract class AbstractVariantModelTests {
     Assert.assertEquals(expected, model.findWinningPlayerScore());
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testModelSetAndGetBattleRuleNull() {
+    model.startGame(grid, deck);
+
+    model.setBattleRule(null);
+  }
+
+  @Test
+  public void testModelSetAndGetBattleRuleNormal() {
+    model.startGame(grid, deck);
+
+    BattleRules normalRule = new NormalBattleRule();
+    model.setBattleRule(normalRule);
+
+    Assert.assertEquals(normalRule, model.getBattleRule());
+  }
+
+  @Test
+  public void testModelSetAndGetBattleRuleSame() {
+    model.startGame(grid, deck);
+
+    BattleRules sameRule = new SameBattleRule();
+    model.setBattleRule(sameRule);
+
+    Assert.assertEquals(sameRule, model.getBattleRule());
+  }
+
+  @Test
+  public void testModelSetAndGetBattleRulePlus() {
+    model.startGame(grid, deck);
+
+    BattleRules plusRule = new PlusBattleRule();
+    model.setBattleRule(plusRule);
+
+    Assert.assertEquals(plusRule, model.getBattleRule());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testModelSetAndGetBattleStrategyNull() {
+    model.startGame(grid, deck);
+
+    model.setBattleStrategy(null);
+  }
+
+  @Test
+  public void testModelSetAndGetBattleStrategyNormal() {
+    model.startGame(grid, deck);
+
+    BattleStrategies normalRule = new NormalBattleStrategy();
+
+    model.setBattleStrategy(normalRule);
+
+    Assert.assertEquals(normalRule, model.getBattleStrategy());
+  }
+
+  @Test
+  public void testModelSetAndGetBattleStrategyReverse() {
+    model.startGame(grid, deck);
+
+    BattleStrategies reverseRule = new ReverseBattleStrategy();
+
+    model.setBattleStrategy(reverseRule);
+
+    Assert.assertEquals(reverseRule, model.getBattleStrategy());
+  }
+
+  @Test
+  public void testModelSetAndGetBattleStrategyFallenAce() {
+    model.startGame(grid, deck);
+
+    BattleStrategies fallenAceRule = new FallenAceBattleStrategy();
+
+    model.setBattleStrategy(fallenAceRule);
+
+    Assert.assertEquals(fallenAceRule, model.getBattleStrategy());
+  }
+
+  @Test
+  public void testModelSetAndGetBattleStrategyReverseFallenAce() {
+    model.startGame(grid, deck);
+
+    BattleStrategies reverseFallenAceRule = new ReverseFallenAceBattleStrategy();
+
+    model.setBattleStrategy(reverseFallenAceRule);
+
+    Assert.assertEquals(reverseFallenAceRule, model.getBattleStrategy());
+  }
+
+  @Test
+  public void testModelGetBattleStrategyOnStart() {
+    model.startGame(grid, deck);
+
+    Assert.assertTrue(model.getBattleStrategy() instanceof NormalBattleStrategy);
+  }
+
+  @Test
+  public void testModelGetBattleRuleOnStart() {
+    model.startGame(grid, deck);
+
+    Assert.assertTrue(model.getBattleRule() instanceof NormalBattleRule);
+  }
 }
