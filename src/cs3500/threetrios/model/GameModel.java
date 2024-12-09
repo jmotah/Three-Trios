@@ -464,6 +464,11 @@ public class GameModel implements ThreeTriosModel {
     return battleStrategy;
   }
 
+  @Override
+  public BattleRules getBattleRule() {
+    return battleRule;
+  }
+
   /**
    * Gets the current game grid.
    *

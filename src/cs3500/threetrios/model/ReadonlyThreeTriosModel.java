@@ -1,5 +1,6 @@
 package cs3500.threetrios.model;
 
+import cs3500.threetrios.model.battlerules.BattleRules;
 import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.player.Players;
@@ -57,4 +58,6 @@ public interface ReadonlyThreeTriosModel {
   Players getPlayerOfColor(PlayerColor color);
 
   BattleStrategies getBattleStrategy();
+
+  BattleRules getBattleRule();
 }

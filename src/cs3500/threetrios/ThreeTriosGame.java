@@ -74,8 +74,8 @@ public class ThreeTriosGame {
       }
     }
 
-    model.setBattleRule(new NormalBattleRule());
-    model.setBattleStrategy(new ReverseFallenAceBattleStrategy());
+    model.setBattleRule(new PlusBattleRule());
+    model.setBattleStrategy(new FallenAceBattleStrategy());
 
     ThreeTriosView redView = new GraphicalView(model);
     ThreeTriosView blueView = new GraphicalView(model);

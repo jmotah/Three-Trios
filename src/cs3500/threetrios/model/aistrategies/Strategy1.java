@@ -247,7 +247,36 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
             model.getCurrentTurnPlayer().getHand().get(cardIdxInHand),
             model.getCurrentTurnPlayer());
 
+    score += battleForRulePreCombo(
+            model.getBattleRule().applyRule(row, column, grid),
+            grid);
+
     return score + battleAllDirections(row, column, grid);
+  }
+
+  private int battleForRulePreCombo(List<Point> pointsToBattleWith, Grid[][] grid) {
+    if (pointsToBattleWith == null || pointsToBattleWith.size() < 2) {
+      return 0;
+    }
+
+    int score = 0;
+
+    for (Point tileCoordinates : pointsToBattleWith) {
+      int row = (int) tileCoordinates.getX();
+      int column = (int) tileCoordinates.getY();
+
+      Grid tile = grid[row][column];
+
+      if (tile.getCellType() == CellType.PLAYER_CELL &&
+              tile.getWhichPlayersTile() != model.getCurrentTurnPlayer()) {
+        grid[row][column] = new GridTile(tile.getCellType(),
+                tile.getPlayingCard(),
+                model.getCurrentTurnPlayer());
+        score += 1;
+        score += battleAllDirections(row, column, grid);
+      }
+    }
+    return score;
   }
 
   /**
