@@ -2,7 +2,7 @@ package cs3500.threetrios.view.textual;
 
 import java.util.List;
 
-import cs3500.threetrios.controller.filereader.HintsToggleListener;
+import cs3500.threetrios.controller.HintsToggleListener;
 import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.grid.Grid;

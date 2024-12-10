@@ -2,6 +2,8 @@ package cs3500.threetrios.model;
 
 import java.util.List;
 
+import cs3500.threetrios.model.battlerules.BattleRules;
+import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.cards.Cards;
 import cs3500.threetrios.model.grid.Grid;
@@ -42,6 +44,22 @@ public interface ThreeTriosModel extends ReadonlyThreeTriosModel {
    * @param column the desired column index to initiate the battle with; number is 0-index based
    */
   void battle(int row, int column);
+
+  /**
+   * Sets the variant battle strategy to take priority in the model.
+   *
+   * @param strategy the strategy to set as the understanding for how battling takes place
+   */
+  void setBattleStrategy(BattleStrategies strategy);
+
+  /**
+   * Sets the variant battle rule that occurs prior to any battle strategy. This only happens before
+   * the combo step.
+   *
+   * @param rule the rule to set as the understanding for how the initial battling step occurs
+   *             before the combo step. The strategy takes place after this
+   */
+  void setBattleRule(BattleRules rule);
 
   /**
    * Updates the current player's turn from the given player to the next player. As an example,

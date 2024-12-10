@@ -1,12 +1,11 @@
 package cs3500.threetrios.model;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.threetrios.model.battlerules.BattleRules;
 import cs3500.threetrios.model.battlerules.NormalBattleRule;
-import cs3500.threetrios.model.battlerules.SameBattleRule;
 import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.controller.ThreeTriosModelListener;
 import cs3500.threetrios.model.battlestrategies.NormalBattleStrategy;

@@ -22,7 +22,8 @@ import cs3500.threetrios.view.graphical.GridPanel;
  * The controller class for a Three Trios game. Analyzes and reads user interactions and generates
  * an output accordingly to the input. Manages communications between the model, view, and inputs.
  */
-public class ThreeTriosController implements Features, ThreeTriosModelListener {
+public class ThreeTriosController implements Features, ThreeTriosModelListener,
+        HintsToggleListener {
 
   private final ThreeTriosModel model;
   private final Players player;
@@ -53,7 +54,7 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
 
     this.model.addViewListener(this);
     this.player.addActionListener(this);
-
+    this.view.setHintsToggleListener(this);
 
     if (player instanceof AIPlayer && player.getPlayersColor() == PlayerColor.RED) {
       model.addAITurnListener((AIPlayerListener) player);
@@ -91,6 +92,13 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
       });
     }
 
+    setupGridPanelListeners();
+  }
+
+  /**
+   * Sets up listeners for the clickable grid panels in the view.
+   */
+  private void setupGridPanelListeners() {
     //sets up listeners for the grid panels
     for (int i = 0; i < view.getGridPanel().getComponentCount(); i++) {
       view.getGridPanel().getComponent(i).addMouseListener(new MouseAdapter() {
@@ -128,9 +136,12 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
       layoutView = view.getBlueCardPanel();
     }
 
+    view.setCurrentlyClickedCardIndex(cardIndex);
     CardPanel clickedCardPanel = (CardPanel) layoutView.getComponent(cardIndex);
     clickingACardLogic(clickedCardPanel);
     selectedCardIdx = cardIndex;
+    view.getGridPanel().updateComponents();
+    this.setupGridPanelListeners();
   }
 
   /**
@@ -160,6 +171,9 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
     currentlyClickedCardPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
     currentlyClickedCardPanel = null;
     selectedCardIdx = -1;
+    view.setCurrentlyClickedCardIndex(selectedCardIdx);
+    view.getGridPanel().updateComponents();
+    this.setupGridPanelListeners();
   }
 
   /**
@@ -215,6 +229,10 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
       if (currentlyClickedCardPanel == clickedCardPanel) {
         clickedCardPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
         currentlyClickedCardPanel = null;
+        selectedCardIdx = -1;
+        view.setCurrentlyClickedCardIndex(selectedCardIdx);
+        view.getGridPanel().updateComponents();
+        this.setupGridPanelListeners();
       } else {
         if (currentlyClickedCardPanel != null) {
           currentlyClickedCardPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,
@@ -319,5 +337,13 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener {
                 model.findWinningPlayerScore());
       }
     }
+  }
+
+  /**
+   * Is toggled whenever the hints in the view are toggled. Setups the mouse click listeners again.
+   */
+  @Override
+  public void hintsToggled() {
+    setupGridPanelListeners();
   }
 }

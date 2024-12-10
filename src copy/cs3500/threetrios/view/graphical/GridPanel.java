@@ -13,7 +13,7 @@ public class GridPanel extends JPanel {
   /**
    * Represents the GridPanel class constructor.
    */
-  GridPanel() {
+  public GridPanel() {
     this.setBackground(Color.GRAY);
     setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
   }

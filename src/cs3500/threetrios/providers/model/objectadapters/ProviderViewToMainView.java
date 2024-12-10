@@ -1,6 +1,6 @@
 package cs3500.threetrios.providers.model.objectadapters;
 
-import cs3500.threetrios.controller.filereader.HintsToggleListener;
+import cs3500.threetrios.controller.HintsToggleListener;
 import cs3500.threetrios.providers.view.ExtendedView;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GridLayoutPanel;

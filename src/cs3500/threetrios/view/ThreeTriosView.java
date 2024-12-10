@@ -1,6 +1,6 @@
 package cs3500.threetrios.view;
 
-import cs3500.threetrios.controller.filereader.HintsToggleListener;
+import cs3500.threetrios.controller.HintsToggleListener;
 import cs3500.threetrios.view.graphical.GridLayoutPanel;
 import cs3500.threetrios.view.graphical.PlayerCardsLayoutPanel;
 

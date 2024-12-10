@@ -1,5 +1,7 @@
 package cs3500.threetrios.model;
 
+import cs3500.threetrios.model.battlerules.BattleRules;
+import cs3500.threetrios.model.battlestrategies.BattleStrategies;
 import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.player.Players;
 import cs3500.threetrios.model.player.PlayerColor;
@@ -54,4 +56,20 @@ public interface ReadonlyThreeTriosModel {
    * @return the found Player object
    */
   Players getPlayerOfColor(PlayerColor color);
+
+  /**
+   * Gets the variant battle strategy being used in the model.
+   *
+   * @return the strategy set as the understanding for how battling takes place
+   */
+  BattleStrategies getBattleStrategy();
+
+  /**
+   * Gets the variant battle rule that occurs prior to any battle strategy. This only happens before
+   * the combo step.
+   *
+   * @return the rule that is set as the understanding for how the initial battling step occurs
+   *     before the combo step. The strategy takes place after this
+   */
+  BattleRules getBattleRule();
 }

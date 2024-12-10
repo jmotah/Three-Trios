@@ -1,14 +1,14 @@
 package cs3500.threetrios.controller;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 
-import cs3500.threetrios.controller.filereader.HintsToggleListener;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.player.AIPlayer;
 import cs3500.threetrios.model.player.AIPlayerListener;
@@ -22,7 +22,8 @@ import cs3500.threetrios.view.graphical.GridPanel;
  * The controller class for a Three Trios game. Analyzes and reads user interactions and generates
  * an output accordingly to the input. Manages communications between the model, view, and inputs.
  */
-public class ThreeTriosController implements Features, ThreeTriosModelListener, HintsToggleListener {
+public class ThreeTriosController implements Features, ThreeTriosModelListener,
+        HintsToggleListener {
 
   private final ThreeTriosModel model;
   private final Players player;
@@ -228,6 +229,10 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener, 
       if (currentlyClickedCardPanel == clickedCardPanel) {
         clickedCardPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
         currentlyClickedCardPanel = null;
+        selectedCardIdx = -1;
+        view.setCurrentlyClickedCardIndex(selectedCardIdx);
+        view.getGridPanel().updateComponents();
+        this.setupGridPanelListeners();
       } else {
         if (currentlyClickedCardPanel != null) {
           currentlyClickedCardPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,
@@ -285,7 +290,7 @@ public class ThreeTriosController implements Features, ThreeTriosModelListener, 
    *
    * @param clickedGridPanel the currently clicked GridPanel object
    * @return an array of integers where the 0th index is the row the clicked GridPanel object is
-   * stored in while the 1st index is the column the clicked GridPanel object is stored in
+   *     stored in while the 1st index is the column the clicked GridPanel object is stored in
    */
   private int[] convertGridIdxToRowAndColumn(GridPanel clickedGridPanel) {
     if (clickedGridPanel == null) {

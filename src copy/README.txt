@@ -65,7 +65,10 @@ a view object are required to run the game. Once made, run the main class and th
             "/Users/julienmotaharian/Desktop/OOD Projects/ThreeTrios/src/" +
                 "tie_setup_grid_config.txt");
 
-        model.startGame(cardConfig, gridConfig);
+        ConfigurationReader<List<Cards>> deck = new CardReader(cardConfig);
+        ConfigurationReader<Grid[][]> grid = new GridReader(gridConfig);
+
+        model.startGame(grid, deck);
     }
 
 
@@ -130,7 +133,8 @@ Main Method Class:
 
 
 Controller Related Class/Info:
-    Includes filereader package
+    Includes filereader package, Features interface, HintsToggleListener interface,
+    ThreeTriosController class, ThreeTriosModelListener interface
     [src folder -> cs3500.threetrios.controller package]
 
     filereader package:
@@ -156,23 +160,40 @@ Model Related Class/Info:
     Includes Player interface, PlayerColor enum, and Player class
     [src folder -> cs3500.threetrios.model.player package]
 
-    strategies package:
+    aistrategies package:
     Includes AbstractStrategies class, Strategies interface, Strategy1 class, Strategy1And2 class,
     and Strategy2 class
     [src folder -> cs3500.threetrios.model.aistrategies package]
 
-View Related Class/info
+    battlerules package:
+    Includes BattleRules interface, NormalBattleRule class, PlusBattleRule class, SameBattleRule
+    class
+    [src folder -> cs3500.threetrios.model.battlerules package]
+
+    battlestrategies package:
+    Includes BattleStrategies interface, FallenaceBattleStrategy class, NormalBattleStrategy class,
+    ReverseBattleStrategy class, ReverseFallenAceBattleStrategy class
+    [src folder -> cs3500.threetrios.model.battlestrategies package]
+
+
+View Related Class/Info:
     Includes ThreeTriosView interface, graphical package, and textual package
     [src folder -> cs3500.threetrios.view package]
 
     graphical package:
     Includes CardPanel class, GraphicalView class, GridLayoutPanel class, GridPanel class,
-    PlayerCardsLayoutPanel class
+    PlayerCardsLayoutPanel class, HintDecorator class, ThreeTriosCardPanelView class,
+    ThreeTriosLayoutView class
     [src folder -> cs3500.threetrios.view.graphical package]
 
     textual package:
     Includes TextualView class
     [src folder -> cs3500.threetrios.view.textual package]
+
+
+Provider Related Class/Info:
+    Includes all related code from our providers
+    [src folder -> cs3500.threetrios.providers package]
 
 
 Card Config Related Files/Info:
@@ -205,7 +226,7 @@ Card Testing Config Related Files/Info:
 
 
 Controller Testing Related Class/Info:
-    Includes filereader package
+    Includes filereader package and ControllerTests class
     [test folder -> cs3500.threetrios.controller package]
 
     filereader package:
@@ -220,9 +241,23 @@ Grid Testing Config Related Files/Info:
 
 
 Model Testing Related Class/Info:
-    Includes AbstractVariantModelTests class, PlayerPlayerModelTests class, PlayerComputerModelTests
-    class, card package, grid package, and player package
+    Includes AbstractVariantModelTests class, GameModelTests class, aistrategies package,
+    battlerules package, battle strategies package, card package, grid package, and player package
     [test folder -> cs3500.threetrios.model package]
+
+    aistrategies package:
+    Includes MockModelEmptyCorners class, MockModelStrategy1 class, MockStrategy1Tests class,
+    MockStrategy2Tests class, Strategy1And2Tests class, Strategy1Tests class, Strategy2Tests class
+    [test folder -> cs3500.threetrios.model.aistrategies package]
+
+    battlerules package:
+    Includes NormalBattleRuleTest class, PlusBattleRuleTest class, SameBattleRuleTest class
+    [test folder -> cs3500.threetrios.model.battlerules package]
+
+    battlestrategies package:
+    Include FallenAceBattleStrategyTest class, NormalBattleStrategyTest class,
+    ReverseBattleStrategyTest class, ReverseFallenAceBattleStrategyTest class
+    [test folder -> cs3500.threetrios.model.battlestrategies package]
 
     card package:
     Includes PlayingCardTests class
@@ -236,15 +271,44 @@ Model Testing Related Class/Info:
     Includes PlayerTests class
     [test folder -> cs3500.threetrios.model.player package]
 
-    strategies package:
-        Includes MockModelEmpty class, MockModelStrategy1 class, MockStrategy1 class,
-        MockStrategy2 class, Strategy1And2Tests class
-        [test folder -> cs3500.threetrios.model.aistrategies package]
-
 
 View Testing Related Class/info
     Includes TextualViewTests class
     [test folder -> cs3500.threetrios.view package]
+
+
+COMMAND-LINE OPTIONS:
+    - The first 2 arguments of the command line specify the players to play the game. These are
+      required parameters that cannot be left without specification:
+        - "human" --> allows for an actual player to play the game
+        - "strategy1" --> allows for an AI player to play the game using strategy 1
+        - "strategy2" --> allows for an AI player to play the game using strategy 2
+        - "strategy1and2" --> allows for an AI player to play the game using strategy 1 and 2
+            combined
+    - The next command line argument is optional for the rule or strategy. If a rule/strategy is
+      specified, it will be applied to the game. If not specified, the game will automatically play
+      with normal rules.
+        - "strat:normal" --> allows for the Normal game strategy to be utilized
+        - "strat:reverse" --> allows for the Reverse game strategy to be utilized
+        - "strat:fallenace" --> allows for the FallenAce game strategy to be utilized
+        - "strat:reverseandfallenace" --> allows for the Reverse strategy to be applied over the
+                                          FallenAce game strategy; utilizes this
+        - "rule:normal" --> allows for the Normal game rule to be utilized
+        - "rule:same" --> allows for the Same game rule to be utilized
+        - "rule:plus" --> allows for the Plus game rule to be utilized
+    - The next command line argument is optional for the rule or strategy. If a rule/strategy is
+      specified, it will be applied to the game. If not specified, the game will automatically play
+      with normal rules. If a rule and strategy is specified on the optional command line arguments,
+      it does not matter if you decide to specify the strategy in the first argument and the rule
+      in the second, or vice versa.
+        - "strat:normal" --> allows for the Normal game strategy to be utilized
+        - "strat:reverse" --> allows for the Reverse game strategy to be utilized
+        - "strat:fallenace" --> allows for the FallenAce game strategy to be utilized
+        - "strat:reverseandfallenace" --> allows for the Reverse strategy to be applied over the
+                                          FallenAce game strategy; utilizes this
+        - "rule:normal" --> allows for the Normal game rule to be utilized
+        - "rule:same" --> allows for the Same game rule to be utilized
+        - "rule:plus" --> allows for the Plus game rule to be utilized
 
 
 
@@ -364,3 +428,24 @@ WHICH FEATURES WE WERE ABLE TO GET WORKING AND WHICH DO NOT:
         to the controller. If you consult the console, you can still tell that the grid cell clicks
         and card cell clicks are being processed, but the playing to the grid function is not being
         processed.
+
+
+ADDITIONS TO HOMEWORK 9 EXTRA CREDIT:
+    - Created "battle rules" which are rules for battling that only occur during prior to the combo
+      step. Rules take priority over other types of battling (ex. strategies).
+        - Associated files: BattleRules interface, NormalBattleRule class, PlusBattleRule
+          class, SameBattleRule class
+    - Created "battle strategies" which are strategies for battling that can occur prior to the
+      combo step and after the combo step. Rules take priority over strategies, but if a rule fails
+      then the strategy can take over.
+        - Associated files: BattleStrategies interface, FallenAceBattleStrategy class,
+          NormalBattleStrategy class, ReverseBattleStrategy class, ReverseFallenAceBattleStrategy
+          class
+    - Modified all the AI strategies to account for the current game's running rule and strategy
+      to dictate the best move
+    - Added a toggleable hints button that will tell the player how many cards they can flip if
+      they put their currently selected card there (only if the button is toggled!). This accounts
+      for the game's current running rule and strategy as well.
+
+WHAT I HAD TO DELETE FROM MY CODE TO PROCESS THE SUBMISSION (HOMEWORK 9):
+    -

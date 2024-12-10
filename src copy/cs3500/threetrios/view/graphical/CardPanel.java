@@ -25,7 +25,7 @@ public class CardPanel extends JPanel implements ThereTriosCardPanelView {
    *
    * @param card the card information
    */
-  CardPanel(Cards card) {
+  public CardPanel(Cards card) {
     this.card = card;
     this.setLayout(new BorderLayout());
     setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));

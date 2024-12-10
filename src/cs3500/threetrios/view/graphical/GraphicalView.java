@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
-import cs3500.threetrios.controller.filereader.HintsToggleListener;
+
+import cs3500.threetrios.controller.HintsToggleListener;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.view.ThreeTriosView;

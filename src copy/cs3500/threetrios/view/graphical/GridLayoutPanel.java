@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import cs3500.threetrios.model.cards.CardCompass;
 import cs3500.threetrios.model.cards.Cards;
+import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.grid.Grid;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 
@@ -26,6 +27,7 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
   private final int columns;
   private final ReadonlyThreeTriosModel model;
   private Grid[][] grid;
+  private final GraphicalView view;
 
   /**
    * Represents a constructor for the GridLayoutPanel class. Sets up the initial visual view for
@@ -35,13 +37,14 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
    * @param columns the number of columns for the grid layout
    * @param model   a read only version of the model to gain immutable data from
    */
-  public GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model) {
+  public GridLayoutPanel(int rows, int columns, ReadonlyThreeTriosModel model, GraphicalView view) {
     if (rows < 0 || columns < 0) {
       throw new IllegalArgumentException("Rows and columns cannot be negative!");
     } else if (model == null) {
       throw new IllegalArgumentException("Model cannot be null!");
     }
 
+    this.view = view;
     this.rows = rows;
     this.columns = columns;
     this.model = model;
@@ -56,7 +59,7 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
   /**
    * Updates all the components within the grid layout. Manages this by removing the current
    * components and re-adding the updated versions of the components. Revalidates after removal and
-   * re-addition of components.
+   * re-addition of components. Accounts for decorators.
    */
   @Override
   public void updateComponents() {
@@ -73,7 +76,14 @@ public class GridLayoutPanel extends JPanel implements ThreeTriosLayoutView {
         Grid tile = grid[row][column];
 
         performOperationBasedOnCellType(tile, panelTile);
-        this.add(panelTile);
+
+        if (view.getHintsEnabled() && tile.getCellType() == CellType.CARD_CELL) {
+          GridPanel decoratedTile = new HintDecorator(panelTile, model,
+                  row, column, view).getDecoratedGridPanel();
+          this.add(decoratedTile);
+        } else {
+          this.add(panelTile);
+        }
       }
     }
     this.revalidate();
