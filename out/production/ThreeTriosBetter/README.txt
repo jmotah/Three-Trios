@@ -446,6 +446,7 @@ ADDITIONS TO HOMEWORK 9 EXTRA CREDIT:
     - Added a toggleable hints button that will tell the player how many cards they can flip if
       they put their currently selected card there (only if the button is toggled!). This accounts
       for the game's current running rule and strategy as well.
+    - The ability for the battle rules and battle strategies to work in unison with each other.
 
 WHAT I HAD TO DELETE FROM MY CODE TO PROCESS THE SUBMISSION (HOMEWORK 9):
     - SRC:

@@ -44,10 +44,10 @@ public class ThreeTriosGame {
    */
   public static void main(String[] args) {
     File cardConfig = new File(
-            "test/cs3500/threetrios/cardconfigs/card_config_fallen_ace_tests.txt");
+            "src/cs3500/threetrios/cardconfigs/randomized_card_configuration.txt");
 
     File gridConfig = new File(
-            "test/cs3500/threetrios/gridconfigs/grid_config_large.txt");
+            "src/cs3500/threetrios/gridconfigs/grid_configuration.txt");
 
     if (args.length < 2) {
       throw new IllegalArgumentException("Player types must be specified!");
