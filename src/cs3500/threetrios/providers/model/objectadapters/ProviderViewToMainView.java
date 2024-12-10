@@ -1,5 +1,6 @@
 package cs3500.threetrios.providers.model.objectadapters;
 
+import cs3500.threetrios.controller.filereader.HintsToggleListener;
 import cs3500.threetrios.providers.view.ExtendedView;
 import cs3500.threetrios.view.ThreeTriosView;
 import cs3500.threetrios.view.graphical.GridLayoutPanel;
@@ -102,5 +103,15 @@ public class ProviderViewToMainView implements ThreeTriosView {
   @Override
   public void showErrorMessage(String error) {
     providerView.showMessageDialog(error);
+  }
+
+  @Override
+  public void setHintsToggleListener(HintsToggleListener listener) {
+    return;
+  }
+
+  @Override
+  public void setCurrentlyClickedCardIndex(int currentlyClickedCardIndex) {
+    return;
   }
 }

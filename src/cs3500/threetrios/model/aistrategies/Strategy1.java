@@ -190,9 +190,10 @@ public class Strategy1 extends AbstractStrategies implements Strategies {
    * @return returns a HashMap object of type Point (key) and Integer (value) where each Point
    * object represents the position of a tile on a grid and each Integer object
    * represents the number of cards that would be flipped if the specified card was played
-   * to that position.
+   * to that position. This method must be public for the hints decorator to function properly.
+   * It only delivers immutable data, nothing mutable.
    */
-  private HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
+  public HashMap<Point, Integer> emulateBattleToFindScoreForOneCardInAllPossibleSpaces(
           int cardIdxInHand) {
     if (cardIdxInHand < 0 || cardIdxInHand >= model.getCurrentTurnPlayer().getHand().size()) {
       throw new IllegalArgumentException("Given card index out of bounds!");

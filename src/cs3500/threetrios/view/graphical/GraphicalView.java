@@ -3,11 +3,13 @@ package cs3500.threetrios.view.graphical;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
+import cs3500.threetrios.controller.filereader.HintsToggleListener;
 import cs3500.threetrios.model.ReadonlyThreeTriosModel;
 import cs3500.threetrios.model.player.PlayerColor;
 import cs3500.threetrios.view.ThreeTriosView;
@@ -25,6 +27,12 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
   private final PlayerCardsLayoutPanel blueCardPanel;
   private final GridLayoutPanel gridPanel;
 
+  private int currentlyClickedCardIndex;
+
+  private boolean hintsEnabled;
+
+  private HintsToggleListener hintsToggleListener;
+
   /**
    * Represents a constructor for the GraphicalView class. Also initializes all the components
    * to be displayed in the view.
@@ -35,6 +43,9 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
     super();
 
     this.model = model;
+    this.currentlyClickedCardIndex = -1;
+
+    hintsEnabled = false;
 
     //Basic initializes for the window
     this.updateFrame();
@@ -62,10 +73,29 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
 
     //Initializes the grid layout panel
     gridPanel = new GridLayoutPanel(
-            model.getGrid().length, model.getGrid()[0].length, model);
+            model.getGrid().length, model.getGrid()[0].length, model, this);
     gridPanel.setBackground(new Color(188, 176, 112, 255));
     gridPanel.setPreferredSize(new Dimension(400, 400));
     this.add(gridPanel, BorderLayout.CENTER);
+
+    JButton hintToggle = new JButton("Toggle Hints");
+    hintToggle.addActionListener(this::toggleHintsListener);
+    this.add(hintToggle, BorderLayout.SOUTH);
+  }
+
+  /**
+   * Action listener for the toggle hints button. Updates the grid panel components and delegates
+   * to the HintsToggleListener object to re-setup our mouse click listeners in the controller.
+   *
+   * @param e the action event; what happened to the button
+   */
+  private void toggleHintsListener(ActionEvent e) {
+    hintsEnabled = !hintsEnabled;
+
+    this.getGridPanel().updateComponents();
+    this.repaint();
+    this.revalidate();
+    hintsToggleListener.hintsToggled();
   }
 
   /**
@@ -74,6 +104,20 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
   @Override
   public void makeVisible() {
     this.setVisible(true);
+  }
+
+  /**
+   * Sets a HintsToggleListener object to be called whenever the hints button is toggled.
+   *
+   * @param listener the controller listener to attach to here to be called whenever the hints
+   *                 button is toggled
+   */
+  public void setHintsToggleListener(HintsToggleListener listener) {
+    if (listener == null) {
+      throw new IllegalArgumentException("Listener cannot be null!");
+    }
+
+    this.hintsToggleListener = listener;
   }
 
   /**
@@ -149,6 +193,32 @@ public class GraphicalView extends JFrame implements ThreeTriosView {
   public void showErrorMessage(String error) {
     JOptionPane.showMessageDialog(this, error, "Error",
             JOptionPane.ERROR_MESSAGE);
+  }
 
+  /**
+   * Returns the currently clicked card index.
+   *
+   * @return the currently clicked card index
+   */
+  public int getClickedCardIndex() {
+    return currentlyClickedCardIndex;
+  }
+
+  /**
+   * Returns whether hints are enabled or not.
+   *
+   * @return true if hints are enabled, false if otherwise
+   */
+  public boolean getHintsEnabled() {
+    return hintsEnabled;
+  }
+
+  /**
+   * Sets the currently clicked card index.
+   *
+   * @param currentlyClickedCardIndex the card index to set the currently clicked card index to
+   */
+  public void setCurrentlyClickedCardIndex(int currentlyClickedCardIndex) {
+    this.currentlyClickedCardIndex = currentlyClickedCardIndex;
   }
 }

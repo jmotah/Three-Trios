@@ -2,6 +2,7 @@ package cs3500.threetrios.view.textual;
 
 import java.util.List;
 
+import cs3500.threetrios.controller.filereader.HintsToggleListener;
 import cs3500.threetrios.model.grid.CellType;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.grid.Grid;
@@ -105,6 +106,16 @@ public class TextualView implements ThreeTriosView {
    */
   @Override
   public void showErrorMessage(String error) {
+    return;
+  }
+
+  @Override
+  public void setHintsToggleListener(HintsToggleListener listener) {
+    return;
+  }
+
+  @Override
+  public void setCurrentlyClickedCardIndex(int currentlyClickedCardIndex) {
     return;
   }
 

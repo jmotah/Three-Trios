@@ -1,5 +1,6 @@
 package cs3500.threetrios.view;
 
+import cs3500.threetrios.controller.filereader.HintsToggleListener;
 import cs3500.threetrios.view.graphical.GridLayoutPanel;
 import cs3500.threetrios.view.graphical.PlayerCardsLayoutPanel;
 
@@ -59,4 +60,18 @@ public interface ThreeTriosView {
    * @param error the error to display to the player
    */
   void showErrorMessage(String error);
+
+  /**
+   * Sets a listener to prepare to be called whenever the toggle hints button is clicked.
+   *
+   * @param listener the listener to set
+   */
+  void setHintsToggleListener(HintsToggleListener listener);
+
+  /**
+   * Sets the currently clicked card index.
+   *
+   * @param currentlyClickedCardIndex the card index to set the currently clicked card index to
+   */
+  void setCurrentlyClickedCardIndex(int currentlyClickedCardIndex);
 }
