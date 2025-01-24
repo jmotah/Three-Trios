@@ -2,7 +2,7 @@
   <artifact type="jar" build-on-make="true" name="ThreeTriosBetter:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/ThreeTriosBetter_jar</output-path>
     <root id="archive" name="ThreeTriosBetter.jar">
-      <element id="module-output" name="ThreeTriosBetter" />
+      <element id="module-output" name="Three Trios" />
     </root>
   </artifact>
 </component>

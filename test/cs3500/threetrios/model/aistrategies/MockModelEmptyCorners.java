@@ -124,4 +124,9 @@ public class MockModelEmptyCorners implements ThreeTriosModel {
   public BattleStrategies getBattleStrategy() {
     return null;
   }
+
+  @Override
+  public BattleRules getBattleRule() {
+    return null;
+  }
 }

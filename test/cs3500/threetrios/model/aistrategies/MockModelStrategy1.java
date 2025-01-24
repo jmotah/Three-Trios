@@ -136,4 +136,9 @@ public class MockModelStrategy1 implements ThreeTriosModel {
   public BattleStrategies getBattleStrategy() {
     return null;
   }
+
+  @Override
+  public BattleRules getBattleRule() {
+    return null;
+  }
 }
